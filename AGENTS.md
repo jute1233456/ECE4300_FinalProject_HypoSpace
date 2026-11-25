@@ -1,5 +1,13 @@
 # ECE4300 Final Project 交接说明
 
+## 最新优先级：Stage-MCTS 2.2 四题试验
+
+最新用户要求优先测试“分阶段反思MCTS 2.2（Stage-MCTS）”，只跑2.1已完成题目的一部分，优先低覆盖率题。2.1暂时暂停，保留所有断点；2.2四题结束后必须自动恢复两步反思MCTS 2.1原评测/训练流程，普通MCTS 2.1继续暂停。
+
+2.2快照 `releases/mcts-2.2-stage-pool6-32k`，入口 `server/run_stage22_pilot.py`，状态 `logs/mcts-2.2-stage-medium-pilot-32k/state.json`，结果 `results/server-mcts-2.2-stage-medium-pilot-32k`。四题：causal/n1_003、n1_002、n2_006，3d/g3_h3_b2_002。2.1对应覆盖率14.58%、22.92%、41.67%、55.56%，等权平均33.68%。这是偏向差题的探索样本，不能代表整个中等题库。
+
+每轮单独调用：复盘、请求读树、选分支、提出一步、生成候选。选分支看完整本地树，后两阶段看选中路径和已有子步骤；历史答案保留。阶段输出与token/耗时分别记录。2.2继承2.1重复提交与理论穷尽规则，穷尽时须单独输出Proof，属于模型论证而非形式验证。各阶段请求32768并受总上下文32768约束。四题从空树开始，与2.1相同搜索轮数；并非相同API/token预算。四题并行、六卡池可用，未占满六卡属于串行阶段依赖。2.2没有全题库或训练题扩展。
+
 ## MCTS 方法版本与进度汇报
 
 用户指定公开版本：1.0=提示词分支选择，2.0=工具读取完整树，2.1=2.0 加上允许重复解提交及基于理论分析的严格 EXHAUSTED 规则。定义在 `config/mcts_versions.json`，策略实现见 `agents/mcts_versions.py`。模型版本、普通/两步反思变体、题库难度与方法版本分别记录。目录中的 v1/v2 不是方法版本；`server-easy-tree-tools-v2` 属于方法 2.0。用户已取消旧2.0及简单题接续序列。当前2.1中等流程状态见 logs/mcts-2.1-temp-pool6/state.json：先评测27题，再生成独立训练28题并运行两个方法。输出分别为 results/server-mcts-2.1-medium-evaluation-32k 和 results/server-mcts-2.1-medium-training-32k；评测题不得用于训练导出。

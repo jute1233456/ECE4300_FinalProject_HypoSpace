@@ -1,5 +1,6 @@
 """Public method versions, independent of model and internal tool protocol versions."""
 VERSIONS = {
+    '2.2': 'Stage-MCTS: independent review, read-tree, selection, expansion and candidate requests.',
     '1.0': 'LLM selects branches from text prompts; no file-reading tools.',
     '2.0': 'File-reading tools expose the complete search tree; original search prompts.',
     '2.1': 'Version 2.0 plus duplicate submission fallback and theory-based exhaustion rules.',

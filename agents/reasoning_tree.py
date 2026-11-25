@@ -107,7 +107,7 @@ class ReasoningTreeAgent(MemoryAgent):
         self.options = []
         node = self.path[-1]
         task = memory_prompt(prompt, self.history)
-        if self.mcts_version == '2.1':
+        if self.mcts_version in ('2.1', '2.2'):
             task = task.replace(
                 'Return a structurally different hypothesis that still satisfies every observation.',
                 'Prefer a structurally different hypothesis that still satisfies every observation; repeated valid hypotheses are allowed.')
@@ -176,7 +176,7 @@ class ReasoningTreeAgent(MemoryAgent):
             "In SOLVE mode, give one complete candidate directly following the selected path. "
             "Use the original answer format for the complete candidate."
         )
-        if self.mcts_version == '2.1':
+        if self.mcts_version in ('2.1', '2.2'):
             protocol = protocol.replace(
                 'If this direction cannot be expanded, write EXHAUSTED on its own line. ', '')
             protocol += '\n\nCompletion and exhaustion policy (takes precedence over novelty and Plan requirements): '+COMPLETION_POLICY

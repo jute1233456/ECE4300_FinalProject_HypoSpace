@@ -178,7 +178,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     parser.add_argument("--tree-policy", choices=("uct", "breadth", "recent", "llm"), default="uct")
     parser.add_argument("--full-tree", action="store_true", help="Expose and save the complete LLM search tree")
     parser.add_argument('--tree-tools', action='store_true', help='Read the tree through Qwen-Agent tools before searching')
-    parser.add_argument('--mcts-version', choices=('1.0','2.0','2.1'), help='Public method version, independent of model version')
+    parser.add_argument('--mcts-version', choices=('1.0','2.0','2.1','2.2'), help='Public method version, independent of model version')
     reflection = parser.add_mutually_exclusive_group()
     reflection.add_argument("--self-reflection", action="store_true")
     reflection.add_argument("--two-step-reflection", action="store_true")
@@ -227,8 +227,10 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         parser.error('--mcts-version requires --method mcts-tree --tree-policy llm')
     if args.mcts_version == '1.0' and args.tree_tools:
         parser.error('MCTS 1.0 does not use tree tools')
-    if args.mcts_version in ('2.0','2.1'):
+    if args.mcts_version in ('2.0','2.1','2.2'):
         args.tree_tools = True
+    if args.mcts_version == '2.2' and not (args.enable_thinking and args.base_url and args.two_step_reflection):
+        parser.error('Stage-MCTS 2.2 requires local thinking API and two-step reflection')
     if args.method == 'mcts-tree' and args.tree_policy == 'llm' and not args.mcts_version:
         args.mcts_version = '2.0' if args.tree_tools else '1.0'
     if args.full_tree and (args.method != 'mcts-tree' or args.tree_policy != 'llm'):
@@ -324,6 +326,9 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         if args.tree_tools:
             from llm.tree_tools import TreeToolClient
             client_type = TreeToolClient
+            if args.mcts_version == '2.2':
+                from llm.split_tree_tools import SplitTreeToolClient
+                client_type = SplitTreeToolClient
         client = client_type(tokenizer_path=ROOT/'models/Qwen3-8B', api_key='local',
             model=args.model, base_url=args.base_url, timeout=3600, generation_options=local_options)
     else:
@@ -373,7 +378,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
             from agents.mcts_versions import COMPLETION_POLICY
             result['mcts_version'] = args.mcts_version
             result['mcts_variant'] = 'two-step' if args.two_step_reflection else 'standard'
-            if args.mcts_version == '2.1':
+            if args.mcts_version in ('2.1','2.2'):
                 result['tree_config']['completion_policy'] = '2.1'
                 result['completion_policy'] = COMPLETION_POLICY
                 result['completion_policy_sha256'] = sha256(COMPLETION_POLICY.encode()).hexdigest()
@@ -381,6 +386,13 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
             framework = 'Qwen-Agent' if args.enable_thinking else 'native-function-calling'
             result['tree_config']['tree_tools'] = dict(version=2, framework=framework,
                 max_requests_per_search=5, max_tools_per_search=4, reflection_tools=False)
+        if args.mcts_version == '2.2':
+            result['tree_config']['tree_tools'].update(max_requests_per_search=4, max_tools_per_search=1)
+            result['tree_config']['action_decomposition'] = dict(name='Stage-MCTS',
+                stages=['reflection','read_tree','selection','expansion','candidate'],
+                context='full tree for selection; selected path and children for expansion/candidate; full answer history retained',
+                exhaustion='model theoretical argument required; not formally verified',
+                max_requests_per_search=4, reflection_requests=1)
         if args.full_tree:
             result['tree_config']['full_tree'] = True
             result['tree_config']['full_tree_version'] = 1
@@ -451,7 +463,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
             from agents.mcts_versions import infer_version
             if infer_version(previous) != args.mcts_version:
                 parser.error('Cannot resume a different MCTS method version; use a new output file')
-            if args.mcts_version == '2.1' and previous.get('completion_policy_sha256') != result.get('completion_policy_sha256'):
+            if args.mcts_version in ('2.1','2.2') and previous.get('completion_policy_sha256') != result.get('completion_policy_sha256'):
                 parser.error('MCTS 2.1 completion policy changed; publish a new version instead')
             previous.setdefault('mcts_version', args.mcts_version)
             previous.setdefault('mcts_variant', result['mcts_variant'])

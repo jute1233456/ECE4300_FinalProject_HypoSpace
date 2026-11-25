@@ -18,11 +18,21 @@
       "name_zh": "工具读树与提交规则修正版",
       "tree_tools": true,
       "prompt_policy": "duplicate_fallback_and_theoretical_exhaustion",
-      "status": "medium_evaluation_then_training_pipeline_active",
+      "status": "paused_preserving_checkpoints",
       "description": "Duplicates may be submitted; lack of a new Plan permits direct submission; EXHAUSTED requires a sound argument covering all legal possibilities of the selected branch. This is a prompt rule, not a formal proof verifier."
+    },
+    "2.2": {
+      "name_zh": "Stage-MCTS",
+      "tree_tools": true,
+      "prompt_policy": "duplicate_fallback_and_theoretical_exhaustion",
+      "status": "four_case_pilot",
+      "description": "Independent review, disk tree inspection, branch selection, expansion and candidate. Full tree for selection; selected branch downstream; full answer history retained."
     }
   },
-  "variants": ["standard", "two-step"],
+  "variants": [
+    "standard",
+    "two-step"
+  ],
   "historical_run_mapping": {
     "results/server-easy-thinking-v1": "1.0",
     "results/server-thinking-v1": "1.0",
