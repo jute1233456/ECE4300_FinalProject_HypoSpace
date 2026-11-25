@@ -8,13 +8,13 @@
 - 普通MCTS与两步反思是分别报告的变体；模型、难度、token额度是独立的配置维度。
 - 当前Qwen3-8B开启思考，请求生成额度32768；总上下文32768，实际额度为 `32768 - input_tokens - 8`。输入不静默裁剪。
 - 客户端和网关等待3600秒；网关通过 `ECE_BACKENDS` 使用已配置的三个推理后端。
-- 当前仅两步反思MCTS 2.1，3题并行；普通MCTS 2.1已暂停。旧16K记录保留，迁移结果通过 `generation_limit_transitions` 明确标记，不能宣称旧轮次也用了32K。
+- 当前仅两步反思MCTS 2.1，6题并行；普通MCTS 2.1已暂停。旧16K记录保留，迁移结果通过 `generation_limit_transitions` 明确标记，不能宣称旧轮次也用了32K。
 
 ## 当前服务器流程
 
 项目目录为 `/opt/data/private/ECE4300 Final Project`，SSH别名 `EEC4300`。私钥在本机SSH目录中，不存放在仓库。
 
-活动快照：`releases/mcts-2.1-reflection-only-32k`。状态：`logs/mcts-2.1-reflection-only/state.json`。
+活动快照：`releases/mcts-2.1-temp-pool6-32k`。状态：`logs/mcts-2.1-temp-pool6/state.json`。
 
 顺序：
 
@@ -48,3 +48,5 @@
 3D训练使用4×4棋盘、两个占用位置、高度上限3，每题9个参考解；这是与3×3评测题不同的训练空间变体，需在报告中注明。27道评测题不得混进训练交互导出。
 
 汇报进度时，同时给出版本、变体、题数和按正常完成题等权平均的覆盖率。比较效果要对齐共同题目，并分别报告截断、网络错误和工具错误。
+
+当前临时六卡池127.0.0.1:8003包括新增lab4090双卡与lab5090单卡；节点目录 /opt/data/private/ECE4300-temp-api-20261125，其他工作区不操作。凭据不得提交。

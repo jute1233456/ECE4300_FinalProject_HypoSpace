@@ -2,7 +2,7 @@
 
 ## MCTS 方法版本与进度汇报
 
-用户指定公开版本：1.0=提示词分支选择，2.0=工具读取完整树，2.1=2.0 加上允许重复解提交及基于理论分析的严格 EXHAUSTED 规则。定义在 `config/mcts_versions.json`，策略实现见 `agents/mcts_versions.py`。模型版本、普通/两步反思变体、题库难度与方法版本分别记录。目录中的 v1/v2 不是方法版本；`server-easy-tree-tools-v2` 属于方法 2.0。用户已取消旧2.0及简单题接续序列。当前2.1中等流程状态见 logs/mcts-2.1-reflection-only/state.json：先评测27题，再生成独立训练28题并运行两个方法。输出分别为 results/server-mcts-2.1-medium-evaluation-32k 和 results/server-mcts-2.1-medium-training-32k；评测题不得用于训练导出。
+用户指定公开版本：1.0=提示词分支选择，2.0=工具读取完整树，2.1=2.0 加上允许重复解提交及基于理论分析的严格 EXHAUSTED 规则。定义在 `config/mcts_versions.json`，策略实现见 `agents/mcts_versions.py`。模型版本、普通/两步反思变体、题库难度与方法版本分别记录。目录中的 v1/v2 不是方法版本；`server-easy-tree-tools-v2` 属于方法 2.0。用户已取消旧2.0及简单题接续序列。当前2.1中等流程状态见 logs/mcts-2.1-temp-pool6/state.json：先评测27题，再生成独立训练28题并运行两个方法。输出分别为 results/server-mcts-2.1-medium-evaluation-32k 和 results/server-mcts-2.1-medium-training-32k；评测题不得用于训练导出。
 
 新运行可用 `--mcts-version 1.0|2.0|2.1`，2.x 自动启用读树工具；结果记录版本与变体。2.1 另保存提示词原文和哈希。不同方法版本禁止共用断点；修改已发布提示词必须升版本。既有结果缺少版本时仅依据原配置推断并明确来源，不把历史结果改标为新方法。
 
@@ -178,4 +178,6 @@ ECE_BACKENDS=http://127.0.0.1:8000,http://127.0.0.1:8001,http://10.106.31.1:8000
 
 当前生成配置：用户要求32768请求额度，按32768-input_tokens-8使用剩余上下文，不再额外限制为16K。旧16K记录保留，迁移后应汇报generation_limit_transitions，不能把旧记录说成32K生成。
 
-最新用户选择：普通MCTS 2.1暂停，只继续两步反思MCTS 2.1，每组3题并行，包含后续训练题流程。不要移除PAUSE_mcts或重新启动普通组。
+最新用户选择：普通MCTS 2.1暂停，只继续两步反思MCTS 2.1，每组6题并行，包含后续训练题流程。不要移除PAUSE_mcts或重新启动普通组。
+
+当前临时六卡池127.0.0.1:8003包括新增lab4090双卡与lab5090单卡；节点目录 /opt/data/private/ECE4300-temp-api-20261125，其他工作区不操作。凭据不得提交。
