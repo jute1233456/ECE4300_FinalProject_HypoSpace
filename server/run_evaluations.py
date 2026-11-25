@@ -108,6 +108,28 @@ def command(name, output, smoke=False, domain=None):
     return args
 
 
+
+def wait_for_existing_writer(output):
+    if os.environ.get('ECE_WAIT_EXISTING_WRITERS') != '1':
+        return
+    waiting = False
+    while True:
+        found = []
+        for item in Path('/proc').iterdir():
+            try:
+                args = (item/'cmdline').read_bytes().split(b'\0')
+                if b'experiments.test_easy' in args and b'--output' in args:
+                    if args[args.index(b'--output')+1].decode() == str(output):
+                        found.append(item.name)
+            except (OSError, ValueError):
+                pass
+        if not found:
+            return
+        if not waiting:
+            print('WAIT_EXISTING_WRITER', str(output), found, flush=True)
+            waiting = True
+        time.sleep(5)
+
 def run():
     subprocess.run([sys.executable, '-m', 'unittest', 'discover', '-s', 'tests', '-q'], check=True)
     ports = [int(x) for x in os.environ.get('ECE_API_PORTS', '8000,8001').split(',') if x]
@@ -145,6 +167,7 @@ def run():
         def evaluate_case(job):
             dataset, case_id = job
             output = directory / f'{dataset}-{case_id}.json'
+            wait_for_existing_writer(output)
             for attempt in range(3):
                 args = command(name, output)
                 if args:

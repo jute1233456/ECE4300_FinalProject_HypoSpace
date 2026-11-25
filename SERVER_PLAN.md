@@ -224,3 +224,11 @@ v4 最终验证成功：2/2 轮完成，各一次真实 read_tree + 一次最终
 原16K流程113983/113984已停止；最后4个问题请求完成并保存后迁移。四个断点分别保留10、9、10、8轮，旧 results/server-mcts-2.1-medium-evaluation 原样保存。新输出 results/server-mcts-2.1-medium-evaluation-32k，记录 generation_limit_transitions 和旧记录数；旧轮次实际16K额度不改写，新生成使用剩余上下文最大额度。当前快照 releases/mcts-2.1-medium-pipeline-32k，流程PID114586，网关PID114580。
 
 当前状态改读 logs/mcts-2.1-medium-pipeline-32k/state.json。后续独立训练题仍28道，保存 datasets/medium_training_v1；训练轨迹输出 results/server-mcts-2.1-medium-training-32k。生成器、题库与2.1提示词不变，仅生成额度和等待时间变化。网关日志现在 logs/mcts-2.1-32k-switch/gateway.log。
+
+## 2026-11-25：仅继续两步反思MCTS 2.1
+
+用户要求暂停普通MCTS 2.1。已创建评测输出下PAUSE_mcts，原双方法协调器与流程进程114587/114586已停止；普通组保留断点，当前请求完成后暂停。原有两条反思题目114666/114667继续，不中断不重置。
+
+当前流程 PID118695，状态 logs/mcts-2.1-reflection-only/state.json，快照 releases/mcts-2.1-reflection-only-32k。方法选择仅two-step，3题并行，使用原三个推理后端，单题配置/预算和32K额度不变。新协调器等待已存在的同题写入进程结束后才接手，避免双写；第三条反思题n2_006已启动。
+
+中等评测27题完成后，仍生成独立训练题28题，但仅运行两步反思MCTS 2.1并导出轨迹。评测与训练结果目录沿用 server-mcts-2.1-medium-evaluation-32k 与 server-mcts-2.1-medium-training-32k，普通组已有结果不会删除。旧双方法流程状态已标注 superseded_by_two_step_only。

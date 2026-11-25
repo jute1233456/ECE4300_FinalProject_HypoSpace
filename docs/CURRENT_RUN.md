@@ -8,19 +8,19 @@
 - 普通MCTS与两步反思是分别报告的变体；模型、难度、token额度是独立的配置维度。
 - 当前Qwen3-8B开启思考，请求生成额度32768；总上下文32768，实际额度为 `32768 - input_tokens - 8`。输入不静默裁剪。
 - 客户端和网关等待3600秒；网关通过 `ECE_BACKENDS` 使用已配置的三个推理后端。
-- 每方法2题并行。旧16K记录保留，迁移结果通过 `generation_limit_transitions` 明确标记，不能宣称旧轮次也用了32K。
+- 当前仅两步反思MCTS 2.1，3题并行；普通MCTS 2.1已暂停。旧16K记录保留，迁移结果通过 `generation_limit_transitions` 明确标记，不能宣称旧轮次也用了32K。
 
 ## 当前服务器流程
 
 项目目录为 `/opt/data/private/ECE4300 Final Project`，SSH别名 `EEC4300`。私钥在本机SSH目录中，不存放在仓库。
 
-活动快照：`releases/mcts-2.1-medium-pipeline-32k`。状态：`logs/mcts-2.1-medium-pipeline-32k/state.json`。
+活动快照：`releases/mcts-2.1-reflection-only-32k`。状态：`logs/mcts-2.1-reflection-only/state.json`。
 
 顺序：
 
-1. 在中等评测27题上运行普通MCTS 2.1与两步反思2.1。
+1. 在中等评测27题上仅继续两步反思MCTS 2.1，保留普通组已有断点。
 2. 生成独立训练题库 `datasets/medium_training_v1`。
-3. 两个2.1变体运行训练题，导出交互轨迹，尚不启动微调。
+3. 仅两步反思MCTS 2.1运行训练题，导出交互轨迹，尚不启动微调。
 
 输出：
 
