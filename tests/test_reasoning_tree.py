@@ -4,6 +4,39 @@ from agents.reasoning_tree import Node, ReasoningTreeAgent
 
 
 class ReasoningTreeTests(unittest.TestCase):
+    def test_full_tree_contains_closed_descendants_without_changing_branch_menu(self):
+        agent = ReasoningTreeAgent(None, 'llm', 7, -1, full_tree=True)
+        child = Node('Try conjunction', visits=2, reward=0, recent=-0.25)
+        child.children['closed'] = Node('Already exhausted', closed=True)
+        agent.root.children['and'] = child
+        prompt = agent.next_prompt('Question')
+        nodes = {node['id']: node for node in agent.tree_snapshot()['nodes']}
+        self.assertIn('Already exhausted', prompt)
+        self.assertEqual(nodes['root.0']['parent_id'], 'root')
+        self.assertEqual(nodes['root.0']['mean_reward'], 0)
+        self.assertEqual(nodes['root.0']['branch'], 1)
+        self.assertTrue(nodes['root.0.0']['closed'])
+        self.assertIsNone(nodes['root.0.0']['branch'])
+        self.assertEqual(len(agent.options), 2)
+
+    def test_full_tree_replays_with_identical_nodes_and_rewards(self):
+        outputs = [('Branch: 0\nPlan: Try conjunction\nExpression: x AND y', 'and', True),
+                   ('Branch: 1\nPlan: Swap outer operator\nExpression: x OR y', 'or', True),
+                   ('Branch: 1\nExpression: x OR y', 'or', True)]
+        agents = [ReasoningTreeAgent(None, 'llm', 7, -1, full_tree=True) for _ in range(2)]
+        for agent in agents:
+            for text, key, valid in outputs:
+                agent.next_prompt('Question')
+                agent.observe(text, key, valid)
+        self.assertEqual(agents[0].tree_snapshot(), agents[1].tree_snapshot())
+        self.assertEqual(agents[0].root.visits, 3)
+        self.assertEqual(agents[0].root.reward, 1)
+        self.assertEqual(len(agents[0].tree_snapshot()['nodes']), 3)
+
+    def test_default_prompt_stays_unchanged(self):
+        agent = ReasoningTreeAgent(None, 'llm', 7, -1)
+        self.assertNotIn('Complete search tree', agent.next_prompt('Question'))
+
     def test_duplicate_step_is_not_added_and_duplicate_answer_is_penalized(self):
         agent = ReasoningTreeAgent(None, "uct", 5, -1)
         agent.next_prompt("Question")

@@ -12,12 +12,13 @@ import sys
 from time import sleep
 
 from .boolean_scoring import expand_nor
+from .rate_limit import record_request
 
 from agents import DirectAgent
 from agents.reasoning_tree import ReasoningTreeAgent
 from agents.search import MCTSAgent, MemoryAgent, StructuredMemoryAgent
 from agents.coverage_search import CoverageMCTSAgent
-from llm import ArkCodingPlanClient, LLMError
+from llm import ArkCodingPlanClient, LLMError, OpenAICompatibleClient
 from llm.ark_coding_plan import ANSWER_MODEL
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -149,15 +150,16 @@ def wait_if_paused(pause_file):
     print("Resumed.", flush=True)
 
 
-def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, balanced=False):
+def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, balanced=False, easy=False):
     quick = quick_cases is not None
-    early_stop = medium or hard
+    early_stop = medium or hard or easy
     dataset_root = ROOT / "datasets"
     if hard:
         dataset_root /= "balanced" if balanced else "hard"
     medium_cases = json.loads((ROOT / "datasets/medium_cases.json").read_text()) if medium else None
     parser = argparse.ArgumentParser(description="Quick test" if quick else "Full HypoSpace baseline")
     parser.add_argument("--dataset", choices=("causal", "3d", "boolean", "boolean_extended"))
+    parser.add_argument("--dataset-root", type=Path, help="Override the dataset directory (default: datasets or datasets/balanced)")
     parser.add_argument("--case-id", help="Evaluate one observation set")
     parser.add_argument("--output", type=Path, help="Independent result path")
     parser.add_argument("--seed-case", type=Path, help="Import this case's history from an earlier run")
@@ -174,6 +176,9 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     token_limit.add_argument("--max-tokens", type=int, default=2048)
     token_limit.add_argument("--provider-token-limit", dest="max_tokens", action="store_const", const=None)
     parser.add_argument("--tree-policy", choices=("uct", "breadth", "recent", "llm"), default="uct")
+    parser.add_argument("--full-tree", action="store_true", help="Expose and save the complete LLM search tree")
+    parser.add_argument('--tree-tools', action='store_true', help='Read the tree through Qwen-Agent tools before searching')
+    parser.add_argument('--mcts-version', choices=('1.0','2.0','2.1'), help='Public method version, independent of model version')
     reflection = parser.add_mutually_exclusive_group()
     reflection.add_argument("--self-reflection", action="store_true")
     reflection.add_argument("--two-step-reflection", action="store_true")
@@ -184,13 +189,24 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     tree_limit.add_argument("--unbounded-tree", action="store_true",
                             help="Allow reasoning paths and sibling counts to grow within the search budget")
     parser.add_argument("--duplicate-reward", type=int, choices=(0, -1), default=0)
-    parser.add_argument("--model", choices=(ANSWER_MODEL,), default=ANSWER_MODEL)
+    parser.add_argument("--model", default=ANSWER_MODEL)
+    parser.add_argument("--base-url", help="Optional local OpenAI-compatible API; HTTP restricted to loopback")
+    parser.add_argument("--enable-thinking", action="store_true", help="Local Qwen thinking mode; score final answer only")
+    parser.add_argument("--temperature", type=float, default=0.7)
+    parser.add_argument("--top-p", type=float, default=0.8)
+    parser.add_argument("--top-k", type=int, default=20)
     parser.add_argument("--pause-file", type=Path, default=ROOT / "results" / "PAUSE",
                         help="Pause between requests while this file exists")
     parser.add_argument("--plan", action="store_true", help="Show workload without model calls")
     if balanced:
         parser.add_argument("--import-progress", type=Path, help="Prepare a checkpoint from the old hard run")
     args = parser.parse_args()
+    if args.dataset_root:
+        dataset_root = args.dataset_root
+    if not args.base_url and args.model != ANSWER_MODEL:
+        parser.error("Alternative models require --base-url; Ark default is unchanged")
+    if args.enable_thinking and not args.base_url:
+        parser.error("--enable-thinking requires --base-url")
     import_progress = args.import_progress if balanced else None
     continue_from = args.continue_from if balanced else None
     if import_progress and (args.resume or continue_from):
@@ -207,6 +223,18 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     if (args.self_reflection or args.two_step_reflection) and not (branch_examples and args.method == "mcts-tree" and args.tree_policy == "llm"):
         parser.error("Reflection requires the Boolean branch-example test with LLM node selection")
     tree = args.method.startswith("mcts")
+    if args.mcts_version and (args.method != 'mcts-tree' or args.tree_policy != 'llm'):
+        parser.error('--mcts-version requires --method mcts-tree --tree-policy llm')
+    if args.mcts_version == '1.0' and args.tree_tools:
+        parser.error('MCTS 1.0 does not use tree tools')
+    if args.mcts_version in ('2.0','2.1'):
+        args.tree_tools = True
+    if args.method == 'mcts-tree' and args.tree_policy == 'llm' and not args.mcts_version:
+        args.mcts_version = '2.0' if args.tree_tools else '1.0'
+    if args.full_tree and (args.method != 'mcts-tree' or args.tree_policy != 'llm'):
+        parser.error('--full-tree requires --method mcts-tree --tree-policy llm')
+    if args.tree_tools and (args.method != 'mcts-tree' or args.tree_policy != 'llm' or args.full_tree):
+        parser.error('--tree-tools requires --method mcts-tree --tree-policy llm without --full-tree')
     jobs = []
     datasets = {}
     names = ("causal", "3d", "boolean", "boolean_extended") if balanced else ("causal", "3d", "boolean")
@@ -276,15 +304,34 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         if args.method == "mcts-tree":
             return ReasoningTreeAgent(client, args.tree_policy, args.child_limit, args.duplicate_reward,
                                       rotate=args.exploration_list == "on", branch_examples=branch_examples,
-                                      reflect=args.self_reflection, unbounded_tree=args.unbounded_tree)
+                                      reflect=args.self_reflection, unbounded_tree=args.unbounded_tree,
+                                      full_tree=args.full_tree, mcts_version=args.mcts_version)
         if args.method.startswith("mcts-"):
             return CoverageMCTSAgent(client, args.method.split("-", 1)[1])
         if args.method == "memory-structured":
             return StructuredMemoryAgent(client)
         return {"direct": DirectAgent, "memory": MemoryAgent, "mcts": MCTSAgent}[args.method](client)
-    client = ArkCodingPlanClient(model=args.model)
+    # Independent stochastic samples are essential for coverage; a fixed per-request
+    # seed would make identical direct prompts return identical candidates.
+    local_options = dict(temperature=args.temperature, top_p=args.top_p, top_k=args.top_k,
+                         chat_template_kwargs={"enable_thinking": args.enable_thinking})
+    if args.tree_tools and not args.enable_thinking:
+        from llm.deepseek_tree_tools import DeepseekTreeToolClient
+        client = DeepseekTreeToolClient(model=args.model)
+    elif args.enable_thinking:
+        from llm.local_thinking import LocalThinkingClient
+        client_type = LocalThinkingClient
+        if args.tree_tools:
+            from llm.tree_tools import TreeToolClient
+            client_type = TreeToolClient
+        client = client_type(tokenizer_path=ROOT/'models/Qwen3-8B', api_key='local',
+            model=args.model, base_url=args.base_url, timeout=3600, generation_options=local_options)
+    else:
+        client = (OpenAICompatibleClient(api_key="local", model=args.model, base_url=args.base_url,
+                                        timeout=3600, generation_options=local_options)
+                  if args.base_url else ArkCodingPlanClient(model=args.model))
     now = datetime.now(timezone.utc)
-    mode = "medium" if medium else "quick" if quick else "baseline"
+    mode = "easy" if easy else "medium" if medium else "quick" if quick else "baseline"
     if hard:
         mode = "hard_quick" if quick else "hard_full"
     if balanced:
@@ -309,9 +356,34 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
               "datasets": datasets, "expected_cases": len(jobs), "expected_requests": budget,
               "method": args.method, "call_cap": call_cap, "early_stop": early_stop,
               "completed": False, "cases": [], "summary": {}}
+    if args.base_url:
+        result["local_api"] = {"base_url": args.base_url, "generation_options": local_options}
+        if args.enable_thinking:
+            result['thinking_config']={'enabled':True,'final_answer_only':True,
+                'max_output_tokens':args.max_tokens,'context_window':32768,
+                'context_policy':'retain full input; reduce output cap to remaining context',
+                'reasoning_tokens':'provider count when available; otherwise local tokenizer estimate'}
+        manifest = ROOT / "logs/model_manifest.json"
+        if manifest.exists():
+            result["model_manifest"] = json.loads(manifest.read_text())
 
     if args.method == "mcts-tree":
         result["tree_config"] = {"policy": args.tree_policy, "duplicate_reward": args.duplicate_reward}
+        if args.mcts_version:
+            from agents.mcts_versions import COMPLETION_POLICY
+            result['mcts_version'] = args.mcts_version
+            result['mcts_variant'] = 'two-step' if args.two_step_reflection else 'standard'
+            if args.mcts_version == '2.1':
+                result['tree_config']['completion_policy'] = '2.1'
+                result['completion_policy'] = COMPLETION_POLICY
+                result['completion_policy_sha256'] = sha256(COMPLETION_POLICY.encode()).hexdigest()
+        if args.tree_tools:
+            framework = 'Qwen-Agent' if args.enable_thinking else 'native-function-calling'
+            result['tree_config']['tree_tools'] = dict(version=2, framework=framework,
+                max_requests_per_search=5, max_tools_per_search=4, reflection_tools=False)
+        if args.full_tree:
+            result['tree_config']['full_tree'] = True
+            result['tree_config']['full_tree_version'] = 1
         if args.unbounded_tree:
             result["tree_config"]["unbounded_tree"] = True
         else:
@@ -375,11 +447,23 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         if args.method not in ("direct", "memory", "mcts", "mcts-tree"):
             parser.error("--resume supports direct, memory, UCT and reasoning-tree runs")
         previous = json.loads((args.resume or continue_from).read_text(encoding="utf-8"))
+        if args.mcts_version:
+            from agents.mcts_versions import infer_version
+            if infer_version(previous) != args.mcts_version:
+                parser.error('Cannot resume a different MCTS method version; use a new output file')
+            if args.mcts_version == '2.1' and previous.get('completion_policy_sha256') != result.get('completion_policy_sha256'):
+                parser.error('MCTS 2.1 completion policy changed; publish a new version instead')
+            previous.setdefault('mcts_version', args.mcts_version)
+            previous.setdefault('mcts_variant', result['mcts_variant'])
         fields = ("mode", "method", "agent", "max_tokens", "queries_per_case",
                   "datasets", "expected_cases", "expected_requests")
+        if args.base_url or previous.get("local_api"):
+            if previous.get("local_api", {}).get("generation_options") != result.get("local_api", {}).get("generation_options"):
+                parser.error("Resume generation settings differ")
+            fields += ("model_manifest",)
         if args.method == "mcts-tree":
             fields += ("tree_config",)
-        if previous["completed"] or any(previous.get(key) != result[key] for key in fields):
+        if previous["completed"] or any(previous.get(key) != result.get(key) for key in fields):
             parser.error("Resume file must be incomplete and match the current run settings")
         if continue_from:
             if previous["requested_model"] == result["requested_model"]:
@@ -399,9 +483,25 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                 parser.error("Checkpoint model differs from the fixed answer model; see AGENTS.md")
             output = args.resume
             result = previous
+            if args.base_url:
+                routes = result.setdefault("api_routes", [result["local_api"]["base_url"]])
+                if args.base_url not in routes:
+                    routes.append(args.base_url)
+
+    active_agent = None
+    active_case = None
+    tree_file = output.with_suffix('.tree.json')
+    tree_snapshots = (json.loads(tree_file.read_text(encoding='utf-8'))
+                      if (args.full_tree or args.tree_tools) and args.resume and tree_file.exists() else {})
 
     def save():
         output.parent.mkdir(exist_ok=True)
+        if (args.full_tree or args.tree_tools) and active_agent is not None:
+            tree_snapshots[active_case] = active_agent.tree_snapshot()
+            tree_temporary = tree_file.with_suffix('.tmp')
+            tree_temporary.write_text(json.dumps(tree_snapshots, ensure_ascii=False, indent=2), encoding='utf-8')
+            tree_temporary.replace(tree_file)
+            result['tree_snapshot_file'] = tree_file.name
         temporary = output.with_suffix(".tmp")
         temporary.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
         temporary.replace(output)
@@ -419,6 +519,8 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         search_cap = args.search_cap or queries * (2 if early_stop and tree else 1)
         if index <= len(result["cases"]):
             continue
+        active_agent = agent
+        active_case = f'{domain}/{case_id}'
         partial = result.get("interrupted_case")
         if partial:
             normalize = lambda value: re.sub(r"(Use ONLY these operators: )([^\r\n]+)",
@@ -450,7 +552,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         started = datetime.now(timezone.utc)
         failure_reason = None
         for call_index in range(len(records) + 1, search_cap + 1):
-            if balanced or args.method == "mcts-tree" or (hard and (call_index == 1 or call_index % 10 == 0)):
+            if balanced or easy or args.method == "mcts-tree" or (hard and (call_index == 1 or call_index % 10 == 0)):
                 result["interrupted_case"] = {"domain": domain, "case_id": case_id,
                                               "prompt": prompt, "records": records}
                 save()
@@ -463,6 +565,8 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                       f"recovered {len(recovered)}/{len(keys)}", flush=True)
             wait_if_paused(args.pause_file)
             query_prompt = prompt if args.method == "direct" else agent.next_prompt(prompt)
+            if args.tree_tools:
+                client.bind_tree(agent, tree_file, active_case)
             reflection_data = {}
             stage = "search"
             try:
@@ -477,15 +581,36 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                         "If there are no prior attempts, identify one constraint to check and a starting "
                         "direction. Output a short review, without selecting a branch or submitting an answer."
                     )
-                    review = agent.solve(review_prompt)
+                    if args.full_tree:
+                        review_prompt += agent.tree_prompt()
+                    review = (client.review(review_prompt, max_tokens=args.max_tokens)
+                              if args.tree_tools else agent.solve(review_prompt))
+                    if balanced:
+                        record_request(args.pause_file, False)
                     reflection_data = {"reflection_response": asdict(review), "reflection_prompt": review_prompt}
                     query_prompt += "\n\nIndependent review for this attempt: " + review.text
                     wait_if_paused(args.pause_file)
                     stage = "search"
                 response = agent.solve(query_prompt)
+                if balanced:
+                    record_request(args.pause_file, False)
             except LLMError as error:
                 records.append({"error": str(error), "prompt": query_prompt, "error_stage": stage,
                                 **reflection_data, **error.details})
+                if balanced and "HTTP 429" in str(error):
+                    result["interrupted_case"] = {"domain": domain, "case_id": case_id,
+                                                  "prompt": prompt, "records": records}
+                    save()
+                    if record_request(args.pause_file, True):
+                        print("20 consecutive HTTP 429 responses within 20 minutes: recovery policy activated.", flush=True)
+                        wait_if_paused(args.pause_file)
+                    else:
+                        print("Request failed: retrying after a 30 second backoff.", flush=True)
+                        sleep(30)
+                    consecutive_errors = 0
+                    continue
+                if balanced:
+                    record_request(args.pause_file, False)
                 consecutive_errors += 1
                 if balanced and consecutive_errors >= 3:
                     failure_reason = str(error)
@@ -542,9 +667,12 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
 
     if args.two_step_reflection:
         result["api_calls"] = sum(
-            1 + int("reflection_response" in record)
+            (len(record.get('api_requests', [])) or 1) + int("reflection_response" in record)
             for case in result["cases"] for record in case["records"]
         )
+    elif args.tree_tools:
+        result['api_calls'] = sum(len(r.get('api_requests', [])) or 1
+                                  for c in result['cases'] for r in c['records'])
     result["completed"] = True
     save()
     print(json.dumps(result["summary"], indent=2))

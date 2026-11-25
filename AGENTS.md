@@ -1,5 +1,13 @@
 # ECE4300 Final Project 交接说明
 
+## MCTS 方法版本与进度汇报
+
+用户指定公开版本：1.0=提示词分支选择，2.0=工具读取完整树，2.1=2.0 加上允许重复解提交及基于理论分析的严格 EXHAUSTED 规则。定义在 `config/mcts_versions.json`，策略实现见 `agents/mcts_versions.py`。模型版本、普通/两步反思变体、题库难度与方法版本分别记录。目录中的 v1/v2 不是方法版本；`server-easy-tree-tools-v2` 属于方法 2.0。用户已取消旧2.0及简单题接续序列。当前2.1中等流程状态见 logs/mcts-2.1-medium-pipeline-32k/state.json：先评测27题，再生成独立训练28题并运行两个方法。输出分别为 results/server-mcts-2.1-medium-evaluation-32k 和 results/server-mcts-2.1-medium-training-32k；评测题不得用于训练导出。
+
+新运行可用 `--mcts-version 1.0|2.0|2.1`，2.x 自动启用读树工具；结果记录版本与变体。2.1 另保存提示词原文和哈希。不同方法版本禁止共用断点；修改已发布提示词必须升版本。既有结果缺少版本时仅依据原配置推断并明确来源，不把历史结果改标为新方法。
+
+进度汇报必须同时给出方法版本、完成题数/总题数、覆盖率及统计题数；未完成组的覆盖率按正常完成题等权平均。比较优劣时先对齐共同题目，并区分生成截断、网络错误、工具读取错误。
+
 ## 项目目标
 
 用 HypoSpace 衡量答题 Agent 能否为同一组观测找到尽可能多的不同解释。每次提交的是一个候选解，评分器用标准解集合计算覆盖率。这里的“继续训练”指恢复评测进程、历史答案和搜索树，实验没有更新模型权重。
@@ -71,3 +79,101 @@ $two = @("--two-step-reflection", "--unbounded-tree")
 - `cases` 是已处理的题，`interrupted_case` 是正在做的题。用 `stop_reason=request_errors` 识别因请求失败跳过的题，`completed=true` 表示已遍历题库。
 - 单题覆盖率是找到的不同标准解数除以该题标准解数，对题取等权平均得到归一化覆盖率（`summary.all.recovery`）。汇总只对正常结束的题（`stop_reason != request_errors`）取平均，因请求失败跳过的题不计入覆盖率、单独列出待补测。`summary.*.normal_cases` 记录正常结束题数，`python -m experiments.rescore_summary <结果文件...>` 用该口径重算并导出 `skipped_cases_to_rerun` 清单。
 - 比较方法时优先对齐同一批题、同一个模型及相同停止规则。分别报告内部搜索轮数、答案提交数、API 请求数与 token。两步反思的 `reflection_response` 记录额外 API 调用，整轮结束时汇总到 `api_calls`。
+
+## 服务器与本地评测启动流程（2026-11-24）
+
+### SSH 连接
+
+服务器 IP 固定 `10.1.3.100`，每个任务实例一个端口（存活 3-4 天，端口会变），配置在 `~/.ssh/config`：
+
+- `EEC4300` = `10.1.3.100:25910`（自己，主机 `interactive24187`，密钥 `~/.ssh/lab4090_codex`）
+- `EEC430002` = `10.1.3.100:25640`（同学，主机 `interactive86262`，密钥 `~/.ssh/classmate_ed25519`）
+
+### 服务器端（Qwen3-8B，简单题库 105 题）
+
+服务器三个 API（都是回环地址，不对外暴露）：
+
+- `8000`：GPU0 的 vLLM 模型副本
+- `8001`：GPU1 的 vLLM 模型副本
+- `8002`：FastAPI 网关（`server/api_gateway.py`），按在途 token 负载把请求分到 8000/8001，是评测的唯一入口
+
+**启动 vLLM + 网关**（`cd` 到项目根目录后）：
+
+```bash
+setsid bash server/start_api.sh 0 8000 > logs/api_8000.log 2>&1 < /dev/null &
+setsid bash server/start_api.sh 1 8001 > logs/api_8001.log 2>&1 < /dev/null &
+setsid .venv-inference/bin/python -m uvicorn server.api_gateway:app --host 127.0.0.1 --port 8002 > logs/gateway.log 2>&1 < /dev/null &
+```
+
+> 用 `setsid ... &` 让进程脱离 SSH 会话，否则 SSH 命令会卡住直到超时（进程本身仍会启动）。
+
+**跑四方法评测（分两个环境，因为树工具依赖独立的 `.venv-tree-tools`）**：
+
+direct / memory 用 `.venv-inference`（无树工具）：
+
+```bash
+export ECE_THINKING=1 ECE_MAX_TOKENS=16384 ECE_WORKERS_PER_METHOD=2 ECE_DATASET_SUITE=easy \
+       ECE_METHODS=direct,memory ECE_RESULT_DIR="$PWD/results/server-easy-dm" ECE_LOG_DIR="$PWD/logs/easy-dm"
+setsid .venv-inference/bin/python -u server/run_evaluations.py > "$ECE_LOG_DIR/runner.log" 2>&1 < /dev/null &
+```
+
+mcts / two-step 用 `.venv-tree-tools`（树工具，需要 `qwen_agent`）：
+
+```bash
+export ECE_THINKING=1 ECE_TREE_TOOLS=1 ECE_MAX_TOKENS=16384 ECE_WORKERS_PER_METHOD=1 ECE_DATASET_SUITE=easy \
+       ECE_METHODS=mcts,two-step ECE_RESULT_DIR="$PWD/results/server-easy-tree-tools-v2" ECE_LOG_DIR="$PWD/logs/easy-tree-tools-v2"
+setsid .venv-tree-tools/bin/python -u server/run_evaluations.py > "$ECE_LOG_DIR/runner.log" 2>&1 < /dev/null &
+```
+
+关键坑：**树工具必须用 `.venv-tree-tools/bin/python`**（`qwen_agent` 只装在这个环境里），`run_evaluations.py` 里 `sys.executable` 会传给 smoke 子进程，用错环境会导致 tree-tools 报 `ModuleNotFoundError: qwen_agent`。启动脚本模板见 `server/run_easy_tools.sh`。结果目录要换新的，别复用旧目录（旧 smoke 文件的 `final_answer_missing=True` 会让 check_smoke 误判失败）。
+
+### 本地（deepseek，困难题库抽选的小题库）
+
+- 小题库清单：`datasets/sampled.json`（19 题 358 解，每类约 120 解，手动挑选、跳过解数过大的题如 causal 638 解）。
+- 树工具：`llm/deepseek_tree_tools.py` 的 `DeepseekTreeToolClient`，用方舟 Coding Plan 的**原生 function calling**（`tools` 参数 + `tool_calls`），方舟 deepseek 已确认支持；思考在 `reasoning_content` 字段。
+
+跑四方法（direct/memory 无树工具，mcts/two-step 用 `--tree-tools`）：
+
+```bash
+python -m experiments.run_sampled --workers 4
+# 或只跑部分方法：--methods mcts,two-step
+```
+
+结果落到 `results/sampled-local/<dataset>-<case_id>.json`，断点续跑（文件存在会自动 `--resume`）。
+
+### 树工具两套实现对照
+
+| | 服务器 Qwen | 本地 deepseek |
+|---|---|---|
+| 文件 | `llm/tree_tools.py` | `llm/deepseek_tree_tools.py` |
+| 工具解析 | Qwen-Agent Hermes 风格（`<tool_call>` prompt 注入） | OpenAI 原生 function calling |
+| 环境/服务 | `.venv-tree-tools` + vLLM | 方舟 Coding Plan |
+| 触发参数 | `--tree-tools`（需 `--enable-thinking --base-url`） | `--tree-tools`（无 `--base-url`，用方舟） |
+
+两者共用 `agents/tree_file_tools.py`（`read_tree`/`read_node`/`read_subtree`，每次从磁盘重读树快照）和 `llm/tool_response.py`（`tree_candidate` 分离思考并校验 `Branch:` 编号）。流程都是：写树快照到 `.tree.json` → 模型先 `read_tree` 至少一次 → 按 `Branch / Plan / candidate` 格式作答 → 评分更新树。
+
+### 跨机器 LLM 分派接口（2026-11-24）
+
+一号机 8002 的 `api_gateway.py` 是统一的分派接口：后端池通过环境变量 `ECE_BACKENDS` 配置（逗号分隔的 OpenAI 兼容 base URL，不含 `/v1`），按每个后端的**在途 token 负载**把非流式 chat completion 分派给最空闲的后端，空闲的卡自动接活。
+
+```
+ECE_BACKENDS=http://127.0.0.1:8000,http://127.0.0.1:8001,http://10.106.31.1:8000
+```
+
+- 一号机双 4090 → 8000（GPU0）、8001（GPU1）；三号机 5090 → `10.106.31.1:8000`。
+- 评测进程统一连一号机 `http://127.0.0.1:8002/v1`，不指定具体卡；`/health` 返回 `backends`、`estimated_load`、`inflight_requests` 可看分派情况。
+- 三号机 vLLM 要绑定 `0.0.0.0`（`server/start_api.sh` 里 `--host 0.0.0.0`），否则一号机无法访问。
+
+### 三号机（EEC430003，单 RTX 5090）部署
+
+`EEC430003` = `10.1.3.100:25871`（主机 `interactive28913`，密钥 `~/.ssh/lab4090_codex`）。部署步骤：
+
+1. 同步代码 + tests（从本地 `tar czf - agents experiments llm datasets server tests HypoSpace requirements*.txt | ssh EEC430003 'tar xzf -'`）。
+2. `bash server/bootstrap.sh`（建 `.venv-inference` + 装 vLLM + ModelScope 下载 Qwen3-8B）。
+3. 装树工具环境并复用推理库：`.venv-tree-tools` 装 `qwen-agent` 后，写 `.pth` 指向 `.venv-inference` 的 site-packages（见一号机 `ece_inference_runtime.pth`）。
+4. 单卡跑评测要把 `server/run_evaluations.py` 里 smoke 端口改成可配置（`ECE_API_PORTS=8000`），并把 `api()` 改为读 `ECE_API_BASE`。
+5. 启动 vLLM：`setsid bash server/start_api.sh 0 8000`（单卡一个后端）。
+
+三号机只跑 vLLM（纯计算节点），评测进程都在一号机、统一走 8002 分派。
+
+当前生成配置：用户要求32768请求额度，按32768-input_tokens-8使用剩余上下文，不再额外限制为16K。旧16K记录保留，迁移后应汇报generation_limit_transitions，不能把旧记录说成32K生成。

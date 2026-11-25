@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scope": "LLM-selected ReasoningTreeAgent; method version is independent of model, difficulty and reflection variant",
+  "versions": {
+    "1.0": {
+      "name_zh": "提示词分支选择版",
+      "tree_tools": false,
+      "prompt_policy": "original",
+      "description": "Tree directions are shown in text prompts; the model cannot request tree files. Inline full-tree probes must retain their separate full_tree flag."
+    },
+    "2.0": {
+      "name_zh": "工具读树版",
+      "tree_tools": true,
+      "prompt_policy": "original",
+      "description": "Model calls read_tree/read_node/read_subtree; original diversity and exhaustion instructions. Internal tree_tools.version=2 is a protocol revision, not method version 2.1."
+    },
+    "2.1": {
+      "name_zh": "工具读树与提交规则修正版",
+      "tree_tools": true,
+      "prompt_policy": "duplicate_fallback_and_theoretical_exhaustion",
+      "status": "medium_evaluation_then_training_pipeline_active",
+      "description": "Duplicates may be submitted; lack of a new Plan permits direct submission; EXHAUSTED requires a sound argument covering all legal possibilities of the selected branch. This is a prompt rule, not a formal proof verifier."
+    }
+  },
+  "variants": ["standard", "two-step"],
+  "historical_run_mapping": {
+    "results/server-easy-thinking-v1": "1.0",
+    "results/server-thinking-v1": "1.0",
+    "results/server-easy-tree-tools-v2": "2.0"
+  },
+  "rules": [
+    "Historical directory suffixes are run identifiers, not method versions.",
+    "Do not rewrite historical results to claim a newer method version.",
+    "Keep model, thinking mode, difficulty, dataset hash, budgets and reflection variant as separate metadata.",
+    "New outputs record mcts_version and mcts_variant; 2.1 also records the exact completion policy and its SHA256.",
+    "A new method version starts in a separate output directory; resume rejects cross-version checkpoints."
+  ]
+}

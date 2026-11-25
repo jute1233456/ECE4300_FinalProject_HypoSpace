@@ -71,8 +71,19 @@ def main(shared_pool=None, pending=None):
             sleep(1)
         dataset, case_id = job
         output = args.run_dir / f"{dataset}-{case_id}.json"
-        if output.exists() and json.loads(output.read_text(encoding="utf-8"))["completed"]:
-            return {"dataset": dataset, "case_id": case_id, "status": "already_completed"}
+        if output.exists():
+            saved = json.loads(output.read_text(encoding="utf-8"))
+            if saved["completed"]:
+                failed = next((case for case in saved["cases"]
+                               if case.get("stop_reason") == "request_errors"), None)
+                if failed is None:
+                    return {"dataset": dataset, "case_id": case_id, "status": "already_completed"}
+                saved.update(completed=False, cases=[], summary={},
+                             interrupted_case={key: failed[key] for key in
+                                               ("domain", "case_id", "prompt", "records")})
+                temporary = output.with_suffix(".tmp")
+                temporary.write_text(json.dumps(saved, ensure_ascii=False, indent=2), encoding="utf-8")
+                temporary.replace(output)
         command = [sys.executable, "-u", "-m", "experiments.test_hard_balanced",
                    "--dataset", dataset, "--case-id", case_id,
                    "--pause-file", str(args.global_pause or args.run_dir / "PAUSE"), *extra]

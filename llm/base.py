@@ -20,6 +20,9 @@ class LLMResponse:
     total_tokens: int | None
     finish_reason: str | None
     reasoning_tokens: int | None = None
+    reasoning_text: str | None = None
+    final_answer_missing: bool = False
+    effective_max_tokens: int | None = None
 
 
 class LLMClient(ABC):

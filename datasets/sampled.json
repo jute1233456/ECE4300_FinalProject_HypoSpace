@@ -1,0 +1,28 @@
+{
+  "description": "困难题库(balanced)抽选的小题库：每类约120个参考解，跳过解数过大的题，手动挑选覆盖低/中/高解数层。",
+  "causal": [
+    {"case_id": "n6_hard_029", "references": 57},
+    {"case_id": "n6_hard_021", "references": 63}
+  ],
+  "3d": [
+    {"case_id": "g3_h3_b2_001", "references": 9},
+    {"case_id": "g3_h3_b3_006", "references": 27},
+    {"case_id": "g3_h3_b4_001", "references": 81}
+  ],
+  "boolean": [
+    {"case_id": "n4_inputs_00_01_10_11_outputs_0110", "references": 1},
+    {"case_id": "n4_inputs_00_01_10_11_outputs_1001", "references": 1},
+    {"case_id": "n4_inputs_00_01_10_11_outputs_1110", "references": 2},
+    {"case_id": "n3_inputs_01_10_11_outputs_110", "references": 3},
+    {"case_id": "n4_inputs_00_01_10_11_outputs_0001", "references": 3},
+    {"case_id": "n4_inputs_00_01_10_11_outputs_0111", "references": 3},
+    {"case_id": "n3_inputs_00_01_10_outputs_011", "references": 4},
+    {"case_id": "n3_inputs_00_01_11_outputs_101", "references": 4},
+    {"case_id": "n3_inputs_00_10_11_outputs_101", "references": 4},
+    {"case_id": "n2_inputs_00_01_outputs_01", "references": 14},
+    {"case_id": "n2_inputs_00_10_outputs_01", "references": 14},
+    {"case_id": "extended_n1_inputs_00_outputs_1", "references": 14},
+    {"case_id": "n1_inputs_01_outputs_1", "references": 27},
+    {"case_id": "n1_inputs_10_outputs_1", "references": 27}
+  ]
+}

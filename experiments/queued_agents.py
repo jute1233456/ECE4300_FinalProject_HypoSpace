@@ -6,6 +6,8 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from unittest.mock import patch
 from time import sleep
+from threading import Thread
+from .rate_limit import recover_quota
 from .parallel_balanced import main as enqueue
 
 from .direct_evaluation import ROOT
@@ -45,6 +47,8 @@ def main():
          [*tree, "--two-step-reflection", "--unbounded-tree"]),
     ]
     pending = []
+    if not args.plan:
+        Thread(target=recover_quota, args=(pause,), daemon=True).start()
     pool = ThreadPoolExecutor(max_workers=args.workers)
     for name, source, flags in groups:
         command = [sys.executable, "-u", "-m", "experiments.parallel_balanced",

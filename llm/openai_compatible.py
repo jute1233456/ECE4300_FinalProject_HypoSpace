@@ -10,13 +10,15 @@ class OpenAICompatibleClient(LLMClient):
     """Adapter for providers implementing the chat/completions wire format."""
 
     def __init__(self, *, api_key: str, model: str, base_url: str,
-                 timeout: float = 120):
+                 timeout: float = 120, generation_options: dict | None = None,
+                 separate_reasoning: bool = False):
         if not api_key or not api_key.strip():
             raise ValueError("API key is required")
         if not model or not model.strip():
             raise ValueError("Model is required")
         parsed = urlparse(base_url)
-        if (parsed.scheme != "https" or not parsed.netloc or parsed.username
+        loopback_http = parsed.scheme == "http" and parsed.hostname in ("127.0.0.1", "localhost", "::1")
+        if ((parsed.scheme != "https" and not loopback_http) or not parsed.netloc or parsed.username
                 or parsed.password or parsed.query or parsed.fragment):
             raise ValueError("Base URL must be an HTTPS URL without credentials/query/fragment")
         if timeout <= 0:
@@ -25,6 +27,10 @@ class OpenAICompatibleClient(LLMClient):
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
+        self.generation_options = dict(generation_options or {})
+        self.separate_reasoning = separate_reasoning
+        if set(self.generation_options) - {"temperature", "top_p", "top_k", "seed", "chat_template_kwargs"}:
+            raise ValueError("Unsupported generation option")
 
     def generate(self, prompt: str, *, system: str | None = None,
                  max_tokens: int | None = 1024) -> LLMResponse:
@@ -37,7 +43,7 @@ class OpenAICompatibleClient(LLMClient):
             messages.append({"role": "system", "content": system})
         messages.append({"role": "user", "content": prompt})
         payload = {"model": self.model, "messages": messages,
-                   "stream": False}
+                   "stream": False, **self.generation_options}
         if max_tokens is not None:
             payload["max_tokens"] = max_tokens
         request = Request(
@@ -68,9 +74,24 @@ class OpenAICompatibleClient(LLMClient):
         try:
             choice = data["choices"][0]
             content = choice["message"]["content"]
+            reasoning_text = None
+            final_answer_missing = False
+            if self.separate_reasoning:
+                separate = choice['message'].get('reasoning_content')
+                if isinstance(separate, str):
+                    reasoning_text = separate
+                    content = content or ''
+                elif isinstance(content, str) and '</think>' in content:
+                    reasoning_text, content = content.rsplit('</think>', 1)
+                    reasoning_text = reasoning_text.removeprefix('<think>').strip()
+                    content = content.strip()
+                else:
+                    reasoning_text = content if isinstance(content, str) else ''
+                    content = ''
+                final_answer_missing = not content.strip()
             usage = data.get("usage") or {}
             reasoning_tokens = (usage.get("completion_tokens_details") or {}).get("reasoning_tokens")
-            if not isinstance(content, str) or not content.strip():
+            if not isinstance(content, str) or (not content.strip() and not self.separate_reasoning):
                 raise LLMError(
                     "Model response has no usable text or an unexpected structure",
                     details={
@@ -86,6 +107,8 @@ class OpenAICompatibleClient(LLMClient):
                 prompt_tokens=usage.get("prompt_tokens"),
                 completion_tokens=usage.get("completion_tokens"),
                 total_tokens=usage.get("total_tokens"),
-                finish_reason=choice.get("finish_reason"), reasoning_tokens=reasoning_tokens)
+                finish_reason=choice.get("finish_reason"), reasoning_tokens=reasoning_tokens,
+                reasoning_text=reasoning_text, final_answer_missing=final_answer_missing,
+                effective_max_tokens=max_tokens)
         except (KeyError, IndexError, TypeError, ValueError, AttributeError):
             raise LLMError("Model response has no usable text or an unexpected structure") from None

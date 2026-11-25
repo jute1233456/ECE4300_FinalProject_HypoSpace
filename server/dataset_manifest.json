@@ -1,0 +1,16 @@
+{
+  "datasets/3d.json": "05996e3aa7a125887be27741fb2d9ba4ff751f2dfc1291d0602351535e104478",
+  "datasets/boolean.json": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+  "datasets/causal.json": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+  "datasets/medium_cases.json": "30afd275590561a9f9d2569ecb1885d147373b8cbcd36cb998ffaa6452ceb7cf",
+  "datasets/balanced/3d.json": "ac5926cd1f655e96fdc4ed378eeaf89e626444be969820600c78783273aab515",
+  "datasets/balanced/boolean.json": "e011f96d211c902aa097a476d364352fb07c03000aa263537fa4dbcbf289da5b",
+  "datasets/balanced/boolean_extended.json": "fa17acff285fab624d826533a5ff6907ff02d55c450cd2d147dc4218d9f7bb0b",
+  "datasets/balanced/boolean_extended_pool.json": "ea6fb8a8e2d1b3c65006d94dfcfcef4a57d913d0ac4753b517d686b3d4b7a3a7",
+  "datasets/balanced/causal.json": "f2844dd42d1774e2eac6f37ebc142f2aa5d876dfd03e8bd18610610e4b3a4903",
+  "datasets/hard/3d.json": "89afd7a3ef76e064872d44abd634c54584a1c8d1574065e64660ab6ba8a2189e",
+  "datasets/hard/3d_pool.json": "1693e5327141294d04228ebe9bc1f43fe33e85efb185f6bd7681a9ec21112b6c",
+  "datasets/hard/boolean.json": "f8b656eae2f7cb4752b25c3cfb16c84439db4279c197e01bfdb25c2083961506",
+  "datasets/hard/boolean_pool.json": "053583473e2128fe081eb44afc3a82b71f2c562db4e42d907151da7a3b3ed41d",
+  "datasets/hard/causal.json": "58fc9431ba299f1d1e991c7acd6e006a9dd737ea679c70a05efb419c7f8ef7e4"
+}

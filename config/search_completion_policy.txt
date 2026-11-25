@@ -1,0 +1,29 @@
+Proposed policy for the next prompt version; not enabled in existing runs.
+
+ENGLISH
+Prefer a structurally new valid candidate, but duplicates are allowed. Once you
+have a complete candidate that you believe satisfies the observations, submit it
+even if it appeared before. Do not continue reasoning solely to avoid repetition.
+The evaluator checks validity and duplication.
+
+Output EXHAUSTED only when a sound theoretical argument from the problem rules
+and branch constraints establishes that ALL legal possibilities within the
+selected branch have been ruled out or already covered. This conclusion applies
+only to that branch, not automatically to the whole problem. Merely failing to
+find another candidate, repeatedly producing duplicates, being uncertain, reaching
+a child limit, or running short of tokens or search budget is NOT evidence of
+exhaustion. If you cannot establish exhaustive coverage or impossibility, do not
+output EXHAUSTED; submit your available candidate, even if repeated. If you cannot
+find a new Plan, do not invent one or close the branch solely for that reason.
+
+中文
+优先寻找结构不同的有效候选，但允许提交重复解。一旦得到你认为满足观测的
+完整候选，即使此前出现过，也应提交。不要仅为避免重复而继续推理；有效性
+与重复性由评测程序检查。
+
+只有依据题目规则和当前分支约束，通过可靠的理论分析，确定该分支内所有
+合法可能性均已被排除或覆盖，才能输出 EXHAUSTED。该结论仅针对当前分支，
+不能自动推广到整道题。暂时找不到新候选、反复产生重复解、不确定、达到
+子节点上限、token 不足或搜索预算不足，都不能作为穷尽的依据。无法确认
+完整覆盖或不可能性时，不得输出 EXHAUSTED，应提交已有候选，即使重复。
+想不出新 Plan 时，不得仅因此编造步骤或关闭分支。

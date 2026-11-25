@@ -1,0 +1,36 @@
+{
+  "description": "中等难度题库(因果4节点/3D两积木/布尔extended)抽选的小题库：每类约120个参考解，手动挑选。生成参数见 datasets/medium/。",
+  "causal": [
+    {"case_id": "n1_002", "references": 48},
+    {"case_id": "n1_003", "references": 48},
+    {"case_id": "n2_006", "references": 24}
+  ],
+  "3d": [
+    {"case_id": "g3_h3_b2_001", "references": 9},
+    {"case_id": "g3_h3_b2_002", "references": 9},
+    {"case_id": "g3_h3_b2_003", "references": 9},
+    {"case_id": "g3_h3_b2_004", "references": 9},
+    {"case_id": "g3_h3_b2_005", "references": 9},
+    {"case_id": "g3_h3_b2_006", "references": 9},
+    {"case_id": "g3_h3_b2_007", "references": 9},
+    {"case_id": "g3_h3_b2_008", "references": 9},
+    {"case_id": "g3_h3_b2_009", "references": 9},
+    {"case_id": "g3_h3_b2_010", "references": 9},
+    {"case_id": "g3_h3_b2_011", "references": 9},
+    {"case_id": "g3_h3_b2_012", "references": 9},
+    {"case_id": "g3_h3_b2_013", "references": 9}
+  ],
+  "boolean": [
+    {"case_id": "n1_inputs_00_outputs_1", "references": 14},
+    {"case_id": "n1_inputs_11_outputs_0", "references": 14},
+    {"case_id": "n2_inputs_00_01_outputs_00", "references": 12},
+    {"case_id": "n2_inputs_00_10_outputs_00", "references": 12},
+    {"case_id": "n2_inputs_00_11_outputs_01", "references": 12},
+    {"case_id": "n2_inputs_01_11_outputs_11", "references": 12},
+    {"case_id": "n2_inputs_10_11_outputs_11", "references": 12},
+    {"case_id": "n2_inputs_00_01_outputs_11", "references": 9},
+    {"case_id": "n2_inputs_00_10_outputs_11", "references": 9},
+    {"case_id": "n2_inputs_01_10_outputs_01", "references": 9},
+    {"case_id": "n2_inputs_00_01_outputs_01", "references": 8}
+  ]
+}
