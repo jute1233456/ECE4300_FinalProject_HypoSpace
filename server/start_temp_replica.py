@@ -12,8 +12,14 @@ ROOT=Path('/opt/data/private/ECE4300-temp-api-20261125')
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--host',required=True)
+    parser.add_argument('--root',type=Path,default=ROOT)
     parser.add_argument('--gpu',required=True);parser.add_argument('--port',type=int,required=True)
-    args=parser.parse_args();assert (ROOT/'OWNERSHIP.json').exists() and (ROOT/'provision.complete').exists()
+    args=parser.parse_args()
+    return start(args,args.root)
+
+
+def start(args,ROOT):
+    assert (ROOT/'OWNERSHIP.json').exists() and (ROOT/'provision.complete').exists()
     auth=ROOT/'api_credentials.json'
     if not auth.exists():
         auth.write_text(json.dumps({'api_key':secrets.token_urlsafe(40)}));auth.chmod(0o600)

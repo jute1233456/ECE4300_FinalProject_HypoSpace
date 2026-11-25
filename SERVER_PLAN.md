@@ -1,6 +1,6 @@
 # ECE4300 服务器部署与四方法评测计划
 
-> 2026-11-25最新调度：统一六题队列，优先分阶段反思MCTS 2.2（Stage-MCTS）四题小样本，空位立即补两步反思MCTS 2.1原断点评测题；评测后训练题也使用同一队列。普通MCTS 2.1保持暂停。唯一入口 `server/run_mixed_mcts_queue.py`，配置与路径详见 `docs/CURRENT_RUN.md`；下方为历史部署计划。
+> 2026-11-26最终调度：用户确认共九卡，统一九题并行，新任务走8004。明确顺序：分阶段反思MCTS 2.2（Stage-MCTS）全部27道中等评测题 → 两步反思MCTS 2.1未完成评测。用户已暂时取消训练题生成、运行和导出，默认training_enabled=false。原四道2.2不重跑，其余23题已入队；最后验证九道active任务全部为2.2。待2.2全部正常完成自动恢复2.1。普通MCTS 2.1保持暂停。唯一入口 `server/run_mixed_mcts_queue.py --workers 9`，配置详见 `docs/CURRENT_RUN.md` 和 `docs/NODE4_DEPLOYMENT.md`；下方为历史部署计划。
 
 更新日期：2026-11-20。目标是衡量方法相对基线的提升，不以满分为目标。
 

@@ -1,5 +1,6 @@
 """Receive exact verified model/runtime over a pinned TLS connection into the owned folder."""
 from concurrent.futures import ThreadPoolExecutor
+import argparse
 from hashlib import sha256
 import json
 from pathlib import Path
@@ -13,6 +14,12 @@ ROOT=Path('/opt/data/private/ECE4300-temp-api-20261125')
 
 
 def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--root',type=Path,default=ROOT)
+    args=parser.parse_args()
+    return provision(args.root)
+
+
+def provision(ROOT):
     assert (ROOT/'OWNERSHIP.json').exists()
     auth=json.loads((ROOT/'transfer_credentials.json').read_text())
     ctx=ssl.create_default_context(cafile=str(ROOT/'transfer.crt'))
