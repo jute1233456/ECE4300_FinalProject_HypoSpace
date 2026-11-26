@@ -19,6 +19,15 @@ def process_matches(task):
     except (FileNotFoundError,KeyError):return False
 
 
+def ordered_waiting(tasks, cfg):
+    """Model priority orders dispatch, without waiting for earlier jobs to finish."""
+    enabled=cfg.get('enabled_models',cfg['models'])
+    order=cfg.get('model_order',cfg['models'])
+    rank={name:index for index,name in enumerate(order)}
+    return sorted((t for t in tasks if t['model'] in enabled and t['status'] in ('pending','parked')),
+                  key=lambda t:(rank.get(t['model'],len(rank)),t['model'],t['references'],t['dataset'],t['case_id']))
+
+
 def main():
     import fcntl
     parser=argparse.ArgumentParser();parser.add_argument('--config',type=Path,required=True);args=parser.parse_args()
@@ -57,7 +66,7 @@ def main():
             parked=[t['id'] for t in tasks if t['status']=='parked'],
             enabled_models=cfg.get('enabled_models',cfg['models']),
             future_models=future_status,
-            scheduling='model-major' if cfg.get('serial_models') else 'interleaved',
+            scheduling='serial-models' if cfg.get('serial_models') else 'grouped-dispatch',
             capacity=health.get('capacity',{}),worker_limit=health.get('validation_workers')))
     for task in tasks:
         result=inspect(task)
@@ -133,19 +142,17 @@ def main():
                 handover_path.rename(root/'handover.completed.json')
             else:
                 snapshot();time.sleep(2);continue
-        if cfg.get('serial_models',False):
-            for task in tasks:
-                if task['status']=='parked' and task['model']==current_model:
-                    os.kill(task['pid'],signal.SIGCONT);task['status']='running'
         active=sum(t['status']=='running' for t in tasks)
         dedicated=sum(e['role']=='baseline' and e['observed'] is not None for e in health['backends'])
         reserve=max(0,min(remaining,cfg.get('baseline_reserve_max',3))-dedicated)
         limit=max(0,min(health['capacity']['validation']-reserve,health.get('validation_workers',9)))
         limit=min(limit,cfg.get('max_workers',9))
-        for task in tasks:
+        for task in ordered_waiting(tasks,cfg):
             if active>=limit:break
-            if task['status']!='pending':continue
             if cfg.get('serial_models',False) and task['model']!=current_model:continue
+            if task['status']=='parked':
+                os.kill(task['pid'],signal.SIGCONT);task['status']='running';active+=1
+                continue
             p=target(task);p.parent.mkdir(parents=True,exist_ok=True)
             model='Qwen3-8B' if task['model']=='base' else task['model']
             command=[cfg['python'],'-u','-m','experiments.test_hard_balanced','--model',model,'--enable-thinking',
