@@ -1,0 +1,22 @@
+{
+  "output": "/opt/data/private/ECE4300-dpo-candidates-20261127/reflection-v1",
+  "model": "sft-pruned-v1-ep1",
+  "checkpoint_sha256": "8fa112bf26333cd24ea3c2c3759cd5584453a2cce83e75ba8781f569e4bac63e",
+  "gateway": "http://127.0.0.1:8005",
+  "token_file": "/opt/data/private/ECE4300-dynamic-pool-20261126/pool-token.txt",
+  "tokenizer": "/opt/data/private/ECE4300-node4-api-20261125/models/Qwen3-8B",
+  "owner": "dpo-reflection-v1-20261127",
+  "max_workers": 9,
+  "seed": 33550336,
+  "priority_queues": [
+    {
+      "state": "/opt/data/private/ECE4300-controller-20261127/quick3/state.json",
+      "tasks": "/opt/data/private/ECE4300-controller-20261127/quick3/tasks.json",
+      "config": "/opt/data/private/ECE4300-controller-20261127/quick3/config.json"
+    },
+    {
+      "state": "/opt/data/private/ECE4300-controller-20261127/mixed100-baselines-v1/state.json",
+      "tasks": "/opt/data/private/ECE4300-controller-20261127/mixed100-baselines-v1/tasks.json"
+    }
+  ]
+}
