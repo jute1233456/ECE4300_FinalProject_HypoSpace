@@ -1,5 +1,9 @@
 # ECE4300 Final Project 交接说明
 
+## 数据工作已改为交接：仅当前新版DS完成13题
+
+用户停止本对话继续制作训练集，要求打包给别人接手。唯一交接源为`results/ds-stage22-merged/revision`中当前新版2.2、stage22_revision=true且completed=true正常结束的13题；不是旧版stage22-sampled的16题，也不是两者并集。另6题仅在pending清单列出，无部分作答记录。交接包`local-backups/handoffs/DS_MCTS22_completed13_handoff_20261126T063000Z.zip`（v1），含原始13份112轮、来源与SHA、过滤后的评分参考、27题测评隔离参考、离线重评分脚本、详细SFT处理及后续接入说明。3题测评重合隔离、1题内部变量交换等价去重后，9个题目族，51轮基本筛选通过、48个不同有效候选。候选不是SFT-ready，Plan/理由/复盘未因答案正确自动认证。因果两题尚未完成，本包训练候选没有因果领域。已解压独立重跑并验证摘要一致。后续6题由接手人按规则生成v2，不修改v1。本次未操作DS进程、未启动训练，也未影响Qwen19题运行。
+
 ## 当前活动任务：Qwen 2.2阶段隔离＋示例版19题
 
 用户已授权先跑19题。当前自部署Qwen3-8B运行`2.2 / isolated_examples_v1`，采用已测试的复盘/选节点/扩展阶段隔离与示例，九题并行、开启思考、生成请求32768，九卡池8004。活动快照`releases/qwen-stage22-protocol-examples19-20261126`，结果与状态`results/qwen-stage22-protocol-examples19-20261126/state.json`，manifest.json含19题358参考解，release_manifest.json锁定源码。入口`server/run_qwen_revision19.py --run-name qwen-stage22-protocol-examples19-20261126 --protocol-label isolated_examples_v1`。已经核实9题启动、九个引擎各1请求。不要复用旧协议19题断点，不操作DeepSeek、不启动训练；原诊断已结束，以下停止说明只指旧协议运行。用户不要求持续监控。
