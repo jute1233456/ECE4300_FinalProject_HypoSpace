@@ -1,0 +1,1586 @@
+{
+  "version": "mixed100-v1",
+  "target_references_per_domain": 100,
+  "training_sha256": "6f3e178e83d0004b6e2e84ec35ea1c790faac09db208ebf784112eaeaab8579e",
+  "source_sha256": {
+    "datasets/balanced/causal.json": "f2844dd42d1774e2eac6f37ebc142f2aa5d876dfd03e8bd18610610e4b3a4903",
+    "datasets/balanced/3d.json": "ac5926cd1f655e96fdc4ed378eeaf89e626444be969820600c78783273aab515",
+    "datasets/balanced/boolean.json": "e011f96d211c902aa097a476d364352fb07c03000aa263537fa4dbcbf289da5b",
+    "datasets/balanced/boolean_extended.json": "fa17acff285fab624d826533a5ff6907ff02d55c450cd2d147dc4218d9f7bb0b",
+    "datasets/medium_sampled/causal.json": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+    "datasets/medium_sampled/3d.json": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+    "datasets/medium_sampled/boolean.json": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+    "datasets/causal.json": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+    "datasets/3d.json": "05996e3aa7a125887be27741fb2d9ba4ff751f2dfc1291d0602351535e104478",
+    "datasets/boolean.json": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf"
+  },
+  "summary": {
+    "causal": {
+      "cases": 7,
+      "references": 100,
+      "by_difficulty": {
+        "easy": {
+          "cases": 5,
+          "references": 28
+        },
+        "medium": {
+          "cases": 2,
+          "references": 72
+        }
+      }
+    },
+    "3d": {
+      "cases": 7,
+      "references": 93,
+      "by_difficulty": {
+        "easy": {
+          "cases": 1,
+          "references": 3
+        },
+        "medium": {
+          "cases": 4,
+          "references": 36
+        },
+        "supplemental": {
+          "cases": 2,
+          "references": 54
+        }
+      }
+    },
+    "boolean": {
+      "cases": 11,
+      "references": 100,
+      "by_difficulty": {
+        "easy": {
+          "cases": 5,
+          "references": 32
+        },
+        "medium": {
+          "cases": 6,
+          "references": 68
+        }
+      }
+    }
+  },
+  "jobs": [
+    {
+      "dataset": "causal",
+      "difficulty": "medium",
+      "case_id": "n1_002",
+      "references": 48,
+      "family_sha256": "a7215bd5775053e1d927e7b72d7e38407d5fe010a2bbf1bee99deb6ae65462c8",
+      "source": "datasets/medium_sampled/causal.json",
+      "dataset_root": "medium",
+      "id": "medium/causal/n1_002",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.020833333333333332,
+          "datasets": {
+            "causal": {
+              "sha256": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+              "cases": 3
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/causal-n1_002.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.20833333333333334,
+          "datasets": {
+            "causal": {
+              "sha256": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+              "cases": 3
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/causal-n1_002.json",
+          "recovered": 10
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "medium",
+      "case_id": "n2_006",
+      "references": 24,
+      "family_sha256": "112a69ad01c2cf67f6915b404dba03ce1fb22558839e99e4af3638ba2935de4b",
+      "source": "datasets/medium_sampled/causal.json",
+      "dataset_root": "medium",
+      "id": "medium/causal/n2_006",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.125,
+          "datasets": {
+            "causal": {
+              "sha256": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+              "cases": 3
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/causal-n2_006.json",
+          "recovered": 3
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.5416666666666666,
+          "datasets": {
+            "causal": {
+              "sha256": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+              "cases": 3
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/causal-n2_006.json",
+          "recovered": 13
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "medium",
+      "case_id": "g3_h3_b2_002",
+      "references": 9,
+      "family_sha256": "cbd6aa8bf0a4b3a18e2bb25473725c08f4ad16ee45b750cad4208d78b3b08edb",
+      "source": "datasets/medium_sampled/3d.json",
+      "dataset_root": "medium",
+      "id": "medium/3d/g3_h3_b2_002",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/3d-g3_h3_b2_002.json",
+          "recovered": 3
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.8888888888888888,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/3d-g3_h3_b2_002.json",
+          "recovered": 8
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "medium",
+      "case_id": "g3_h3_b2_004",
+      "references": 9,
+      "family_sha256": "9e836a4db76db12d726452fb94982d5e68cfa9118878b80a5910dd1b22f11c93",
+      "source": "datasets/medium_sampled/3d.json",
+      "dataset_root": "medium",
+      "id": "medium/3d/g3_h3_b2_004",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/3d-g3_h3_b2_004.json",
+          "recovered": 3
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.7777777777777778,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/3d-g3_h3_b2_004.json",
+          "recovered": 7
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "medium",
+      "case_id": "g3_h3_b2_005",
+      "references": 9,
+      "family_sha256": "c69657fe8d07be8a38ea2f08be400708777c5d49662af537a08e38767972c91b",
+      "source": "datasets/medium_sampled/3d.json",
+      "dataset_root": "medium",
+      "id": "medium/3d/g3_h3_b2_005",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/3d-g3_h3_b2_005.json",
+          "recovered": 3
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.6666666666666666,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/3d-g3_h3_b2_005.json",
+          "recovered": 6
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "medium",
+      "case_id": "g3_h3_b2_008",
+      "references": 9,
+      "family_sha256": "63d18eed709c6b92112ea3c6cd424d8cd11120253753dc745fb88fd9792a7811",
+      "source": "datasets/medium_sampled/3d.json",
+      "dataset_root": "medium",
+      "id": "medium/3d/g3_h3_b2_008",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/3d-g3_h3_b2_008.json",
+          "recovered": 3
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.5555555555555556,
+          "datasets": {
+            "3d": {
+              "sha256": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+              "cases": 13
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/3d-g3_h3_b2_008.json",
+          "recovered": 5
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n1_inputs_11_outputs_0",
+      "references": 14,
+      "family_sha256": "d3dfda6452d61dd371b8d4f8a7bf7bc724f6f31e27c4fb1cf3801a1d175b437f",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n1_inputs_11_outputs_0",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.07142857142857142,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n1_inputs_11_outputs_0.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.42857142857142855,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n1_inputs_11_outputs_0.json",
+          "recovered": 6
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n2_inputs_00_01_outputs_00",
+      "references": 12,
+      "family_sha256": "f477aed27718047c8dbebe427a854a76e55f4adad6db1968615315f01982e727",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n2_inputs_00_01_outputs_00",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.16666666666666666,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n2_inputs_00_01_outputs_00.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n2_inputs_00_01_outputs_00.json",
+          "recovered": 4
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n2_inputs_00_01_outputs_11",
+      "references": 9,
+      "family_sha256": "a2d15a03dfc35078db0fbd8f29e8125c51d276f25cefa509994619f86fe44dcd",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n2_inputs_00_01_outputs_11",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.2222222222222222,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n2_inputs_00_01_outputs_11.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.6666666666666666,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n2_inputs_00_01_outputs_11.json",
+          "recovered": 6
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n2_inputs_00_11_outputs_01",
+      "references": 12,
+      "family_sha256": "d62d5247817a964e5792c87bc0ee11fce7482c11f859d3495812b6952ea18581",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n2_inputs_00_11_outputs_01",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.08333333333333333,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n2_inputs_00_11_outputs_01.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.3333333333333333,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n2_inputs_00_11_outputs_01.json",
+          "recovered": 4
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n2_inputs_01_10_outputs_01",
+      "references": 9,
+      "family_sha256": "7021614a44e89ea80329f0dbfe88fd458db257a72e976ba9c497dd8588833dc6",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n2_inputs_01_10_outputs_01",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.2222222222222222,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n2_inputs_01_10_outputs_01.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.5555555555555556,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n2_inputs_01_10_outputs_01.json",
+          "recovered": 5
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "medium",
+      "case_id": "n2_inputs_01_11_outputs_11",
+      "references": 12,
+      "family_sha256": "6a3bba6dae8b01fc1a6203f9b28dcef02d31c7230aed0734dd00e4914fe1f553",
+      "source": "datasets/medium_sampled/boolean.json",
+      "dataset_root": "medium",
+      "id": "medium/boolean/n2_inputs_01_11_outputs_11",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.16666666666666666,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/direct/boolean-n2_inputs_01_11_outputs_11.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.5,
+          "datasets": {
+            "boolean": {
+              "sha256": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1",
+              "cases": 11
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-medium-dm/memory/boolean-n2_inputs_01_11_outputs_11.json",
+          "recovered": 6
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "easy",
+      "case_id": "n1_001",
+      "references": 12,
+      "family_sha256": "3bb896939d3ad3aef3fcba619eeb96d8c72885ae2dcad7bd9900ef3448445e45",
+      "source": "datasets/causal.json",
+      "dataset_root": "easy",
+      "id": "easy/causal/n1_001",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.16666666666666666,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/causal-n1_001.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/causal-n1_001.json",
+          "recovered": 12
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "easy",
+      "case_id": "n1_002",
+      "references": 4,
+      "family_sha256": "dce03f54196dc4d6ce05a40a392ae01d195061bebb56768c22fd0198b78c9596",
+      "source": "datasets/causal.json",
+      "dataset_root": "easy",
+      "id": "easy/causal/n1_002",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.25,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/causal-n1_002.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/causal-n1_002.json",
+          "recovered": 4
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "easy",
+      "case_id": "n1_004",
+      "references": 5,
+      "family_sha256": "8bd2f7455a89ab2f1c80063ed2c48c10185b53cb03f30ac1d4d76dff3feaabd1",
+      "source": "datasets/causal.json",
+      "dataset_root": "easy",
+      "id": "easy/causal/n1_004",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.4,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/causal-n1_004.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/causal-n1_004.json",
+          "recovered": 5
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "easy",
+      "case_id": "n2_001",
+      "references": 4,
+      "family_sha256": "de2d3fe4e33867e094b6251434d024f32dd28b894dc25e34ee7b2324c6e1b39d",
+      "source": "datasets/causal.json",
+      "dataset_root": "easy",
+      "id": "easy/causal/n2_001",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.25,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/causal-n2_001.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/causal-n2_001.json",
+          "recovered": 4
+        }
+      }
+    },
+    {
+      "dataset": "causal",
+      "difficulty": "easy",
+      "case_id": "n2_004",
+      "references": 3,
+      "family_sha256": "069f7f6762d9414facca31f008953280b217dc92db3f1b77481e1066de7f531d",
+      "source": "datasets/causal.json",
+      "dataset_root": "easy",
+      "id": "easy/causal/n2_004",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.6666666666666666,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/causal-n2_004.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "causal": {
+              "sha256": "57847411e044e4c247e044aa95d329fc7a9a6d153488854372e8c1d2454cfbd1",
+              "cases": 61
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/causal-n2_004.json",
+          "recovered": 3
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "easy",
+      "case_id": "g3_h3_b1_001",
+      "references": 3,
+      "family_sha256": "390c9945712ac1c59a4ec763ca54c8fe603af3f73df41d339fd4d2681d5336eb",
+      "source": "datasets/3d.json",
+      "dataset_root": "easy",
+      "id": "easy/3d/g3_h3_b1_001",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.6666666666666666,
+          "datasets": {
+            "3d": {
+              "sha256": "05996e3aa7a125887be27741fb2d9ba4ff751f2dfc1291d0602351535e104478",
+              "cases": 9
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/3d-g3_h3_b1_001.json",
+          "recovered": 2
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "3d": {
+              "sha256": "05996e3aa7a125887be27741fb2d9ba4ff751f2dfc1291d0602351535e104478",
+              "cases": 9
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/3d-g3_h3_b1_001.json",
+          "recovered": 3
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "easy",
+      "case_id": "n1_inputs_00_outputs_0",
+      "references": 10,
+      "family_sha256": "1e2776d1b54cb6f843b8d3d28a21f83755ac06811e22fd923a3fabe7a66f9227",
+      "source": "datasets/boolean.json",
+      "dataset_root": "easy",
+      "id": "easy/boolean/n1_inputs_00_outputs_0",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.1,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/boolean-n1_inputs_00_outputs_0.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.6,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/boolean-n1_inputs_00_outputs_0.json",
+          "recovered": 6
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "easy",
+      "case_id": "n1_inputs_01_outputs_0",
+      "references": 5,
+      "family_sha256": "c52f38d1fdb5d6ce020d81c462506359e0567d446a6715d71b3fcb9b5be95b44",
+      "source": "datasets/boolean.json",
+      "dataset_root": "easy",
+      "id": "easy/boolean/n1_inputs_01_outputs_0",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.2,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/boolean-n1_inputs_01_outputs_0.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/boolean-n1_inputs_01_outputs_0.json",
+          "recovered": 5
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "easy",
+      "case_id": "n1_inputs_11_outputs_1",
+      "references": 10,
+      "family_sha256": "2b41f60eef27076618354f966df6eab425c296ad54bfc70602c984e42c73bae5",
+      "source": "datasets/boolean.json",
+      "dataset_root": "easy",
+      "id": "easy/boolean/n1_inputs_11_outputs_1",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.1,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/boolean-n1_inputs_11_outputs_1.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.7,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/boolean-n1_inputs_11_outputs_1.json",
+          "recovered": 7
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "easy",
+      "case_id": "n2_inputs_01_10_outputs_00",
+      "references": 2,
+      "family_sha256": "7d9451c8bf9e41e5356a76acd0a0bb7f3ef73b6b8747fa7f4a695cb73518cd6c",
+      "source": "datasets/boolean.json",
+      "dataset_root": "easy",
+      "id": "easy/boolean/n2_inputs_01_10_outputs_00",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.5,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/boolean-n2_inputs_01_10_outputs_00.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/boolean-n2_inputs_01_10_outputs_00.json",
+          "recovered": 2
+        }
+      }
+    },
+    {
+      "dataset": "boolean",
+      "difficulty": "easy",
+      "case_id": "n2_inputs_01_11_outputs_01",
+      "references": 5,
+      "family_sha256": "18a4fcc330e2bf69beaca7354029c5719f5248b2d657a5d545d50a3c244de70f",
+      "source": "datasets/boolean.json",
+      "dataset_root": "easy",
+      "id": "easy/boolean/n2_inputs_01_11_outputs_01",
+      "baselines": {
+        "direct": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 0.2,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/direct/boolean-n2_inputs_01_11_outputs_01.json",
+          "recovered": 1
+        },
+        "memory": {
+          "status": "reused",
+          "completed": true,
+          "model": "Qwen3-8B",
+          "max_tokens": 16384,
+          "thinking": true,
+          "coverage": 1.0,
+          "datasets": {
+            "boolean": {
+              "sha256": "cf99924cd5469b79ad729db8395df02fa6f0dec408f03c7e606b19e89cdf2fdf",
+              "cases": 35
+            }
+          },
+          "path": "/opt/data/private/ECE4300 Final Project/results/server-easy-dm/memory/boolean-n2_inputs_01_11_outputs_01.json",
+          "recovered": 5
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "supplemental",
+      "case_id": "g3_h3_b3_013",
+      "references": 27,
+      "family_sha256": "b9dbe91713ade846d9704717644126db4af13e9b288db068212e6937b7a1a17a",
+      "source": "datasets/balanced/3d.json",
+      "dataset_root": "supplemental",
+      "id": "supplemental/3d/g3_h3_b3_013",
+      "baselines": {
+        "direct": {
+          "status": "pending"
+        },
+        "memory": {
+          "status": "pending"
+        }
+      }
+    },
+    {
+      "dataset": "3d",
+      "difficulty": "supplemental",
+      "case_id": "g3_h3_b3_014",
+      "references": 27,
+      "family_sha256": "fb18525945431fd8d7f6b1f141fcbca622b0362d2299e754d4c510362875f35b",
+      "source": "datasets/balanced/3d.json",
+      "dataset_root": "supplemental",
+      "id": "supplemental/3d/g3_h3_b3_014",
+      "baselines": {
+        "direct": {
+          "status": "pending"
+        },
+        "memory": {
+          "status": "pending"
+        }
+      }
+    }
+  ],
+  "excluded_easy": [
+    {
+      "dataset": "causal",
+      "case_id": "n1_003",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_005",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_006",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_007",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_008",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_009",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_010",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_011",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n1_012",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_005",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_006",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_007",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_008",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_009",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_012",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_013",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_014",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_015",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_016",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_017",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_018",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_019",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_020",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_021",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_022",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_023",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_024",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_025",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_026",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_027",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_028",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_029",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_030",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_003",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_005",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_006",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_009",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_010",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_011",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_012",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_013",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_014",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_015",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_016",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_017",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_018",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n3_019",
+      "source": "datasets/causal.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_002",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_003",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_004",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_005",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_006",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_007",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_008",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b1_009",
+      "source": "datasets/3d.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_01_outputs_1",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_10_outputs_0",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_10_outputs_1",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_00",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_10_outputs_00",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_11_outputs_01",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_01_10_outputs_01",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_01_10_outputs_10",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_01_11_outputs_11",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_10_11_outputs_01",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_10_11_outputs_11",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n3_inputs_00_01_10_outputs_010",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n3_inputs_00_10_11_outputs_001",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n3_inputs_00_10_11_outputs_011",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n3_inputs_01_10_11_outputs_101",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0101",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "source": "datasets/boolean.json",
+      "reason": "training_or_test_equivalent"
+    }
+  ],
+  "total_cases": 25,
+  "total_references": 293,
+  "reuse": {
+    "complete_pairs": 23,
+    "missing_method_runs": 4
+  },
+  "rules": {
+    "causal": "node permutations",
+    "boolean": "variable permutations; conservative observation match across operator sets; same variable count and depth",
+    "spatial": "D4 rotations/reflections and translation; same maximum height; conservative across grid sizes",
+    "representative": "lexicographically first case ID; training overlap removed before internal dedup"
+  },
+  "note": "All medium-dedup-v1 cases retained. Easy cases reuse old direct/memory. 3D exceptions authorized; no automatic MCTS evaluation."
+}

@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "grid_size": 3,
+    "max_blocks": 1,
+    "max_height": 3,
+    "n_observation_sets": 1,
+    "generated_at": "2026-11-13T13:10:18.391306",
+    "total_observation_sets": 1,
+    "split": "mixed_validation"
+  },
+  "observation_sets": [
+    {
+      "observation_id": "g3_h3_b1_001",
+      "observation": "100000000",
+      "ground_truth_structures": [
+        {
+          "layers": [
+            "100000000"
+          ],
+          "hash": "ef9f57a2"
+        },
+        {
+          "layers": [
+            "100000000",
+            "100000000"
+          ],
+          "hash": "220f782d"
+        },
+        {
+          "layers": [
+            "100000000",
+            "100000000",
+            "100000000"
+          ],
+          "hash": "2a9b8eaf"
+        }
+      ],
+      "n_compatible_structures": 3
+    }
+  ]
+}
