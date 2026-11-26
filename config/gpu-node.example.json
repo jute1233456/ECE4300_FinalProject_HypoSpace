@@ -1,0 +1,12 @@
+{
+  "node": "node4-5090",
+  "ip": "10.106.31.61",
+  "python": "/opt/data/private/ECE4300-node4-api-20261125/.venv-inference/bin/python",
+  "model": "/opt/data/private/ECE4300-node4-api-20261125/models/Qwen3-8B",
+  "asset_root": "/opt/data/private/ECE4300-train-20261126",
+  "token_file": "/opt/data/private/ECE4300-node4-api-20261125/config/dynamic-pool-token.txt",
+  "gpus": [
+    {"index": 0, "port": 18000}
+  ],
+  "adapters": []
+}

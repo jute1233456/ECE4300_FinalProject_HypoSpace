@@ -1,5 +1,26 @@
 # ECE4300 Final Project 交接说明
 
+## 当前真实状态：九卡动态池已部署，三题验证已续跑
+
+2026-11-26用户要求将验证从6题缩为3题，并实测训练/推理卡无全局中断切换。**已部署并验证，不是下文“离线尚未部署”阶段。** 一号机 `EEC4300` `/opt/data/private/ECE4300-dynamic-pool-20261126/`，新网关8005，旧8002/8003/8004全部兼容转发至8005；六台节点代理内网28280，新模型端口28000/28001。九卡均支持Qwen3-8B及五个原适配器。逐卡role及worker上限可动态修改，排空只等当前API，不再全局停题。
+
+实机证据：`swap-validation.json` passed=true；两张4090在有2048token诊断API时进入draining，两请求均HTTP200完成后释放显存，执行两次真实QLoRA更新（11.64秒），训练退出0后自动重启推理并归还shared；期间旧19题继续、无全局暂停。诊断请求和训练测试不计正式分数。
+
+新唯一验证为该根目录 `quick3/`，控制器PID154578，清单 `datasets/quick_validation3_v1.json`：因果n2_006(24解)、3D g3_h3_b2_002(9解)、布尔n2_inputs_00_01_outputs_00(12解)，共45解。6模型×3题=18任务，当前6并行，旧19题3并行，已确认九后端都有请求。随旧题完成可自动增加验证并发。base17轮和linear-ep1的12轮旧记录签名前缀完整保留并--resume续跑。旧四号机quick6调度器和2个题目进程已停止归档，不得重启，避免重复写入。原19题进程已通过8004兼容入口恢复。
+
+动态池实现修复NFS时间戳缓存、凭据切换；19项离线测试通过。训练应使用 `server.run_reserved_training` 封装预约/排空/释放/运行/finally归还，不能裸启动去抢卡。新训练模型另发布校验并注册，不自动替换旧模型名。详见 `docs/DYNAMIC_POOL.md`。凭据只留私有配置，不提交；权重只在服务器间同步，不下载本地。
+
+## 动态算力池：离线验证完成，尚未部署（2026-11-26 21:05）
+
+用户方案：每张卡有可动态修改的任务状态（baseline/validation/shared/draining/reserved/training/disabled）；统一网关只把请求分给“可接任务且模型匹配”的卡，**绝不把适配器请求发给原版卡**；切换前先停接新请求并等排空；vLLM 0.11 运行时加载/卸载 LoRA；首次迁移做一次受控切换，先在一张空闲卡验证模型路由、排空、训练释放。
+
+- 代码：`server/dynamic_api_pool.py`（模型感知网关、管理接口、排空守卫、404 不回退）、`server/gpu_node_agent.py`（仅管理登记进程，停止前必须证明引擎空闲，适配器 SHA256 校验后运行时加载）、`server/poolctl.py`（status/assign/drain/reserve/release/workers/load）、`server/dynamic_pool_proxy.py`（8004→8005 兼容）、`server/run_dynamic_validation.py`（并发跟随池容量的持久队列）。
+- **尚未部署**：没有 pool/node 配置与 token，8005 未启动，8004 仍是旧静态网关（7 张卡）。
+- 本轮离线改动：①baseline 入口请求适配器名立即 404，不再空等 30 分钟；②新配置先校验后替换，坏配置不再覆盖好配置；③`drain` 在引擎 metrics 不可用时立即报错并保留卡；④去掉 vLLM 0.11 已弃用的 `--disable-log-requests`。
+- 测试：`tests/test_dynamic_pool.py` 15 项全绿（路由/无回退/排空/鉴权/配置校验/节点代理占用与 checksum 拒绝/示例配置）。示例配置 `config/dynamic-pool.example.json`（7 baseline + 2 validation）、`config/gpu-node.example.json`。
+- 只读核对：vLLM 0.11.0 的 LoRA 参数与运行时加载路由存在；节点代理完整 argv 经 vLLM 真实 parser 验证通过。
+- 未做（需要空闲卡与迁移窗口）：节点代理实机、8005 启动、真实排空与显存释放、LoRA 卸载接口、训练结束自动归还、quick6 改为池任务。建议测试卡用 node4-5090，等 Qwen 19 题（本轮 16/19）跑完后受控切换。
+
 ## 当前授权：新1/2/4epoch对照＋自动quick6验证
 
 用户要求全程自动衔接后可离开，不需持续监控。已设计三组从基础Qwen独立训练：recip-ep1/2/4，峰值lr分别1e-4/5e-5/2.5e-5（lr×epoch均1e-4）；warmup10%（2/4/8次更新），之后反比例先快后慢下降。固定六题清单 `datasets/quick_validation6_v1.json`，中等27题中每类两个不同族，排除完整教师19题等价族，114参考解。六模型（base、旧linear-ep1/ep2、新recip-ep1/ep2/ep4）各跑相同MCTS2.2阶段隔离示例版六题，共36任务。控制器 `server/run_finetune_quick6.py`，专用目录四号机双4090 `/opt/data/private/ECE4300-train-20261126/quick6-controls-v1/`；先等旧2epoch结束，串行完成三组新训练，再用本双卡各一独立LoRA服务、两个worker自动验证；不操作原7卡池及19题。详见 `docs/QUICK6_AUTOMATION.md`。以下“尚未授权立即运行”仅为早期设计历史，已被此次明确授权覆盖。

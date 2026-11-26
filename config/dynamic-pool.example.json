@@ -1,0 +1,27 @@
+{
+  "token_file": "/opt/data/private/ECE4300 Final Project/config/dynamic-pool-token.txt",
+  "gateway": "http://127.0.0.1:8005",
+  "validation_workers": 6,
+  "backends": [
+    {"id": "eec4300-g0", "url": "http://127.0.0.1:8000", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "eec4300", "gpu": 0, "node_api": "http://127.0.0.1:8010"},
+    {"id": "eec4300-g1", "url": "http://127.0.0.1:8001", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "eec4300", "gpu": 1, "node_api": "http://127.0.0.1:8010"},
+    {"id": "eec430003-g0", "url": "http://10.106.31.1:8000", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "eec430003", "gpu": 0, "node_api": "http://10.106.31.1:8010"},
+    {"id": "node4-5090-g0", "url": "http://10.106.31.61:18000", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "node4-5090", "gpu": 0, "node_api": "http://10.106.31.61:8010"},
+    {"id": "pool59-g0", "url": "http://10.106.254.59:18000", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "pool59", "gpu": 0, "node_api": "http://10.106.254.59:8010"},
+    {"id": "pool59-g1", "url": "http://10.106.254.59:18001", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "pool59", "gpu": 1, "node_api": "http://10.106.254.59:8010"},
+    {"id": "pool24-g0", "url": "http://10.106.31.24:18000", "role": "baseline", "models": ["Qwen3-8B"],
+     "node": "pool24", "gpu": 0, "node_api": "http://10.106.31.24:8010"},
+    {"id": "node4-4090-g0", "url": "http://10.106.254.57:18000", "role": "validation",
+     "models": ["Qwen3-8B", "linear-ep1", "linear-ep2", "recip-ep1", "recip-ep2", "recip-ep4"],
+     "node": "node4-4090", "gpu": 0, "node_api": "http://10.106.254.57:8010"},
+    {"id": "node4-4090-g1", "url": "http://10.106.254.57:18001", "role": "validation",
+     "models": ["Qwen3-8B", "linear-ep1", "linear-ep2", "recip-ep1", "recip-ep2", "recip-ep4"],
+     "node": "node4-4090", "gpu": 1, "node_api": "http://10.106.254.57:8010"}
+  ]
+}

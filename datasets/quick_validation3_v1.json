@@ -1,0 +1,69 @@
+{
+  "version": "quick3-v1",
+  "source_pool": "medium_sampled_27",
+  "jobs": [
+    {
+      "dataset": "causal",
+      "case_id": "n2_006",
+      "references": 24,
+      "family_sha256": "112a69ad01c2cf67f6915b404dba03ce1fb22558839e99e4af3638ba2935de4b"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_002",
+      "references": 9,
+      "family_sha256": "cbd6aa8bf0a4b3a18e2bb25473725c08f4ad16ee45b750cad4208d78b3b08edb"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_00",
+      "references": 12,
+      "family_sha256": "f477aed27718047c8dbebe427a854a76e55f4adad6db1968615315f01982e727"
+    }
+  ],
+  "total_references": 45,
+  "exclusions": [
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_001",
+      "reason": "teacher_equivalent_family"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_003",
+      "reason": "teacher_equivalent_family"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_009",
+      "reason": "teacher_equivalent_family"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_011",
+      "reason": "teacher_equivalent_family"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_00_outputs_1",
+      "reason": "teacher_equivalent_family"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "reason": "teacher_equivalent_family"
+    }
+  ],
+  "selection": "One per domain from frozen quick6; choose 24-reference causal and retain the already-started 3D case",
+  "excluded_teacher": "all sampled19, completed and pending",
+  "source_sha256": {
+    "datasets\\balanced\\causal.json": "f2844dd42d1774e2eac6f37ebc142f2aa5d876dfd03e8bd18610610e4b3a4903",
+    "datasets\\medium_sampled\\causal.json": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+    "datasets\\balanced\\3d.json": "ac5926cd1f655e96fdc4ed378eeaf89e626444be969820600c78783273aab515",
+    "datasets\\medium_sampled\\3d.json": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+    "datasets\\balanced\\boolean.json": "e011f96d211c902aa097a476d364352fb07c03000aa263537fa4dbcbf289da5b",
+    "datasets\\balanced\\boolean_extended.json": "fa17acff285fab624d826533a5ff6907ff02d55c450cd2d147dc4218d9f7bb0b",
+    "datasets\\medium_sampled\\boolean.json": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1"
+  },
+  "parent_manifest": "quick_validation6_v1.json"
+}
