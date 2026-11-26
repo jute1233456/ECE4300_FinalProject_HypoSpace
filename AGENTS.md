@@ -1,8 +1,8 @@
 # ECE4300 Final Project 交接说明
 
-## 最新任务：新版2.2的19题测试（本地DeepSeek）
+## 最新任务：新版2.2的19题测试（自部署Qwen）
 
-用户要求用新版2.2跑19题。新版为ArkStageTreeClient的`--stage22-revision`：阶段理由传递、复盘有效性/奖励反馈等，当前只在本地DeepSeek实现。已启动`experiments.run_stage22_revision19 --workers 9`，使用deepseek-v4.1-flash-economy，原困难抽样19题、358参考解；不启动额外旧版题目。结果`results/stage22-revision19-20261126T042923Z`，状态state.json，独立代码快照`local-backups/stage22-revision19-20261126T042923Z`。manifest记录完整源码哈希，凭据仅经进程环境传递，快照无API密钥。原四题/27题Qwen实验已完成，这次模型和题库不同，不直接对比总覆盖率。用户已要求不持续监控，确认启动后让程序自行运行。训练取消状态不变。
+用户明确要求新版2.2使用本地自部署模型接口，不是DeepSeek。误启动的`experiments.run_stage22_revision19`及其子进程已全部停止，结果`results/stage22-revision19-20261126T042923Z`标记cancelled_wrong_provider，不计入正式比较，禁止重启该入口。已将阶段理由传递和复盘反馈适配到`llm/qwen_stage_revision.py`，服务器入口`server/run_qwen_revision19.py`。活动快照`releases/qwen-stage22-revision19-20261126`，输出`results/qwen-stage22-revision19-20261126`（state.json/manifest.json），自部署Qwen3-8B、8004九卡池、九题并行、思考开启、生成请求32768，原困难抽样19题358参考解。前九题均已确认新版标记与Qwen接口生效，九卡各有一个请求。不能将19道困难题总覆盖率与旧27道中等题总覆盖率直接比较。旧2.1正式27/27=51.16%；旧2.2正式27/27=37.19%，布尔题全零并有499次协议失败。训练仍取消，用户不要求持续监控。
 
 ## 最新优先级：Stage-MCTS 2.2 四题试验
 
