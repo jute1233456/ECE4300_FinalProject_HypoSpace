@@ -1,5 +1,9 @@
 # ECE4300 Final Project 交接说明
 
+## 最新任务：新版2.2的19题测试（本地DeepSeek）
+
+用户要求用新版2.2跑19题。新版为ArkStageTreeClient的`--stage22-revision`：阶段理由传递、复盘有效性/奖励反馈等，当前只在本地DeepSeek实现。已启动`experiments.run_stage22_revision19 --workers 9`，使用deepseek-v4.1-flash-economy，原困难抽样19题、358参考解；不启动额外旧版题目。结果`results/stage22-revision19-20261126T042923Z`，状态state.json，独立代码快照`local-backups/stage22-revision19-20261126T042923Z`。manifest记录完整源码哈希，凭据仅经进程环境传递，快照无API密钥。原四题/27题Qwen实验已完成，这次模型和题库不同，不直接对比总覆盖率。用户已要求不持续监控，确认启动后让程序自行运行。训练取消状态不变。
+
 ## 最新优先级：Stage-MCTS 2.2 四题试验
 
 最新用户确认总数为9卡：原6卡加四号机单5090和双4090，环境与API生成测试全部通过，已接入。最新明确顺序为：先“分阶段反思MCTS 2.2（Stage-MCTS）”全部27道中等评测题，再恢复两步反思MCTS 2.1未完成评测。用户已暂时取消2.1训练题生成、运行和导出，training_enabled=false；不要加--with-training，除非用户重新授权。不是先2.1再2.2，也不再用2.1填当前空位。2.2原四题不重跑，其余23题已入队；所有断点保留，普通MCTS 2.1继续暂停。最后验证active=9，全部为2.2，pending=18。
