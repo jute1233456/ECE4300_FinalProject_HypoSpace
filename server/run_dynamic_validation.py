@@ -55,6 +55,8 @@ def main():
         atomic(root/'state.json',dict(pid=os.getpid(),phase='validating',completed=sum(t['status']=='completed' for t in tasks),
             total=len(tasks),running=[dict(id=t['id'],pid=t.get('pid')) for t in tasks if t['status']=='running'],
             parked=[t['id'] for t in tasks if t['status']=='parked'],
+            enabled_models=cfg.get('enabled_models',cfg['models']),
+            future_models=future_status,
             scheduling='model-major' if cfg.get('serial_models') else 'interleaved',
             capacity=health.get('capacity',{}),worker_limit=health.get('validation_workers')))
     for task in tasks:
@@ -63,6 +65,31 @@ def main():
             task.update(status='completed',result=result)
         elif task['status'] in ('running','parked') and not process_matches(task):task['status']='pending'
     while True:
+        # Policy is hot-reloaded; disabled models keep both files and parked workers.
+        cfg=json.loads(args.config.read_text())
+        pending_models=[]
+        future_status={}
+        for entry in cfg.get('future_models',[]):
+            name=entry['name']
+            if name in cfg['models']:continue
+            try:
+                receipt=call(entry['status_url'],token=token,timeout=5)
+            except Exception:
+                future_status[name]='unreachable'
+                pending_models.append(name);continue
+            future_status[name]=receipt.get('phase','unknown')
+            if receipt.get('phase')=='ready':
+                assert receipt['model']==name
+                for j in sorted(quick['jobs'],key=lambda x:(x['references'],x['dataset'],x['case_id'])):
+                    identity=name+'/'+j['dataset']+'/'+j['case_id']
+                    if not any(t['id']==identity for t in tasks):
+                        tasks.append(dict(id=identity,model=name,**j,status='pending',attempts=0))
+                cfg['models'].append(name)
+                order=cfg.setdefault('model_order',list(cfg['models']))
+                if name not in order:order.append(name)
+                if name not in cfg.get('enabled_models',cfg['models']):cfg['enabled_models'].append(name)
+                atomic(args.config,cfg)
+            elif receipt.get('phase')!='failed':pending_models.append(name)
         health=call(cfg['gateway']+'/health')
         legacy=Path(cfg['legacy_state']);remaining=0
         if legacy.exists():
@@ -83,7 +110,8 @@ def main():
             elif task['attempts']<2 and (not target(task).exists() or not json.loads(target(task).read_text()).get('completed')):
                 task.update(status='pending',result=result)
             else:task.update(status='needs_inspection',result=result)
-        model_order=cfg.get('model_order',cfg['models'])
+        enabled=cfg.get('enabled_models',cfg['models'])
+        model_order=[m for m in cfg.get('model_order',cfg['models']) if m in enabled]
         current_model=next((m for m in model_order if any(t['model']==m and t['status'] in ('pending','running','parked') for t in tasks)),None)
         # A one-time cooperative handover preserves live Python state, including
         # a reflection already generated before the search phase. Never stop a
@@ -133,8 +161,9 @@ def main():
                 cmd_hash=hashlib.sha256((Path('/proc')/str(handle.pid)/'cmdline').read_bytes()).hexdigest())
             handles[task['id']]=handle;active+=1
         snapshot()
-        if all(t['status'] in ('completed','needs_inspection') for t in tasks):
-            state=json.loads((root/'state.json').read_text());state['phase']='completed' if all(t['status']=='completed' for t in tasks) else 'needs_inspection'
+        selected=[t for t in tasks if t['model'] in enabled]
+        if all(t['status'] in ('completed','needs_inspection') for t in selected) and not pending_models:
+            state=json.loads((root/'state.json').read_text());state['phase']='completed' if all(t['status']=='completed' for t in selected) and 'failed' not in future_status.values() else 'needs_inspection'
             atomic(root/'state.json',state);break
         time.sleep(5)
 
