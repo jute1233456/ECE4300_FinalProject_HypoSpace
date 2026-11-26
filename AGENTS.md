@@ -1,5 +1,35 @@
 # ECE4300 Final Project 交接说明
 
+## 当前授权：新1/2/4epoch对照＋自动quick6验证
+
+用户要求全程自动衔接后可离开，不需持续监控。已设计三组从基础Qwen独立训练：recip-ep1/2/4，峰值lr分别1e-4/5e-5/2.5e-5（lr×epoch均1e-4）；warmup10%（2/4/8次更新），之后反比例先快后慢下降。固定六题清单 `datasets/quick_validation6_v1.json`，中等27题中每类两个不同族，排除完整教师19题等价族，114参考解。六模型（base、旧linear-ep1/ep2、新recip-ep1/ep2/ep4）各跑相同MCTS2.2阶段隔离示例版六题，共36任务。控制器 `server/run_finetune_quick6.py`，专用目录四号机双4090 `/opt/data/private/ECE4300-train-20261126/quick6-controls-v1/`；先等旧2epoch结束，串行完成三组新训练，再用本双卡各一独立LoRA服务、两个worker自动验证；不操作原7卡池及19题。详见 `docs/QUICK6_AUTOMATION.md`。以下“尚未授权立即运行”仅为早期设计历史，已被此次明确授权覆盖。
+
+已启动控制进程PID28327，确认进入recip-ep1，20更新/warmup2。真实调度器3步与六题入口、源文件哈希、LoRA API生成通过；完整32K单轮MCTS诊断主动中止，不作为成功评测。只需后续读取state.json/pipeline.log/summary.json，不持续人工监控。若训练失败不覆盖目录，某组失败留日志且跳过该模型验证，其他组继续。
+
+## 待执行设计：低学习率＋warmup对照
+
+用户要求另记一组：同309条A数据、同基础Qwen、2epoch，峰值lr5e-5、warmup4次参数更新（40步的10%）；用户随后明确不要线性衰减，改为先快后慢的归一化反比例曲线：衰减进度t∈[0,1]时 `lr=5e-5*(1-t)/(1+2*t)`，终点0。其余参数与当前2epoch基准一致。微批1/累积16/有效batch16，双卡为模型分片不乘2；4次更新约64条训练样本。仅记录设计，尚未授权立即运行或加入队列，不改变当前基准；详见 `docs/QLORA_LR_WARMUP_CONTROL.md`。这是降低lr、warmup与衰减曲线的组合对照，不能声称单因素因果。
+
+## 当前：上半 A 独立 2 epoch QLoRA（2026-11-26）
+
+用户批准新的2epoch对照训练，已从基础Qwen3-8B重新初始化，未接着单轮适配器累训。四号机双4090 `EEC430004-4090`，持久目录 `/opt/data/private/ECE4300-train-20261126/ga16-epoch2-v1/`，控制进程启动PID25775，309条冻结数据/预计40更新，已包含梯度累积修复；旧单轮目录完整保留。日志 `train.log`、状态 `status.json`、参数哈希 `run_manifest.json`；只以completed标志确认结束，不自动跑第3轮。详见 `docs/QLORA_EPOCH2_RUN.md`。原版Qwen MCTS2.2启动前14/19，含未完成题找到135/358解（按解37.71%、按题均值52.42%），5题仍继续，未操作推理池。
+
+## QLoRA 首轮验证已完成（2026-11-26）
+
+用户已授权修正梯度累积并只运行一个 epoch 验证流程。`server/train_qlora.py` 设置 `trainer.model_accepts_loss_kwargs=False`，由 Transformers 4.57.6 对自定义微批 mean loss 正确归一化；CPU 损失/梯度对照、真实 Trainer 尾批 16+5、双卡累积16冒烟均通过。四号机双4090 `EEC430004-4090` 的 `/opt/data/private/ECE4300-train-20261126/ga16-epoch1-v1/` 已完成309条/1epoch/20更新，训练596.45秒，峰值已分配10.76/16.80GiB；适配器保存和重载前向验证通过。仅验证流程，不声称效果提升，不自动继续训练，不改推理池。详见 `docs/QLORA_EPOCH1_VALIDATION.md`；轻量日志在本地 `local-backups/training/ga16-epoch1-v1/`，权重留服务器。下文历史“不启动训练”不覆盖本次明确授权，但不代表有后续epoch授权。
+
+## 训练数据整理流水线（`training/`，2026-11-26）
+
+用户明确规则：**同一任务跑了多次，始终是同一个任务，必须合并成一份规范化数据，不能按运行次数分成几个文件或几份数据源。** 该规则已落实为 `training/` 流水线，设计说明见 `docs/TRAINING_DATA_PIPELINE.md`；改动前先读该文档。
+
+- `training/canonical.py`：把同一任务的多次运行合并为 `training/sources/ds22-sampled19-canonical.jsonl`。每题取**记录数最多**的快照（并列取最新），其余快照必须是通过 `(exploration_round, hypothesis_key, answer)` 签名校验的**记录级前缀**，否则报冲突。原始 `results/ds-stage22-*` 目录从此**只作存档**，不再是数据源；版本不一致的运行（旧版16题、错误provider、pilot、空壳目录）写在 `MANIFEST.json` 的 `excluded_runs`。
+- `training/stage_sft.py`：按记录里的 `prompt` / `tool_trace` / `branch` 序号 / `plan_path` 重建 selection、expansion、candidate 三阶段输入（DS 当时未保存 wire 输入），套用线上 Qwen 的 `isolated_examples_v1` 模板，输出 `messages=[system,user,assistant]`。只收 `reference_hit` 且非截断、无协议错误的轮次，按 `hypothesis_key` 去重；重建输入必须仍容纳教师输出（Branch 在菜单内、Plan 等于 `plan_path`、candidate 等于 `record.answer`），否则丢弃并计入 issues。所有样本标 `input_reconstructed=true`、`plan_unverified=true`。
+- `training/ingest.py`：append-only ledger（`training/ingest/ledger.jsonl`），按 `sample_id` 去重，保证以后新跑的数据只产出增量、不与已整理样本混淆。
+- 当前产出：规范化 19 题/469 轮（14 完成、5 未完成，三个快照全部通过前缀校验）；数据集 `training/data/ds22-all-completed/` 共 **309 条**（103 个去重有效候选 × 三阶段），覆盖全部 14 道已完成题；`training/data/ds22-extended-n1/` 42 条为早期子集，已被包含。ledger 309 条。
+- 用户口径（2026-11-26）：**训练数据稀少，已完成题全部入库，不做评测重合/等价族排除；评测阶段对测试集做减法**。因此 `g3_h3_b2_001`、`n2_inputs_00_01_outputs_01`、`n2_inputs_00_10_outputs_01` 及等价族 `n3_inputs_00_10_11_outputs_101` 已进入训练，评测时必须从测试集剔除或单独报告。
+- 边界：不改动 v1 交接包；不操作 DS/Qwen 进程；27 道中等评测题属于另一任务、不在本流水线；`label_mask_checked=false`，tokenizer/loss mask 仍需在服务器实测后才能训练。
+- 新运行接入：把目录加进 `canonical.py` 的 `runs` → 重跑① → 重跑② → `--append-ledger`，并检查 manifest 里没有 `reconstruction failed` / `plan does not match` / `candidate does not match`。
+
 ## 数据工作已改为交接：仅当前新版DS完成13题
 
 用户停止本对话继续制作训练集，要求打包给别人接手。唯一交接源为`results/ds-stage22-merged/revision`中当前新版2.2、stage22_revision=true且completed=true正常结束的13题；不是旧版stage22-sampled的16题，也不是两者并集。另6题仅在pending清单列出，无部分作答记录。交接包`local-backups/handoffs/DS_MCTS22_completed13_handoff_20261126T063000Z.zip`（v1），含原始13份112轮、来源与SHA、过滤后的评分参考、27题测评隔离参考、离线重评分脚本、详细SFT处理及后续接入说明。3题测评重合隔离、1题内部变量交换等价去重后，9个题目族，51轮基本筛选通过、48个不同有效候选。候选不是SFT-ready，Plan/理由/复盘未因答案正确自动认证。因果两题尚未完成，本包训练候选没有因果领域。已解压独立重跑并验证摘要一致。后续6题由接手人按规则生成v2，不修改v1。本次未操作DS进程、未启动训练，也未影响Qwen19题运行。
