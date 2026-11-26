@@ -3,16 +3,27 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+import threading
 from unittest.mock import patch
 from urllib.error import HTTPError
 
 from dpo.common import atomic,parse_response,read_jsonl,write_jsonl
-from dpo.prepare import assign_splits,REFLECTION_INSTRUCTION
-from dpo.generate import spare_cards,sample_once,priority_load
-from dpo.export import export_review
+from dpo.prepare import REFLECTION_INSTRUCTION
+from dpo.generate import spare_cards,sample_once,priority_load,collect_state,task_status
+from dpo.export import export_records
 
 
 class DPOGenerationTests(unittest.TestCase):
+    def test_state_task_collects_missing_candidates_without_repeating_saved_ones(self):
+        with tempfile.TemporaryDirectory() as d:
+            task=dict(samples=[dict(status='received',sample_index=0,attempts=1),dict(status='pending',sample_index=1,attempts=0),dict(status='pending',sample_index=2,attempts=0)])
+            def sample(cfg,state,item,*args,**kwargs):
+                self.assertFalse(kwargs['release_card']);return 'record-'+str(item['sample_index']),dict(response_status='received')
+            with patch('dpo.generate.sample_once',side_effect=sample) as calls,patch('dpo.generate.release_when_idle') as release:
+                collect_state(dict(output=d),{},task,{},'test',100,10,threading.Event())
+            self.assertEqual(calls.call_count,2);release.assert_called_once()
+            self.assertEqual(task_status(task),'received')
+
     def test_review_contract_matches_deployed_protocol_source(self):
         path=Path(__file__).resolve().parents[1]/'llm/qwen_stage_protocol.py'
         tree=ast.parse(path.read_text(encoding='utf-8'))
@@ -20,13 +31,6 @@ class DPOGenerationTests(unittest.TestCase):
         fn=next(n for n in cls.body if isinstance(n,ast.FunctionDef) and n.name=='review')
         assignment=next(n for n in fn.body if isinstance(n,ast.Assign) and n.targets[0].id=='instruction')
         self.assertEqual(ast.literal_eval(assignment.value),REFLECTION_INSTRUCTION)
-
-    def test_family_holdout_never_splits_equivalent_questions_or_samples(self):
-        states=[dict(domain=d,family_id=d+f,case_id=c) for d in ['causal','3d','boolean'] for f in ['a','b'] for c in ['first','renamed']]
-        assign_splits(states,.1)
-        for family in {s['family_id'] for s in states}:
-            self.assertEqual(len({s['split'] for s in states if s['family_id']==family}),1)
-        self.assertEqual({s['domain'] for s in states if s['split']=='validation'},{'causal','3d','boolean'})
 
     def test_spare_admission_respects_higher_priority_and_model_capability(self):
         def card(name,**kw):return dict(id=name,role='shared',models=['ep1'],inflight=0,observed=0,owner=None,**kw)
@@ -45,7 +49,7 @@ class DPOGenerationTests(unittest.TestCase):
     def test_raw_response_saved_before_gpu_is_released_and_no_rating_created(self):
         with tempfile.TemporaryDirectory() as d:
             cfg=dict(output=d,model='ep1',checkpoint_sha256='sha',gateway='pool',owner='gen')
-            state=dict(state_id='s',split='train',stage='reflection',case_id='case',family_id='family',input_sha256='hash',messages=[dict(role='user',content='fixed')])
+            state=dict(state_id='s',stage='reflection',case_id='case',family_id='family',input_sha256='hash',messages=[dict(role='user',content='fixed')])
             task=dict(sample_id='12345678abcdef',sample_index=0);entry=dict(id='gpu',url='http://backend',role='shared')
             class Metrics:
                 def __enter__(self):return self
@@ -63,15 +67,16 @@ class DPOGenerationTests(unittest.TestCase):
             self.assertEqual(row['review_status'],'unreviewed');self.assertNotIn('score',row)
             release.assert_called_once_with('pool','test','gpu','shared',None)
 
-    def test_export_keeps_truncation_and_never_pairs_or_mixes_splits(self):
+    def test_export_keeps_ds_answers_failed_attempts_and_truncation_without_labels(self):
         with tempfile.TemporaryDirectory() as d:
-            root=Path(d);write_jsonl(root/'states.jsonl',[dict(state_id='a',split='train',stage='reflection',messages=[]),dict(state_id='b',split='validation',stage='candidate',messages=[])])
-            atomic(root/'responses/a.json',dict(state_id='a',sample_id='one',sample_index=0,response_status='received',finished_utc=1,response=dict(finish_reason='length',final_text='')))
-            atomic(root/'responses/b.json',dict(state_id='b',sample_id='two',sample_index=0,response_status='received',finished_utc=1,response=dict(finish_reason='stop',final_text='answer')))
-            counts=export_review(root);self.assertEqual(counts['train']['responses'],1);self.assertEqual(counts['validation']['responses'],1)
-            row=read_jsonl(root/'review/train.unscored.jsonl')[0]
-            self.assertEqual(row['outputs'][0]['response']['finish_reason'],'length')
-            self.assertNotIn('chosen',row);self.assertNotIn('rejected',row)
+            root=Path(d);write_jsonl(root/'states.jsonl',[dict(state_id='a',stage='reflection',messages=[],ds_answers=[dict(text='DS history')])])
+            atomic(root/'responses/a.json',dict(state_id='a',sample_id='one',sample_index=0,attempt=1,response_status='received',finished_utc=1,response=dict(finish_reason='length',final_text='')))
+            atomic(root/'responses/b.json',dict(state_id='a',sample_id='two',sample_index=1,attempt=1,response_status='error',finished_utc=1))
+            counts=export_records(root);self.assertEqual(counts['target_attempts'],2);self.assertEqual(counts['ds_answers'],1)
+            row=read_jsonl(root/'records.jsonl')[0]
+            self.assertEqual(row['target_responses'][0]['response']['finish_reason'],'length')
+            self.assertEqual(row['ds_answers'][0]['text'],'DS history')
+            self.assertNotIn('split',row);self.assertNotIn('chosen',row);self.assertNotIn('rejected',row)
 
 
 if __name__=='__main__':unittest.main()

@@ -66,9 +66,9 @@ def release_when_idle(cfg,entry,token):
     if current.get('owner')==cfg['owner']:change_role(cfg['gateway'],token,entry['id'],entry['role'],None)
 
 
-def sample_once(cfg,state,task,entry,token,limit,input_tokens,attempt):
+def sample_once(cfg,state,task,entry,token,limit,input_tokens,attempt,release_card=True):
     """Called only after gateway admission was disabled atomically for this idle card."""
-    root=Path(cfg['output']);record=dict(sample_id=task['sample_id'],state_id=state['state_id'],split=state['split'],
+    root=Path(cfg['output']);record=dict(sample_id=task['sample_id'],state_id=state['state_id'],
         stage=state['stage'],case_id=state['case_id'],family_id=state['family_id'],sample_index=task['sample_index'],
         attempt=attempt,requested_model=cfg['model'],checkpoint_sha256=cfg['checkpoint_sha256'],gpu=entry['id'],
         started_utc=time.time(),input_sha256=state['input_sha256'],input_tokens=input_tokens,max_tokens=limit,
@@ -93,8 +93,31 @@ def sample_once(cfg,state,task,entry,token,limit,input_tokens,attempt):
         try:atomic(path,record)
         # A timed-out request may still occupy the engine. Keep it reserved until
         # actual metrics prove idle; never replay it or stop the engine blindly.
-        finally:release_when_idle(cfg,entry,token)
+        finally:
+            if release_card:release_when_idle(cfg,entry,token)
     return str(path),record
+
+
+def collect_state(cfg,state,task,entry,token,limit,input_tokens,stopped):
+    """One state is one leased-GPU task; persist each candidate immediately."""
+    try:
+        for sample in task['samples']:
+            if sample['status']!='pending':continue
+            if stopped.is_set() or (Path(cfg['output'])/'PAUSE').exists():break
+            sample['attempts']+=1;sample['status']='running'
+            path,row=sample_once(cfg,state,sample,entry,token,limit,input_tokens,sample['attempts'],release_card=False)
+            sample.update(status='received' if row['response_status']=='received' else ('pending' if sample['attempts']<2 else 'error'),response_file=path)
+            # After an uncertain API failure, first wait for idle and return the
+            # lease; do not submit another request on that potentially busy card.
+            if row['response_status']!='received':break
+    finally:release_when_idle(cfg,entry,token)
+
+
+def task_status(task):
+    statuses=[s['status'] for s in task['samples']]
+    if all(s=='received' for s in statuses):return 'received'
+    if any(s in ('pending','running') for s in statuses):return 'pending'
+    return 'error'
 
 
 def main():
@@ -102,8 +125,11 @@ def main():
     from transformers import AutoTokenizer
     parser=argparse.ArgumentParser();parser.add_argument('--config',type=Path,required=True);args=parser.parse_args()
     cfg=json.loads(args.config.read_text());root=Path(cfg['output']);root.mkdir(parents=True,exist_ok=True)
+    if (root/'stop_requested.json').exists():parser.error('User requested stop; explicit authorization is required before removing this marker and starting.')
     lock=(root/'generation.lock').open('w');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     manifest=json.loads((root/'manifest.json').read_text());states=read_jsonl(root/'states.jsonl')
+    assert manifest['version']=='stage-response-collection-v2'
+    assert all('split' not in s for s in states)
     assert hashlib.sha256((root/'states.jsonl').read_bytes()).hexdigest()==manifest['states_sha256']
     assert cfg['model']==manifest['model'] and cfg['checkpoint_sha256']==manifest['checkpoint_sha256']
     recipe=dict(model=cfg['model'],checkpoint_sha256=cfg['checkpoint_sha256'],states_sha256=manifest['states_sha256'],
@@ -117,14 +143,14 @@ def main():
     for file in (root/'responses').glob('*.json'):
         row=json.loads(file.read_text());sample=row['sample_id'];attempts[sample]=max(attempts.get(sample,0),row['attempt'])
         if row['response_status']=='received':seen[sample]=str(file)
-    # Round-robin states per sample index, so every state is visited before the
-    # next sweep. Successful samples are never generated again after restart.
-    for index in range(manifest['samples_per_state']):
-        for state in sorted(states,key=lambda s:digest(s['state_id'])):
+    for state in sorted(states,key=lambda s:digest(s['state_id'])):
+        task=dict(state_id=state['state_id'],samples=[])
+        for index in range(manifest['samples_per_state']):
             sample=digest([state['state_id'],index,digest(recipe)])
-            tasks.append(dict(sample_id=sample,state_id=state['state_id'],sample_index=index,
+            task['samples'].append(dict(sample_id=sample,state_id=state['state_id'],sample_index=index,
                 status='received' if sample in seen else ('error' if attempts.get(sample,0)>=2 else 'pending'),
                 attempts=attempts.get(sample,0),response_file=seen.get(sample)))
+        task['status']=task_status(task);tasks.append(task)
     stopped=threading.Event()
     signal.signal(signal.SIGTERM,lambda *_:stopped.set());signal.signal(signal.SIGINT,lambda *_:stopped.set())
     active={};counts={};reason='starting';last_export=0
@@ -132,7 +158,7 @@ def main():
         while True:
             for future,(task,entry) in list(active.items()):
                 if not future.done():continue
-                path,row=future.result();task.update(status='received' if row['response_status']=='received' else ('pending' if task['attempts']<2 else 'error'),response_file=path)
+                future.result();task['status']=task_status(task)
                 del active[future]
             pending=[t for t in tasks if t['status']=='pending']
             remaining_leases=None
@@ -152,26 +178,30 @@ def main():
                         if task['state_id'] not in counts:counts[task['state_id']]=len(tokenizer.apply_chat_template(state['messages'],tokenize=True,add_generation_prompt=True,enable_thinking=True))
                         limit=min(32768,32768-counts[task['state_id']]-8)
                         if limit<1:
-                            task.update(status='error',error='Input exceeds context; not truncated');continue
+                            for sample in task['samples']:
+                                if sample['status']=='pending':sample.update(status='error',error='Input exceeds context; not truncated')
+                            task['status']='error';continue
                         atomic(root/'leases'/(entry['id']+'.json'),dict(role=entry['role'],id=entry['id']))
                         try:change_role(cfg['gateway'],token,entry['id'],'reserved',cfg['owner'])
                         except HTTPError as error:
                             if error.code==409:continue
                             raise
-                        task['attempts']+=1;task['status']='running'
-                        future=pool.submit(sample_once,cfg,state,task,entry,token,limit,counts[task['state_id']],task['attempts'])
+                        task['status']='running'
+                        future=pool.submit(collect_state,cfg,state,task,entry,token,limit,counts[task['state_id']],stopped)
                         active[future]=(task,entry)
                 except Exception as error:reason='waiting: '+str(error)
-            done=sum(t['status']=='received' for t in tasks);errors=sum(t['status']=='error' for t in tasks)
-            terminal=done+errors==len(tasks)
-            phase=('completed' if not errors else 'completed_with_errors') if terminal else ('stopping' if stopped.is_set() else reason)
-            atomic(root/'tasks.json',tasks);atomic(root/'state.json',dict(pid=os.getpid(),phase=phase,total=len(tasks),received=done,errors=errors,running=len(active),utc=time.time(),scoring='not_started'))
+            samples=[s for task in tasks for s in task['samples']]
+            done=sum(s['status']=='received' for s in samples);errors=sum(s['status']=='error' for s in samples)
+            terminal=all(t['status'] in ('received','error') for t in tasks)
+            phase=('completed' if not errors else 'completed_with_errors') if terminal else (('stopped' if not active else 'stopping') if stopped.is_set() else reason)
+            atomic(root/'tasks.json',tasks);atomic(root/'state.json',dict(pid=os.getpid(),phase=phase,total=len(samples),received=done,errors=errors,
+                total_states=len(tasks),completed_states=sum(t['status']=='received' for t in tasks),running=len(active),scheduling_unit='state',utc=time.time(),scoring='not_started'))
             if (terminal or (stopped.is_set() and not active)) and remaining_leases==0:
-                from dpo.export import export_review
-                export_review(root,archive=True);break
+                from dpo.export import export_records
+                export_records(root,archive=True);break
             if done>=last_export+20:
-                from dpo.export import export_review
-                export_review(root);last_export=done
+                from dpo.export import export_records
+                export_records(root);last_export=done
             time.sleep(5)
 
 

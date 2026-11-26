@@ -1,5 +1,11 @@
 # DPO未评分数据生成 v1
 
+**已被用户修订的v2采集方案取代**，当前以 `DPO_COLLECTION_V2.md` 为准：只保存输入、DS历史回答和目标候选，不划分、不评分、不配对；生成保持停止。下文仅为旧方案历史，不可据此开启程序。
+
+## 当前状态：用户要求停止，等待检查
+
+生成器及DPO专用模型扩展发布进程均已停止，正式响应0份、占卡0；其他做题队列继续。state.json标为user_stopped，保留PAUSE和stop_requested.json。未经用户明确要求不得恢复。现有输入及train/validation标签只保留供用户检查，尚未获最终认可；以下原计划不构成继续执行授权。
+
 ## 范围
 
 用户最新要求：只生成并保存原始数据，不调用Claude Code，不评分，不自动形成chosen/rejected偏好对，不训练DPO。反思分析是首要阶段；采样器支持reflection、selection、expansion、candidate，由准备输入时的参数指定，不需要重写GPU采样逻辑。
