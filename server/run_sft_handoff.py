@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import threading
 import time
+from urllib.error import HTTPError
 
 from server.poolctl import call, change_role, drain
 from server.run_finetune_quick6 import atomic
@@ -25,6 +26,40 @@ def validate_adapter(path, steps):
     bs=[v for k,v in weights.items() if 'lora_B' in k]
     assert bs and all(torch.count_nonzero(v).item() for v in bs)
     return dict(global_step=steps,epoch=state['epoch'],tensors=len(weights))
+
+
+def publish_adapter(cfg):
+    """Resume partial publication without retraining or replacing immutable weights."""
+    token=Path(cfg['token_file']).read_text().strip()
+    asset=Path(cfg['asset_root'])/cfg['name'];asset.mkdir(exist_ok=True)
+    for filename in ['adapter_config.json','adapter_model.safetensors']:
+        source=Path(cfg['output'])/filename;dest=asset/filename
+        if dest.exists():
+            if hashlib.sha256(source.read_bytes()).digest()!=hashlib.sha256(dest.read_bytes()).digest():
+                raise ValueError('Published asset differs from trained weights: '+filename)
+        else:
+            tmp=dest.with_suffix(dest.suffix+'.tmp');shutil.copy2(source,tmp);tmp.replace(dest)
+    digest=hashlib.sha256((asset/'adapter_model.safetensors').read_bytes()).hexdigest()
+    for identity in cfg['gpus']:
+        entry=drain(cfg['gateway'],token,[identity],cfg['owner'])[0]
+        try:
+            actual=call(entry['url']+'/v1/models',token=token)
+            loaded=next((m for m in actual['data'] if m['id']==cfg['name']),None)
+            if loaded:
+                if loaded['root']!=str(asset):raise ValueError('Loaded adapter path differs')
+            else:
+                call(entry['node_api']+'/gpus/'+str(entry['gpu'])+'/load',
+                    dict(name=cfg['name'],path=str(asset),sha256=digest),token)
+            call(cfg['gateway']+'/admin/backends/'+identity,
+                dict(models=sorted(set(entry['models']+[cfg['name']])),role='shared',owner=None),token)
+        except Exception:
+            change_role(cfg['gateway'],token,identity,'shared',None)
+            raise
+    result=call(cfg['gateway']+'/validation/v1/chat/completions',dict(model=cfg['name'],
+        messages=[dict(role='user',content='Reply OK.')],max_tokens=8,
+        chat_template_kwargs=dict(enable_thinking=False)),token,timeout=180)
+    assert result.get('choices'),result
+    return digest
 
 
 def main():
@@ -64,28 +99,11 @@ def main():
         subprocess.run([cfg['python'],'-u','-m','server.run_reserved_training','--config',cfg['client_config'],
             '--gpus',*cfg['gpus'],'--job',str(root/'reserved-job.json'),'--owner',cfg['owner']],cwd=cfg['code'],check=True)
         status('publishing')
-        asset=Path(cfg['asset_root'])/cfg['name']
-        asset.mkdir(exist_ok=False)
-        for filename in ['adapter_config.json','adapter_model.safetensors']:
-            shutil.copy2(Path(cfg['output'])/filename,asset/filename)
-        digest=hashlib.sha256((asset/'adapter_model.safetensors').read_bytes()).hexdigest()
-        for identity in cfg['gpus']:
-            entry=drain(cfg['gateway'],token,[identity],cfg['owner'])[0]
-            try:
-                call(entry['node_api']+'/gpus/'+str(entry['gpu'])+'/load',
-                    dict(name=cfg['name'],path=str(asset),sha256=digest),token)
-                call(cfg['gateway']+'/admin/backends/'+identity,
-                    dict(models=sorted(set(entry['models']+[cfg['name']])),role='shared',owner=None),token)
-            except Exception:
-                change_role(cfg['gateway'],token,identity,'shared',None)
-                raise
-        result=call(cfg['gateway']+'/validation/v1/chat/completions',dict(model=cfg['name'],
-            messages=[dict(role='user',content='Reply OK.')],max_tokens=8,
-            chat_template_kwargs=dict(enable_thinking=False)),token,timeout=180)
-        assert result.get('choices'),result
+        digest=publish_adapter(cfg)
         status('ready',sha256=digest,gpus=cfg['gpus'],samples=944,epochs=2,global_step=118)
     except Exception as error:
-        status('failed',error=str(error));print(repr(error),flush=True)
+        detail=error.read().decode(errors='replace') if isinstance(error,HTTPError) else str(error)
+        status('failed',error=str(error),detail=detail);print(repr(error),detail,flush=True)
     # Keep the authenticated receipt available after the training process exits.
     # No GPU is owned by this lightweight status server.
     while True:time.sleep(30)

@@ -11,7 +11,22 @@ import time
 
 
 def command_hash(pid):
-    return hashlib.sha256((Path('/proc') / str(pid) / 'cmdline').read_bytes()).hexdigest()
+    raw=(Path('/proc') / str(pid) / 'cmdline').read_bytes()
+    if not raw:raise FileNotFoundError('Process command line is not available')
+    return hashlib.sha256(raw).hexdigest()
+
+
+async def started_command_hash(process, command):
+    """Wait for the spawned program's argv, never persist an exec-window empty hash."""
+    expected=b'\0'.join(os.fsencode(arg) for arg in command)+b'\0'
+    for _ in range(200):
+        if process.poll() is not None:raise RuntimeError('Model process exited during launch')
+        try:
+            raw=(Path('/proc')/str(process.pid)/'cmdline').read_bytes()
+            if raw==expected:return hashlib.sha256(raw).hexdigest()
+        except FileNotFoundError:pass
+        await asyncio.sleep(.01)
+    raise RuntimeError('Cannot establish spawned model process identity')
 
 
 def create_app(path):
@@ -139,7 +154,7 @@ def create_app(path):
                 process = subprocess.Popen(command, env=env, stdout=log, stderr=subprocess.STDOUT,
                     stdin=subprocess.DEVNULL, start_new_session=True)
             # Popen returns after exec; verify exact process identity for future stop operations.
-            rec = dict(pid=process.pid, cmd_hash=command_hash(process.pid), owned_group=True,
+            rec = dict(pid=process.pid, cmd_hash=await started_command_hash(process,command), owned_group=True,
                        url=f"http://{config['ip']}:{port}", api_key=token, status='starting')
             write(index, rec)
             async with httpx.AsyncClient() as client:
@@ -175,11 +190,17 @@ def create_app(path):
             if known and known['sha256'] != body['sha256']:
                 raise HTTPException(409, 'Use a new immutable model name for different weights')
             async with httpx.AsyncClient() as client:
-                reply = await client.post(rec['url']+'/v1/load_lora_adapter',
-                    headers={'Authorization':'Bearer '+token},
-                    json={'lora_name':body['name'],'lora_path':str(asset)},timeout=180)
-                if reply.status_code != 200:
-                    raise HTTPException(409, 'LoRA runtime load failed: '+reply.text[:200])
+                headers={'Authorization':'Bearer '+token}
+                current=await client.get(rec['url']+'/v1/models',headers=headers,timeout=10)
+                current.raise_for_status()
+                loaded=next((item for item in current.json()['data'] if item['id']==body['name']),None)
+                if loaded and (not known or Path(loaded['root']).resolve()!=asset):
+                    raise HTTPException(409,'Loaded model identity cannot be verified')
+                if not loaded:
+                    reply = await client.post(rec['url']+'/v1/load_lora_adapter',headers=headers,
+                        json={'lora_name':body['name'],'lora_path':str(asset)},timeout=180)
+                    if reply.status_code != 200:
+                        raise HTTPException(409, 'LoRA runtime load failed: '+reply.text[:200])
             if not known:
                 config['adapters'].append(dict(name=body['name'],path=str(asset),sha256=body['sha256']))
                 tmp=config_path.with_suffix('.tmp');tmp.write_text(json.dumps(config,indent=2));tmp.chmod(0o600);tmp.replace(config_path)
