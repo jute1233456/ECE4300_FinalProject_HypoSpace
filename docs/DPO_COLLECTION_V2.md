@@ -1,6 +1,6 @@
 # 回答采集程序 v2：只记录，不做数据处理决策
 
-最新用户范围覆盖DPO_GENERATION_V1.md的旧设计。当前程序保持停止，未经用户明确要求不得开启。旧v1数据和分组留作历史，v2没有训练/验证标签。
+最新用户范围覆盖DPO_GENERATION_V1.md的旧设计。用户随后明确“确定没问题那就开启”，采集v2已启动，首份真实SFT ep1输出已验证保存。旧v1数据和分组留作历史，v2没有训练/验证标签。
 
 ## 一条采集记录
 
@@ -18,14 +18,14 @@
 
 中央持久队列位于四号机，各虚拟机GPU通过已有推理接口执行。空闲几张支持目标模型的卡，就同时处理几个不同状态；没有按状态数量固定为一个或两个worker。最大并发9，实际跟随空闲可用GPU数变化。同一状态不会同时交给两个GPU；意外中断后依据已保存响应，只补缺失候选。
 
-现有验证/补基线优先，有旧pending任务时不领取新状态。通过网关原子预约已经空闲的卡，不停止任何在途请求。状态完成或正常停止后归还GPU；API异常先确认引擎空闲再归还，不杀进程。用户停止要求仍生效；PAUSE和stop_requested.json保留，启动保护已验证。
+现有验证/补基线优先，有旧pending任务时不领取新状态。通过网关原子预约已经空闲的卡，不停止任何在途请求。状态完成或正常停止后归还GPU；API异常先确认引擎空闲再归还，不杀进程。启动保护已验证；本次明确授权后，PAUSE解除，stop_requested.json改名归档，并保存start_authorization.json。
 
 ## 当前准备结果与位置
 
 - 目标模型：sft-pruned-v1-ep1，944条SFT数据的checkpoint-59。
 - 阶段：reflection；通过prepare参数可换selection、expansion、candidate，采样器本身不变。
 - 19道训练题、521个固定输入，记录561份关联DS历史响应；计划2084份目标回答。
-- 正式生成仍为0，未启动新生成进程。
+- 已启动正式生成；实时数量和PID以state.json为准。
 - SSH：EEC430004-4090。
 - 数据目录：`/opt/data/private/ECE4300-dpo-candidates-20261127/reflection-v2-collection/`。
 - `states.jsonl`：固定输入及DS回答；`records.jsonl`：统一记录文件，初始target_responses为空，生成后刷新。
