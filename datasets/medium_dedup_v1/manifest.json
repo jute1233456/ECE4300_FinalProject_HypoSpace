@@ -1,0 +1,278 @@
+{
+  "version": "medium-dedup-v1",
+  "source_pool": "medium_sampled_27",
+  "training_file": "training/data/ds22-sft-pruned-v1/train.jsonl",
+  "training_sha256": "6f3e178e83d0004b6e2e84ec35ea1c790faac09db208ebf784112eaeaab8579e",
+  "training_samples": 944,
+  "training_cases": 19,
+  "rules": {
+    "causal": "node permutations",
+    "boolean": "variable permutations; conservative observation match across operator sets; same variable count and depth",
+    "spatial": "D4 rotations/reflections and translation; same maximum height; conservative across grid sizes",
+    "representative": "lexicographically first case ID; training overlap removed before internal dedup"
+  },
+  "summary": {
+    "causal": {
+      "original_cases": 3,
+      "training_overlap": 0,
+      "internal_duplicates": 1,
+      "retained_cases": 2,
+      "references": 72
+    },
+    "3d": {
+      "original_cases": 13,
+      "training_overlap": 4,
+      "internal_duplicates": 5,
+      "retained_cases": 4,
+      "references": 36
+    },
+    "boolean": {
+      "original_cases": 11,
+      "training_overlap": 2,
+      "internal_duplicates": 3,
+      "retained_cases": 6,
+      "references": 68
+    }
+  },
+  "jobs": [
+    {
+      "dataset": "causal",
+      "case_id": "n1_002",
+      "references": 48,
+      "family_sha256": "a7215bd5775053e1d927e7b72d7e38407d5fe010a2bbf1bee99deb6ae65462c8"
+    },
+    {
+      "dataset": "causal",
+      "case_id": "n2_006",
+      "references": 24,
+      "family_sha256": "112a69ad01c2cf67f6915b404dba03ce1fb22558839e99e4af3638ba2935de4b"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_002",
+      "references": 9,
+      "family_sha256": "cbd6aa8bf0a4b3a18e2bb25473725c08f4ad16ee45b750cad4208d78b3b08edb"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_004",
+      "references": 9,
+      "family_sha256": "9e836a4db76db12d726452fb94982d5e68cfa9118878b80a5910dd1b22f11c93"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_005",
+      "references": 9,
+      "family_sha256": "c69657fe8d07be8a38ea2f08be400708777c5d49662af537a08e38767972c91b"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_008",
+      "references": 9,
+      "family_sha256": "63d18eed709c6b92112ea3c6cd424d8cd11120253753dc745fb88fd9792a7811"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_11_outputs_0",
+      "references": 14,
+      "family_sha256": "d3dfda6452d61dd371b8d4f8a7bf7bc724f6f31e27c4fb1cf3801a1d175b437f"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_00",
+      "references": 12,
+      "family_sha256": "f477aed27718047c8dbebe427a854a76e55f4adad6db1968615315f01982e727"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_11",
+      "references": 9,
+      "family_sha256": "a2d15a03dfc35078db0fbd8f29e8125c51d276f25cefa509994619f86fe44dcd"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_11_outputs_01",
+      "references": 12,
+      "family_sha256": "d62d5247817a964e5792c87bc0ee11fce7482c11f859d3495812b6952ea18581"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_01_10_outputs_01",
+      "references": 9,
+      "family_sha256": "7021614a44e89ea80329f0dbfe88fd458db257a72e976ba9c497dd8588833dc6"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_01_11_outputs_11",
+      "references": 12,
+      "family_sha256": "6a3bba6dae8b01fc1a6203f9b28dcef02d31c7230aed0734dd00e4914fe1f553"
+    }
+  ],
+  "excluded": [
+    {
+      "dataset": "causal",
+      "case_id": "n1_003",
+      "references": 48,
+      "family_sha256": "a7215bd5775053e1d927e7b72d7e38407d5fe010a2bbf1bee99deb6ae65462c8",
+      "reason": "duplicate_test_family",
+      "retained_case": "n1_002"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_001",
+      "references": 9,
+      "family_sha256": "0a68d976aae85b5650e947213ae32b9f5acc61106f9d7a0be549a71004a23030",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "3d",
+          "case_id": "g3_h3_b2_001"
+        }
+      ]
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_003",
+      "references": 9,
+      "family_sha256": "0a68d976aae85b5650e947213ae32b9f5acc61106f9d7a0be549a71004a23030",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "3d",
+          "case_id": "g3_h3_b2_001"
+        }
+      ]
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_006",
+      "references": 9,
+      "family_sha256": "cbd6aa8bf0a4b3a18e2bb25473725c08f4ad16ee45b750cad4208d78b3b08edb",
+      "reason": "duplicate_test_family",
+      "retained_case": "g3_h3_b2_002"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_007",
+      "references": 9,
+      "family_sha256": "c69657fe8d07be8a38ea2f08be400708777c5d49662af537a08e38767972c91b",
+      "reason": "duplicate_test_family",
+      "retained_case": "g3_h3_b2_005"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_009",
+      "references": 9,
+      "family_sha256": "0a68d976aae85b5650e947213ae32b9f5acc61106f9d7a0be549a71004a23030",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "3d",
+          "case_id": "g3_h3_b2_001"
+        }
+      ]
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_010",
+      "references": 9,
+      "family_sha256": "9e836a4db76db12d726452fb94982d5e68cfa9118878b80a5910dd1b22f11c93",
+      "reason": "duplicate_test_family",
+      "retained_case": "g3_h3_b2_004"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_011",
+      "references": 9,
+      "family_sha256": "0a68d976aae85b5650e947213ae32b9f5acc61106f9d7a0be549a71004a23030",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "3d",
+          "case_id": "g3_h3_b2_001"
+        }
+      ]
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_012",
+      "references": 9,
+      "family_sha256": "9e836a4db76db12d726452fb94982d5e68cfa9118878b80a5910dd1b22f11c93",
+      "reason": "duplicate_test_family",
+      "retained_case": "g3_h3_b2_004"
+    },
+    {
+      "dataset": "3d",
+      "case_id": "g3_h3_b2_013",
+      "references": 9,
+      "family_sha256": "c69657fe8d07be8a38ea2f08be400708777c5d49662af537a08e38767972c91b",
+      "reason": "duplicate_test_family",
+      "retained_case": "g3_h3_b2_005"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n1_inputs_00_outputs_1",
+      "references": 14,
+      "family_sha256": "0acf480ec36b809089cdac360026b06ea37742b986ffa205ea310f543ce99064",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "boolean_extended",
+          "case_id": "extended_n1_inputs_00_outputs_1"
+        }
+      ]
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "references": 8,
+      "family_sha256": "5e73e2806dd9733c9a4989e057aed01c3a95db2dde9b11c9fa5d96975de44968",
+      "reason": "training_equivalent_family",
+      "training_matches": [
+        {
+          "dataset": "boolean",
+          "case_id": "n2_inputs_00_01_outputs_01"
+        },
+        {
+          "dataset": "boolean",
+          "case_id": "n2_inputs_00_10_outputs_01"
+        }
+      ]
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_10_outputs_00",
+      "references": 12,
+      "family_sha256": "f477aed27718047c8dbebe427a854a76e55f4adad6db1968615315f01982e727",
+      "reason": "duplicate_test_family",
+      "retained_case": "n2_inputs_00_01_outputs_00"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_00_10_outputs_11",
+      "references": 9,
+      "family_sha256": "a2d15a03dfc35078db0fbd8f29e8125c51d276f25cefa509994619f86fe44dcd",
+      "reason": "duplicate_test_family",
+      "retained_case": "n2_inputs_00_01_outputs_11"
+    },
+    {
+      "dataset": "boolean",
+      "case_id": "n2_inputs_10_11_outputs_11",
+      "references": 12,
+      "family_sha256": "6a3bba6dae8b01fc1a6203f9b28dcef02d31c7230aed0734dd00e4914fe1f553",
+      "reason": "duplicate_test_family",
+      "retained_case": "n2_inputs_01_11_outputs_11"
+    }
+  ],
+  "total_cases": 12,
+  "total_references": 176,
+  "source_sha256": {
+    "datasets/balanced/causal.json": "f2844dd42d1774e2eac6f37ebc142f2aa5d876dfd03e8bd18610610e4b3a4903",
+    "datasets/balanced/3d.json": "ac5926cd1f655e96fdc4ed378eeaf89e626444be969820600c78783273aab515",
+    "datasets/balanced/boolean.json": "e011f96d211c902aa097a476d364352fb07c03000aa263537fa4dbcbf289da5b",
+    "datasets/balanced/boolean_extended.json": "fa17acff285fab624d826533a5ff6907ff02d55c450cd2d147dc4218d9f7bb0b",
+    "datasets/medium_sampled/causal.json": "1a6786c36f4d102e87d08f5760c9d73be8c2fb8757d8f119b14c13a238d3dd92",
+    "datasets/medium_sampled/3d.json": "890180b188df1b4d12dba2deff0bbac24f3dd7d34b80006add19330a017e52e9",
+    "datasets/medium_sampled/boolean.json": "9c7e4c07276920992a66da5ad7656bf5da06db3535cb77bca39ed9e7957e43f1"
+  }
+}
