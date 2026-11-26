@@ -1,6 +1,12 @@
 # ECE4300 Final Project 交接说明
 
-## 最新任务：新版2.2的19题测试（自部署Qwen）
+## 最新任务：只处理Qwen协议诊断，正式19题已停止
+
+用户明确本对话只处理Qwen，DeepSeek由另一对话负责，不操作其进程或结果。Qwen19题调度器及9个题目进程均已停止，断点保留，结果目录PAUSE保留，不自动恢复正式题库。诊断日志 `logs/qwen-protocol-diagnosis-20261126`。31次协议失败全部为布尔题选节点时输出Expression而非Branch。原题的最终回答指令与阶段指令混淆；候选方案把原题完整包成引用JSON数据，并在user消息末尾重申当前阶段契约，新增选节点、扩展与复盘的格式示例，保持严格解析器，不伪造Branch或静默接收错误格式。
+
+三个失败输入各重复两次：原提示0/6格式通过，隔离6/6，隔离+示例6/6（包括Reason/Untried direction/Avoid字段）。另对两道布尔题和一道3D题各做两方案单轮完整测试，6/6无协议错误，但各方案仅2/3候选有效，不能声称示例提高解题覆盖率。候选实现`llm/qwen_stage_protocol.py`，只作用Qwen；正式发布快照保持不变。复盘也发现曾直接输出Structure，已按同样原则隔离并加示例，另做一道联合测试，结果见`e2e-review-isolated/summary.json`。不要直接重启原19题，候选方案尚未替换正式版本。
+
+## 原19题启动信息（现已停止）
 
 用户明确要求新版2.2使用本地自部署模型接口，不是DeepSeek。误启动的`experiments.run_stage22_revision19`及其子进程已全部停止，结果`results/stage22-revision19-20261126T042923Z`标记cancelled_wrong_provider，不计入正式比较，禁止重启该入口。已将阶段理由传递和复盘反馈适配到`llm/qwen_stage_revision.py`，服务器入口`server/run_qwen_revision19.py`。活动快照`releases/qwen-stage22-revision19-20261126`，输出`results/qwen-stage22-revision19-20261126`（state.json/manifest.json），自部署Qwen3-8B、8004九卡池、九题并行、思考开启、生成请求32768，原困难抽样19题358参考解。前九题均已确认新版标记与Qwen接口生效，九卡各有一个请求。不能将19道困难题总覆盖率与旧27道中等题总覆盖率直接比较。旧2.1正式27/27=51.16%；旧2.2正式27/27=37.19%，布尔题全零并有499次协议失败。训练仍取消，用户不要求持续监控。
 

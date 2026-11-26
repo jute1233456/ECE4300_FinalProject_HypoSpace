@@ -29,6 +29,9 @@ class QwenStageRevisionClient(SplitTreeToolClient):
                 ' Check the original structural limits and selected path before answering. '
                 'Use the previous decision rationale and avoid the identified repeated construction. '
                 'Submit any complete candidate you obtain, including a repeated one.')
-        text=super()._stage(name,prompt,instruction,max_tokens)
+        text=self._stage_request(name,prompt,instruction,max_tokens)
         self.stage_decisions.append(name+': '+text)
         return text.splitlines()[0] if name in ('selection','expansion') else text
+
+    def _stage_request(self,name,prompt,instruction,max_tokens):
+        return super()._stage(name,prompt,instruction,max_tokens)
