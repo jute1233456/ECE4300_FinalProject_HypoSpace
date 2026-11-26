@@ -1,5 +1,9 @@
 # ECE4300 Final Project 交接说明
 
+## 当前活动任务：Qwen 2.2阶段隔离＋示例版19题
+
+用户已授权先跑19题。当前自部署Qwen3-8B运行`2.2 / isolated_examples_v1`，采用已测试的复盘/选节点/扩展阶段隔离与示例，九题并行、开启思考、生成请求32768，九卡池8004。活动快照`releases/qwen-stage22-protocol-examples19-20261126`，结果与状态`results/qwen-stage22-protocol-examples19-20261126/state.json`，manifest.json含19题358参考解，release_manifest.json锁定源码。入口`server/run_qwen_revision19.py --run-name qwen-stage22-protocol-examples19-20261126 --protocol-label isolated_examples_v1`。已经核实9题启动、九个引擎各1请求。不要复用旧协议19题断点，不操作DeepSeek、不启动训练；原诊断已结束，以下停止说明只指旧协议运行。用户不要求持续监控。
+
 ## 最新任务：只处理Qwen协议诊断，正式19题已停止
 
 用户明确本对话只处理Qwen，DeepSeek由另一对话负责，不操作其进程或结果。Qwen19题调度器及9个题目进程均已停止，断点保留，结果目录PAUSE保留，不自动恢复正式题库。诊断日志 `logs/qwen-protocol-diagnosis-20261126`。31次协议失败全部为布尔题选节点时输出Expression而非Branch。原题的最终回答指令与阶段指令混淆；候选方案把原题完整包成引用JSON数据，并在user消息末尾重申当前阶段契约，新增选节点、扩展与复盘的格式示例，保持严格解析器，不伪造Branch或静默接收错误格式。

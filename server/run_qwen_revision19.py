@@ -1,17 +1,24 @@
 """Exactly nineteen cases, native thinking, revised Stage-MCTS, self-hosted pool only."""
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from hashlib import sha256
+import argparse
 import json
 import os
+import re
 from pathlib import Path
 import subprocess
 import sys
 
 
 def main():
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--run-name',default='qwen-stage22-revision19-20261126')
+    parser.add_argument('--protocol-label',default='stage22_revision')
+    options=parser.parse_args()
+    if not re.fullmatch(r'[A-Za-z0-9_.-]+',options.run_name):parser.error('Invalid run name')
     release=Path(__file__).resolve().parents[1]
     root=release.parents[1]
-    output=root/'results/qwen-stage22-revision19-20261126'
+    output=root/'results'/options.run_name
     output.mkdir(parents=True,exist_ok=True)
     import fcntl
     lock=(output/'worker.lock').open('w');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
@@ -26,11 +33,13 @@ def main():
     jobs=[j for row in zip_longest(*groups) for j in row if j]
     assert len(jobs)==19
     manifest=dict(model='Qwen3-8B',mcts_version='2.2',stage22_revision=True,
+        protocol_revision=options.protocol_label,
         provider='self-hosted',base_url='http://127.0.0.1:8004/v1',workers=9,
         max_tokens=32768,thinking=True,jobs=jobs,source_release=str(release),
         total=19,total_references=sum(j['references'] for j in jobs))
     (output/'manifest.json').write_text(json.dumps(manifest,indent=2))
     state=dict(pid=os.getpid(),status='running',completed=0,total=19,workers=9,
+               protocol_revision=options.protocol_label,
                provider='self-hosted',model='Qwen3-8B',statuses=[])
     def save():
         p=output/'state.tmp';p.write_text(json.dumps(state,indent=2));p.replace(output/'state.json')
