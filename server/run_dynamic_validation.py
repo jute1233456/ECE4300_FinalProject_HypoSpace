@@ -3,6 +3,7 @@ import argparse
 import hashlib
 import json
 import os
+import signal
 from pathlib import Path
 import subprocess
 import time
@@ -13,7 +14,8 @@ from server.run_finetune_quick6 import atomic, case_result
 
 def process_matches(task):
     try:
-        return hashlib.sha256((Path('/proc')/str(task['pid'])/'cmdline').read_bytes()).hexdigest()==task['cmd_hash']
+        raw=(Path('/proc')/str(task['pid'])/'cmdline').read_bytes()
+        return bool(raw) and hashlib.sha256(raw).hexdigest()==task['cmd_hash']
     except (FileNotFoundError,KeyError):return False
 
 
@@ -52,12 +54,14 @@ def main():
         atomic(root/'summary.json',groups)
         atomic(root/'state.json',dict(pid=os.getpid(),phase='validating',completed=sum(t['status']=='completed' for t in tasks),
             total=len(tasks),running=[dict(id=t['id'],pid=t.get('pid')) for t in tasks if t['status']=='running'],
+            parked=[t['id'] for t in tasks if t['status']=='parked'],
+            scheduling='model-major' if cfg.get('serial_models') else 'interleaved',
             capacity=health.get('capacity',{}),worker_limit=health.get('validation_workers')))
     for task in tasks:
         result=inspect(task)
         if result and result['completed']:
             task.update(status='completed',result=result)
-        elif task['status']=='running' and not process_matches(task):task['status']='pending'
+        elif task['status'] in ('running','parked') and not process_matches(task):task['status']='pending'
     while True:
         health=call(cfg['gateway']+'/health')
         legacy=Path(cfg['legacy_state']);remaining=0
@@ -70,7 +74,7 @@ def main():
                     change_role(cfg['gateway'],token,entry['id'],'shared')
             health=call(cfg['gateway']+'/health')
         for task in tasks:
-            if task['status']!='running':continue
+            if task['status'] not in ('running','parked'):continue
             handle=handles.get(task['id'])
             ended=handle.poll() is not None if handle else not process_matches(task)
             if not ended:continue
@@ -79,13 +83,41 @@ def main():
             elif task['attempts']<2 and (not target(task).exists() or not json.loads(target(task).read_text()).get('completed')):
                 task.update(status='pending',result=result)
             else:task.update(status='needs_inspection',result=result)
+        model_order=cfg.get('model_order',cfg['models'])
+        current_model=next((m for m in model_order if any(t['model']==m and t['status'] in ('pending','running','parked') for t in tasks)),None)
+        # A one-time cooperative handover preserves live Python state, including
+        # a reflection already generated before the search phase. Never stop a
+        # worker until it has explicitly reached its existing API pause point.
+        handover_path=root/'handover.json'
+        if handover_path.exists():
+            handover=json.loads(handover_path.read_text())
+            for task in tasks:
+                if task['status']!='running':continue
+                log=target(task).with_suffix('.log')
+                offset=handover['offsets'].get(task['id'])
+                if offset is None:raise RuntimeError('Untracked live worker during handover')
+                with log.open('rb') as source:
+                    source.seek(offset);paused=b'Paused. Remove ' in source.read()
+                if paused and process_matches(task):
+                    os.kill(task['pid'],signal.SIGSTOP);task['status']='parked'
+            if not any(t['status']=='running' for t in tasks):
+                (root/'PAUSE').unlink(missing_ok=True)
+                handover_path.rename(root/'handover.completed.json')
+            else:
+                snapshot();time.sleep(2);continue
+        if cfg.get('serial_models',False):
+            for task in tasks:
+                if task['status']=='parked' and task['model']==current_model:
+                    os.kill(task['pid'],signal.SIGCONT);task['status']='running'
         active=sum(t['status']=='running' for t in tasks)
         dedicated=sum(e['role']=='baseline' and e['observed'] is not None for e in health['backends'])
         reserve=max(0,min(remaining,cfg.get('baseline_reserve_max',3))-dedicated)
         limit=max(0,min(health['capacity']['validation']-reserve,health.get('validation_workers',9)))
+        limit=min(limit,cfg.get('max_workers',9))
         for task in tasks:
             if active>=limit:break
             if task['status']!='pending':continue
+            if cfg.get('serial_models',False) and task['model']!=current_model:continue
             p=target(task);p.parent.mkdir(parents=True,exist_ok=True)
             model='Qwen3-8B' if task['model']=='base' else task['model']
             command=[cfg['python'],'-u','-m','experiments.test_hard_balanced','--model',model,'--enable-thinking',
