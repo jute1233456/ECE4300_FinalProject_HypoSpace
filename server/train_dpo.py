@@ -108,10 +108,21 @@ def main():
             lr=cfg['lr']*warmup_reciprocal(step+1,total+1,warmup,2.0)
             for param_group in optimizer.param_groups:param_group['lr']=lr
             for index in group:
-                c,r=[logprob(x) for x in samples[index]]
+                # Exact two-pass gradient: compute the scalar DPO derivative
+                # first, then backprop each completion separately. Dropout is
+                # disabled and weights do not change between these passes.
+                # Holding both full-sequence activation graphs can OOM after
+                # optimizer state and variable-length allocator blocks grow.
+                with torch.no_grad():
+                    c,r=[logprob(x) for x in samples[index]]
                 loss=preference_loss(c,r,*reference[index],cfg['beta'])
                 if not torch.isfinite(loss):raise FloatingPointError('Non-finite DPO loss')
-                (loss/len(group)).backward()
+                margin=cfg['beta']*((c-reference[index][0])-(r-reference[index][1]))
+                slope=(cfg['beta']*torch.sigmoid(-margin)).detach()
+                for side,sign in [(0,-1),(1,1)]:
+                    score=logprob(samples[index][side])
+                    (score*sign*slope.to(score.device)/len(group)).backward()
+                    del score
                 losses.append(float(loss.detach()))
                 margins.append(float((cfg['beta']*((c-reference[index][0])-(r-reference[index][1]))).detach()))
             norm=torch.nn.utils.clip_grad_norm_(model.parameters(),1.0)

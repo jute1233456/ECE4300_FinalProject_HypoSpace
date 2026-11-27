@@ -48,3 +48,9 @@ SSH `EEC430004-4090`；持久根目录：
 8 项采集测试通过，包含训练仅让指定卡、跑题 pending 时两次候选之间归还、已有候选不重复生成。CPU 数值检查通过：初始 DPO loss=log(2)、chosen/rejected 梯度方向、按真实组大小积累与组均值梯度一致。正式训练仍须以服务器实际 status.json 和日志为准。
 
 权重和虚拟环境留服务器；本地仅保留代码、说明及轻量日志。
+
+## 首次连续训练 OOM 与重启
+
+首次最长单样本更新成功，但正式训练在完成第1次更新后、下一组 backward 时 OOM：GPU1 已分配16.98GiB、保留未分配4GiB，申请2.44GiB失败。双卡由封装自动归还，未发布不完整模型。
+
+失败产物保存在 `smoke-failed-attempt1/` 和 `adapter-failed-attempt1/`。第二次从原 SFT ep1 重新开始，不接着不完整的DPO参数训练。改为先无梯度计算当前偏好差及损失对 chosen/rejected logprob 的系数，再分别重算、反传两个回答；关闭dropout且两次反传间不更新参数，因此链式法则梯度与原DPO相同。CPU双精度对照一致，同时启用 `PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True`。新GPU检查及训练结果仍以本轮实际日志为准。
