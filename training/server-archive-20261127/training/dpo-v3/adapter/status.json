@@ -1,0 +1,24 @@
+{
+  "phase": "completed",
+  "global_step": 12,
+  "total_updates": 12,
+  "epoch": 1.0,
+  "loss": 0.5615438554022048,
+  "reward_margin": 0.2843688163492415,
+  "lr": 3.2258064516129035e-08,
+  "effective_batch": 9,
+  "grad_norm": 16.02011489868164,
+  "elapsed_seconds": 1634.5210528373718,
+  "chosen_logp_delta": 1.5867445203993056,
+  "rejected_logp_delta": -1.256943596733941,
+  "chosen_token_nll": 2.4520512690874554,
+  "rejected_token_nll": 0.915091361444783,
+  "pair_accuracy": 1.0,
+  "initial_loss": 0.6931471824645996,
+  "changed_tensors": 504,
+  "adapter_sha256": "e950bed5d54bdd8b35012233dd9cfecdcf7dc22be3aeba9a004a57ef74eebf3f",
+  "peak_gib": [
+    14.889208793640137,
+    18.321614265441895
+  ]
+}

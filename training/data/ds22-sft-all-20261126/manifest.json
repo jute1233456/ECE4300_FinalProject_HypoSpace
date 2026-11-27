@@ -1,0 +1,63 @@
+{
+  "output": "training\\data\\ds22-sft-all-20261126\\train.jsonl",
+  "sha256": "c50dfcfcbb7eca98a37f2bb80d35bba04763f2dd748726c46c79ee25dfb10f58",
+  "samples": 1024,
+  "sources": [
+    {
+      "audit": "A",
+      "path": "training/audits/A-claude-review/train.filtered.jsonl",
+      "count": 300,
+      "sha256": "00ce136d3066659e28ae2123265711160546ed68a004babebbbd6f0ab57542f2"
+    },
+    {
+      "audit": "B",
+      "path": "training/audits/B-claude-review/train.filtered.jsonl",
+      "count": 487,
+      "sha256": "eb200843e1ea8a0dbe5e4706022b765ca2a04c0a201445ebbeca456d74fc04e2"
+    },
+    {
+      "audit": "B4",
+      "path": "training/audits/B4-claude-review/train.filtered.jsonl",
+      "count": 237,
+      "sha256": "13f08bf94b3e5310b54c65b7d3e29411359f97881f353d8d66d24edb37493b39"
+    }
+  ],
+  "by_stage": {
+    "selection": 346,
+    "expansion": 332,
+    "candidate": 346
+  },
+  "by_case": {
+    "extended_n1_inputs_00_outputs_1": 41,
+    "g3_h3_b2_001": 27,
+    "g3_h3_b3_006": 81,
+    "g3_h3_b4_001": 237,
+    "n1_inputs_01_outputs_1": 73,
+    "n1_inputs_10_outputs_1": 62,
+    "n2_inputs_00_01_outputs_01": 38,
+    "n2_inputs_00_10_outputs_01": 42,
+    "n3_inputs_00_01_10_outputs_011": 10,
+    "n3_inputs_00_01_11_outputs_101": 11,
+    "n3_inputs_00_10_11_outputs_101": 11,
+    "n3_inputs_01_10_11_outputs_110": 9,
+    "n4_inputs_00_01_10_11_outputs_0001": 9,
+    "n4_inputs_00_01_10_11_outputs_0110": 3,
+    "n4_inputs_00_01_10_11_outputs_0111": 9,
+    "n4_inputs_00_01_10_11_outputs_1001": 3,
+    "n4_inputs_00_01_10_11_outputs_1110": 6,
+    "n6_hard_021": 187,
+    "n6_hard_029": 165
+  },
+  "excluded": {
+    "uncertain": 33,
+    "reject": 2,
+    "reasoning_only": 21
+  },
+  "flags": {
+    "input_reconstructed": true,
+    "plan_unverified": true,
+    "reference_verified": true,
+    "label_mask_checked": false
+  },
+  "note": "All 19 DS 2.2 cases: A(300)+B(487)+B4(237). Rows unmodified. uncertain/reject/reasoning_only excluded."
+}

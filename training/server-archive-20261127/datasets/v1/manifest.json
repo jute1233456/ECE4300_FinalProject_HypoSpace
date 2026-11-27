@@ -1,0 +1,68 @@
+{
+  "dataset_name": "simple-reflection-dpo-v1",
+  "created_utc": "2026-11-26T23:45:44Z",
+  "rule_version": "simple-reflection-dpo-v1",
+  "judgment_rule": "helpful/harmful/neutral/uncertain by offline reading; one high-confidence helpful+harmful pair per state; skip when no high-confidence harmful",
+  "snapshot": {
+    "snapshot_dir": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-v1",
+    "snapshot_utc": "2026-11-26T23:23:05Z",
+    "snapshot_manifest_sha256": "79dd9caaf520a668654b2ca3c9bbeee16c1f0253660dcc08a0dd0d0a96e94491",
+    "states_file_sha256": "b93d1be088ff4fbdf29c2d59fab0df074a88b510fb916024d70c9b8fecea25b7",
+    "states_lines": 521,
+    "response_files": 262,
+    "review_index_sha256": "81db86f48f9e13b783df1d9765de0cfd9bd16fe1611da638ad97f4f6465cd602"
+  },
+  "selection": {
+    "reviewed_states": 62,
+    "criterion": "state had four complete qwen sft-pruned-v1-ep1 candidates plus one DS historical reflection answer",
+    "pairs": 59,
+    "skipped": 3
+  },
+  "statistics": {
+    "judgment_counts": {
+      "helpful": 126,
+      "harmful": 140,
+      "uncertain": 44
+    },
+    "source_by_judgment": {
+      "ds/harmful": 1,
+      "ds/helpful": 61,
+      "qwen/harmful": 139,
+      "qwen/helpful": 65,
+      "qwen/uncertain": 44
+    },
+    "pairs_by_domain": {
+      "boolean": 22,
+      "3d": 24,
+      "causal": 13
+    },
+    "chosen_source_type": {
+      "ds": 50,
+      "qwen": 9
+    },
+    "rejected_source_type": {
+      "qwen": 59
+    },
+    "skip_reasons": {
+      "五条均为可用建议，无高置信 harmful，按规则不配对。": 1,
+      "pair did not reach high/high confidence (chosen medium, rejected high); kept out of dpo.jsonl": 1,
+      "五条均为合法方向，无高置信 harmful，按规则不配对。": 1
+    }
+  },
+  "format": {
+    "dpo.jsonl": "TRL conversational preference format: prompt = verbatim system+user messages; chosen/rejected = [{'role':'assistant','content': <verbatim text>}]",
+    "labels": "A-E were anonymised during review; label->source mapping is in pair_manifest.jsonl",
+    "no_split": "No train/validation/test split is assigned. States are independent reflection snapshots of the same benchmark cases; split by case family downstream if needed.",
+    "provenance_caveat": "DS answers were produced on reconstructed stage inputs (input_reconstructed=true in source pipeline); qwen answers are direct generations on the same frozen prompt. target text is response.final_text only (no thinking)."
+  },
+  "checks": {
+    "all_62_states_have_5_judgments": true,
+    "every_pair_chosen_helpful_rejected_harmful": true,
+    "every_pair_both_high_confidence": true,
+    "one_pair_per_state": true,
+    "texts_verbatim_from_frozen_files": true,
+    "no_thinking_or_reference_solutions_appended": true,
+    "no_split_field": true,
+    "prompt_identical_for_chosen_and_rejected": true
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "base": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 27,
+    "references_completed": 45,
+    "macro_coverage": 0.5740740740740741,
+    "macro_coverage_completed": 0.5740740740740741,
+    "protocol_errors": 2
+  },
+  "linear-ep1": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 36,
+    "references_completed": 45,
+    "macro_coverage": 0.8194444444444443,
+    "macro_coverage_completed": 0.8194444444444443,
+    "protocol_errors": 5
+  },
+  "linear-ep2": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 30,
+    "references_completed": 45,
+    "macro_coverage": 0.6851851851851851,
+    "macro_coverage_completed": 0.6851851851851851,
+    "protocol_errors": 0
+  },
+  "recip-ep1": {
+    "completed": 0,
+    "total": 3,
+    "final": false,
+    "found": 0,
+    "references_completed": 0,
+    "macro_coverage": null,
+    "macro_coverage_completed": null,
+    "protocol_errors": 0
+  },
+  "recip-ep2": {
+    "completed": 0,
+    "total": 3,
+    "final": false,
+    "found": 0,
+    "references_completed": 0,
+    "macro_coverage": null,
+    "macro_coverage_completed": null,
+    "protocol_errors": 0
+  },
+  "recip-ep4": {
+    "completed": 0,
+    "total": 3,
+    "final": false,
+    "found": 0,
+    "references_completed": 0,
+    "macro_coverage": null,
+    "macro_coverage_completed": null,
+    "protocol_errors": 0
+  },
+  "sft-pruned-v1-ep2": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 23,
+    "references_completed": 45,
+    "macro_coverage": 0.5370370370370371,
+    "macro_coverage_completed": 0.5370370370370371,
+    "protocol_errors": 1
+  },
+  "sft-pruned-v1-ep1": {
+    "completed": 24,
+    "total": 25,
+    "final": false,
+    "found": 185,
+    "references_completed": 245,
+    "macro_coverage": null,
+    "macro_coverage_completed": 0.8208664021164022,
+    "protocol_errors": 11
+  },
+  "dpo-reflection-v1-ep1": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 29,
+    "references_completed": 45,
+    "macro_coverage": 0.6435185185185185,
+    "macro_coverage_completed": 0.6435185185185185,
+    "protocol_errors": 2
+  },
+  "dpo-reflection-v2-ep1": {
+    "completed": 3,
+    "total": 3,
+    "final": true,
+    "found": 31,
+    "references_completed": 45,
+    "macro_coverage": 0.6712962962962963,
+    "macro_coverage_completed": 0.6712962962962963,
+    "protocol_errors": 1
+  },
+  "dpo-reflection-v3-ep1": {
+    "completed": 1,
+    "total": 25,
+    "final": false,
+    "found": 2,
+    "references_completed": 2,
+    "macro_coverage": null,
+    "macro_coverage_completed": 1.0,
+    "protocol_errors": 0
+  },
+  "dpo-v3-full-ep1": {
+    "completed": 0,
+    "total": 3,
+    "final": false,
+    "found": 0,
+    "references_completed": 0,
+    "macro_coverage": null,
+    "macro_coverage_completed": null,
+    "protocol_errors": 0
+  }
+}

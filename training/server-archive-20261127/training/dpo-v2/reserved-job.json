@@ -1,0 +1,12 @@
+{
+  "cwd": "/opt/data/private/ECE4300-controller-20261127/code",
+  "command": [
+    "/opt/data/private/ECE4300-controller-20261127/venv/bin/python",
+    "-u",
+    "-m",
+    "server.run_dpo_handoff",
+    "--config",
+    "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v2-ep1/config.json",
+    "--train-only"
+  ]
+}

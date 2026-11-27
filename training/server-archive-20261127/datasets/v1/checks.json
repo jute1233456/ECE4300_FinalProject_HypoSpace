@@ -1,0 +1,15 @@
+{
+  "status": "passed",
+  "reviewed_states": 62,
+  "pairs": 59,
+  "skipped": 3,
+  "high_confidence_pair_rule": "chosen.confidence == high and rejected.confidence == high",
+  "label_text_match_min_ratio": 0.95,
+  "notes": [
+    "All 62 packet states were matched back to frozen response/ds files with >=0.95 normalized-prefix similarity.",
+    "Source types (qwen/ds) agree with review/index.json for every label.",
+    "Every pair's chosen is graded helpful and rejected harmful; one pair per state.",
+    "Prompt messages equal states.jsonl messages exactly (object reuse, not re-serialised text).",
+    "No thinking/reasoning text is included; final_text only."
+  ]
+}

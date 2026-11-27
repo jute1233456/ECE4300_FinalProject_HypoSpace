@@ -1,0 +1,19 @@
+[
+  {
+    "phase": "training",
+    "global_step": 1,
+    "total_updates": 1,
+    "epoch": 1.0,
+    "loss": 0.6931471824645996,
+    "reward_margin": 0.0,
+    "lr": 2.5e-07,
+    "effective_batch": 1,
+    "grad_norm": 37.42686080932617,
+    "elapsed_seconds": 17.797683715820312,
+    "chosen_logp_delta": 0.0,
+    "rejected_logp_delta": 0.0,
+    "chosen_token_nll": 2.174622115866436,
+    "rejected_token_nll": 0.8935606166294643,
+    "pair_accuracy": 0.0
+  }
+]

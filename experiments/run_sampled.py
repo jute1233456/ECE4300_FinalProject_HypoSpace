@@ -24,6 +24,7 @@ METHODS = {
     "two-step": ["--method", "mcts-tree", "--tree-policy", "llm", "--duplicate-reward", "-1",
                  "--exploration-list", "off", "--two-step-reflection", "--unbounded-tree", "--tree-tools"],
 }
+METHODS["revision"] = [*METHODS["two-step"], "--mcts-version", "2.2", "--stage22-revision"]
 
 
 def sampled_jobs():
@@ -36,14 +37,14 @@ def sampled_jobs():
     return jobs
 
 
-def run_case(method, dataset, case_id, output):
+def run_case(method, dataset, case_id, output, pause_file=None):
     if output.exists():
         saved = json.loads(output.read_text(encoding="utf-8"))
         if saved.get("completed"):
             return dict(method=method, dataset=dataset, case_id=case_id, status="already_completed")
     args = [sys.executable, "-u", "-m", "experiments.test_hard_balanced",
             "--dataset", dataset, "--case-id", case_id, "--provider-token-limit",
-            "--pause-file", str(output.parent.parent / "PAUSE"), *METHODS[method]]
+            "--pause-file", str(pause_file or output.parent.parent / "PAUSE"), *METHODS[method]]
     args += ["--resume", str(output)] if output.exists() else ["--output", str(output)]
     with output.with_suffix(".log").open("a", encoding="utf-8") as log:
         process = subprocess.run(args, cwd=ROOT, stdout=log, stderr=subprocess.STDOUT)
@@ -56,10 +57,14 @@ def main():
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--methods", default="direct,memory,mcts,two-step")
     parser.add_argument("--run-dir", type=Path, default=ROOT / "results/sampled-local")
+    parser.add_argument("--provider", choices=("ark", "deepseek"), default="ark")
     args = parser.parse_args()
     selected = args.methods.split(",")
     if not selected or any(name not in METHODS for name in selected):
         parser.error("Unknown method selection")
+    if args.provider == "deepseek":
+        for method in selected:
+            METHODS[method] = [*METHODS[method], "--provider", "deepseek"]
     args.run_dir.mkdir(parents=True, exist_ok=True)
     Thread(target=recover_quota, args=(args.run_dir / "PAUSE",), daemon=True).start()
     jobs = sampled_jobs()

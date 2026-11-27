@@ -1,0 +1,131 @@
+{
+  "audit": "A-claude-review",
+  "generated_by": "build_filtered.py",
+  "source": {
+    "path": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\data\\ds22-all-completed\\train.jsonl",
+    "sha256": "23d181e2661a0b6e81b59acdd010757a897952df064c870f5a3c6320c65b58e2",
+    "samples": 309
+  },
+  "decisions": {
+    "path": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\audits\\A-claude-review\\decisions.jsonl",
+    "sha256": "661da6b6a681aff8af5d0c1abb40d6135ed119f00e4154f9b56de772267f89a8",
+    "samples": 309
+  },
+  "outputs": {
+    "keep": {
+      "path": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\audits\\A-claude-review\\train.filtered.jsonl",
+      "sha256": "00ce136d3066659e28ae2123265711160546ed68a004babebbbd6f0ab57542f2",
+      "samples": 300
+    },
+    "reject": {
+      "path": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\audits\\A-claude-review\\rejected.jsonl",
+      "sha256": "107d58c5beea2b280f56a207532fa4229e57ffe15331e9130c66492240fc1bc7",
+      "samples": 2
+    },
+    "uncertain": {
+      "path": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\audits\\A-claude-review\\uncertain.jsonl",
+      "sha256": "293f0c1fba3a3a0fb80b117e339e050082407d768ac70c2bb165951f3cca7e7d",
+      "samples": 7
+    }
+  },
+  "total_samples": 309,
+  "decision_counts": {
+    "keep": 300,
+    "reject": 2,
+    "uncertain": 7
+  },
+  "reason_code_counts": {
+    "keep_valid_consistent": 293,
+    "keep_valid_minor_caveat": 7,
+    "reject_collapsed_step_as_new": 1,
+    "reject_idempotent_novelty_claim": 1,
+    "uncertain_duplicate_collapse_plan": 1,
+    "uncertain_duplicate_collapse_target": 1,
+    "uncertain_false_depth_claim": 1,
+    "uncertain_idempotent_padding": 1,
+    "uncertain_inherited_formatting_rule": 1,
+    "uncertain_plan_candidate_conflict": 1,
+    "uncertain_selection_expansion_conflict": 1
+  },
+  "confidence_counts": {
+    "high": 306,
+    "medium": 3
+  },
+  "stage_decision_counts": {
+    "candidate": {
+      "keep": 100,
+      "uncertain": 3
+    },
+    "expansion": {
+      "keep": 99,
+      "uncertain": 3,
+      "reject": 1
+    },
+    "selection": {
+      "keep": 101,
+      "uncertain": 1,
+      "reject": 1
+    }
+  },
+  "case_decision_counts": {
+    "extended_n1_inputs_00_outputs_1": {
+      "keep": 41,
+      "uncertain": 1
+    },
+    "g3_h3_b2_001": {
+      "keep": 27
+    },
+    "g3_h3_b3_006": {
+      "keep": 81
+    },
+    "n2_inputs_00_01_outputs_01": {
+      "keep": 38,
+      "uncertain": 2,
+      "reject": 2
+    },
+    "n2_inputs_00_10_outputs_01": {
+      "keep": 42
+    },
+    "n3_inputs_00_01_10_outputs_011": {
+      "keep": 10,
+      "uncertain": 2
+    },
+    "n3_inputs_00_01_11_outputs_101": {
+      "keep": 11,
+      "uncertain": 1
+    },
+    "n3_inputs_00_10_11_outputs_101": {
+      "keep": 11,
+      "uncertain": 1
+    },
+    "n3_inputs_01_10_11_outputs_110": {
+      "keep": 9
+    },
+    "n4_inputs_00_01_10_11_outputs_0001": {
+      "keep": 9
+    },
+    "n4_inputs_00_01_10_11_outputs_0110": {
+      "keep": 3
+    },
+    "n4_inputs_00_01_10_11_outputs_0111": {
+      "keep": 9
+    },
+    "n4_inputs_00_01_10_11_outputs_1001": {
+      "keep": 3
+    },
+    "n4_inputs_00_01_10_11_outputs_1110": {
+      "keep": 6
+    }
+  },
+  "invariants": {
+    "ids_exactly_covered": true,
+    "no_duplicate_ids": true,
+    "no_missing_ids": true,
+    "no_extra_ids": true,
+    "original_order_preserved": true,
+    "original_json_lines_reused": true,
+    "source_modified": false,
+    "ledger_modified": false
+  },
+  "note": "Original A train.jsonl is read only. Filtering reuses each original JSON line; only the original trailing newlines are retained."
+}

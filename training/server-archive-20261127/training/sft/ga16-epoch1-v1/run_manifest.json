@@ -1,0 +1,19 @@
+{
+  "purpose": "Validate one epoch only; no quality claim or subsequent epochs",
+  "created_utc": "2026-11-26T09:01:07.516825+00:00",
+  "model": "/opt/data/private/ECE4300-node4-api-20261125/models/Qwen3-8B",
+  "python": "/opt/data/private/ECE4300-node4-api-20261125/.venv-inference/bin/python",
+  "epochs": 1,
+  "batch_size": 1,
+  "grad_accum": 16,
+  "lr": 0.0001,
+  "lora_r": 16,
+  "max_length": 14336,
+  "samples": 309,
+  "expected_optimizer_steps": 20,
+  "files": {
+    "train_qlora.py": "df938838276ed333fad6900f77aed99fd170aefb39109e157dce81a54e45ad00",
+    "train.jsonl": "23d181e2661a0b6e81b59acdd010757a897952df064c870f5a3c6320c65b58e2",
+    "validate_qlora_loss.py": "5ca1626b0991b9f1099a3cc7ec329c5f0c44524ca33559a8454b8be7b41bf30d"
+  }
+}

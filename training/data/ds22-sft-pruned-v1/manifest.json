@@ -1,0 +1,686 @@
+{
+  "version": "original-format-pruned-sft-v1",
+  "source": "training\\data\\ds22-sft-all-20261126\\train.jsonl",
+  "source_sha256": "c50dfcfcbb7eca98a37f2bb80d35bba04763f2dd748726c46c79ee25dfb10f58",
+  "length_audit_sha256": "50bdc50aeb53ed3fbf36e183f832d0bd525da4d563993023aeb11515b702817a",
+  "max_length": 14336,
+  "source_samples": 1024,
+  "train_samples": 944,
+  "excluded_samples": 80,
+  "train_sha256": "6f3e178e83d0004b6e2e84ec35ea1c790faac09db208ebf784112eaeaab8579e",
+  "by_stage": {
+    "selection": 266,
+    "expansion": 332,
+    "candidate": 346
+  },
+  "by_case": {
+    "extended_n1_inputs_00_outputs_1": 41,
+    "g3_h3_b2_001": 27,
+    "g3_h3_b3_006": 81,
+    "n2_inputs_00_01_outputs_01": 38,
+    "n2_inputs_00_10_outputs_01": 42,
+    "n3_inputs_00_01_10_outputs_011": 10,
+    "n3_inputs_00_01_11_outputs_101": 11,
+    "n3_inputs_00_10_11_outputs_101": 11,
+    "n3_inputs_01_10_11_outputs_110": 9,
+    "n4_inputs_00_01_10_11_outputs_0001": 9,
+    "n4_inputs_00_01_10_11_outputs_0110": 3,
+    "n4_inputs_00_01_10_11_outputs_0111": 9,
+    "n4_inputs_00_01_10_11_outputs_1001": 3,
+    "n4_inputs_00_01_10_11_outputs_1110": 6,
+    "n1_inputs_01_outputs_1": 73,
+    "n1_inputs_10_outputs_1": 62,
+    "n6_hard_021": 170,
+    "n6_hard_029": 153,
+    "g3_h3_b4_001": 186
+  },
+  "excluded_by_case": {
+    "n6_hard_021": 17,
+    "n6_hard_029": 12,
+    "g3_h3_b4_001": 51
+  },
+  "max_retained_tokens": 14302,
+  "excluded": [
+    {
+      "sample_id": "253b1f22265dd6f7eab0",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 14432,
+      "full_tokens": 14610,
+      "assistant_tokens": 178
+    },
+    {
+      "sample_id": "615413f9e511b5c2ae0e",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 14618,
+      "full_tokens": 14793,
+      "assistant_tokens": 175
+    },
+    {
+      "sample_id": "988c060e4169f2e64857",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 14891,
+      "full_tokens": 15077,
+      "assistant_tokens": 186
+    },
+    {
+      "sample_id": "1438b93f7adf5abd9bd2",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 15182,
+      "full_tokens": 15362,
+      "assistant_tokens": 180
+    },
+    {
+      "sample_id": "40d0e58ad671396406c0",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 15495,
+      "full_tokens": 15664,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "2886cdff71f63b300ea2",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 15713,
+      "full_tokens": 15848,
+      "assistant_tokens": 135
+    },
+    {
+      "sample_id": "68ab25519571b5317da8",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 15983,
+      "full_tokens": 16262,
+      "assistant_tokens": 279
+    },
+    {
+      "sample_id": "3cdb663927f68523f4d4",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 16422,
+      "full_tokens": 16611,
+      "assistant_tokens": 189
+    },
+    {
+      "sample_id": "f9f637520616d5abecaa",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 17070,
+      "full_tokens": 17213,
+      "assistant_tokens": 143
+    },
+    {
+      "sample_id": "a8e151d4f10116306e2e",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 17457,
+      "full_tokens": 17636,
+      "assistant_tokens": 179
+    },
+    {
+      "sample_id": "846346af267141d95cc0",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 17758,
+      "full_tokens": 17949,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "8c8437a262a357f76636",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 17993,
+      "full_tokens": 18139,
+      "assistant_tokens": 146
+    },
+    {
+      "sample_id": "a2a097ba042a46585cb1",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 18319,
+      "full_tokens": 18457,
+      "assistant_tokens": 138
+    },
+    {
+      "sample_id": "6ee4a899bcd3ee893ab4",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 18674,
+      "full_tokens": 18841,
+      "assistant_tokens": 167
+    },
+    {
+      "sample_id": "bf046a18d9c5e6c52710",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 18874,
+      "full_tokens": 19027,
+      "assistant_tokens": 153
+    },
+    {
+      "sample_id": "8514dd9540512668f22d",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 19170,
+      "full_tokens": 19299,
+      "assistant_tokens": 129
+    },
+    {
+      "sample_id": "bd875db8a64054a02af9",
+      "case_id": "n6_hard_021",
+      "stage": "selection",
+      "prefix_tokens": 19659,
+      "full_tokens": 19782,
+      "assistant_tokens": 123
+    },
+    {
+      "sample_id": "9e4cf7515c6dd3507d0f",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 14407,
+      "full_tokens": 14597,
+      "assistant_tokens": 190
+    },
+    {
+      "sample_id": "1e09f92247dc884ed905",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 14672,
+      "full_tokens": 14853,
+      "assistant_tokens": 181
+    },
+    {
+      "sample_id": "0f8e18d52577a68aecf5",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 14972,
+      "full_tokens": 15179,
+      "assistant_tokens": 207
+    },
+    {
+      "sample_id": "f27d772e20e8ed37185a",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 15222,
+      "full_tokens": 15430,
+      "assistant_tokens": 208
+    },
+    {
+      "sample_id": "304af779056f7e9d86c0",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 15516,
+      "full_tokens": 15703,
+      "assistant_tokens": 187
+    },
+    {
+      "sample_id": "19751143c0af0117eed1",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 15872,
+      "full_tokens": 16035,
+      "assistant_tokens": 163
+    },
+    {
+      "sample_id": "4efcec95d4b3ec89ca00",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 16091,
+      "full_tokens": 16242,
+      "assistant_tokens": 151
+    },
+    {
+      "sample_id": "eddeca8dc8eb409f7ae8",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 16470,
+      "full_tokens": 16608,
+      "assistant_tokens": 138
+    },
+    {
+      "sample_id": "35f8651a8974c6c56052",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 16706,
+      "full_tokens": 16862,
+      "assistant_tokens": 156
+    },
+    {
+      "sample_id": "33bfb7fa966748c0ba9a",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 17628,
+      "full_tokens": 17770,
+      "assistant_tokens": 142
+    },
+    {
+      "sample_id": "92360384168342f1b8b4",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 17962,
+      "full_tokens": 18176,
+      "assistant_tokens": 214
+    },
+    {
+      "sample_id": "de038946113aa437ed52",
+      "case_id": "n6_hard_029",
+      "stage": "selection",
+      "prefix_tokens": 18683,
+      "full_tokens": 18844,
+      "assistant_tokens": 161
+    },
+    {
+      "sample_id": "af836528afaecca6585b",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 14317,
+      "full_tokens": 14575,
+      "assistant_tokens": 258
+    },
+    {
+      "sample_id": "4251a4927fc53c41f9b2",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 14931,
+      "full_tokens": 15145,
+      "assistant_tokens": 214
+    },
+    {
+      "sample_id": "2629f47d1e1dbb55e6ed",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 15284,
+      "full_tokens": 15442,
+      "assistant_tokens": 158
+    },
+    {
+      "sample_id": "699949e43a490e9419b8",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 15603,
+      "full_tokens": 15788,
+      "assistant_tokens": 185
+    },
+    {
+      "sample_id": "183c093bb8b64a3ad2f0",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 15983,
+      "full_tokens": 16171,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "960123a84902749b3ce4",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 16354,
+      "full_tokens": 16616,
+      "assistant_tokens": 262
+    },
+    {
+      "sample_id": "e453db6572a65afcede9",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 16919,
+      "full_tokens": 17158,
+      "assistant_tokens": 239
+    },
+    {
+      "sample_id": "b40b453b1f06ea19823e",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 17259,
+      "full_tokens": 17523,
+      "assistant_tokens": 264
+    },
+    {
+      "sample_id": "7e63fb48e01d1ae00a42",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 18024,
+      "full_tokens": 18284,
+      "assistant_tokens": 260
+    },
+    {
+      "sample_id": "9734576a1251fb38dc00",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 18466,
+      "full_tokens": 18654,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "709c1a24cc865e49c4a9",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 18830,
+      "full_tokens": 19028,
+      "assistant_tokens": 198
+    },
+    {
+      "sample_id": "178cda902db7a0758f0f",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 19219,
+      "full_tokens": 19426,
+      "assistant_tokens": 207
+    },
+    {
+      "sample_id": "888c287e1d71f5c3062f",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 19577,
+      "full_tokens": 19797,
+      "assistant_tokens": 220
+    },
+    {
+      "sample_id": "4decfd39953367727c8d",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 19997,
+      "full_tokens": 20188,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "1e27d04e68bec75a430e",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 20497,
+      "full_tokens": 20702,
+      "assistant_tokens": 205
+    },
+    {
+      "sample_id": "18e364086535c4091f21",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 20867,
+      "full_tokens": 21065,
+      "assistant_tokens": 198
+    },
+    {
+      "sample_id": "1b9781f13b62ba5f1771",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 21712,
+      "full_tokens": 21964,
+      "assistant_tokens": 252
+    },
+    {
+      "sample_id": "9d805bbcf4ea1cf9b46e",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 22170,
+      "full_tokens": 22383,
+      "assistant_tokens": 213
+    },
+    {
+      "sample_id": "b4c05526395264658a28",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 23430,
+      "full_tokens": 23679,
+      "assistant_tokens": 249
+    },
+    {
+      "sample_id": "8698699bc16b405b90a0",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 23888,
+      "full_tokens": 24074,
+      "assistant_tokens": 186
+    },
+    {
+      "sample_id": "8fb4485ef0b48e8216c1",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 24821,
+      "full_tokens": 25015,
+      "assistant_tokens": 194
+    },
+    {
+      "sample_id": "f181b5ec45c6348545fd",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 25273,
+      "full_tokens": 25491,
+      "assistant_tokens": 218
+    },
+    {
+      "sample_id": "bdcf4e1420beaa385131",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 25680,
+      "full_tokens": 25892,
+      "assistant_tokens": 212
+    },
+    {
+      "sample_id": "c42bbcdaefe1d802681c",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 26242,
+      "full_tokens": 26509,
+      "assistant_tokens": 267
+    },
+    {
+      "sample_id": "30a68a8b616e1dee776d",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 26545,
+      "full_tokens": 26736,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "0e06d64d5b5445499f55",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 27695,
+      "full_tokens": 27914,
+      "assistant_tokens": 219
+    },
+    {
+      "sample_id": "443f78bfd10550dfbda9",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 28207,
+      "full_tokens": 28411,
+      "assistant_tokens": 204
+    },
+    {
+      "sample_id": "a78e0d2b9d5b86bdb661",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 28380,
+      "full_tokens": 28571,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "d89c96949c0d9a3c6706",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 28807,
+      "full_tokens": 28993,
+      "assistant_tokens": 186
+    },
+    {
+      "sample_id": "40d44ba029273311238e",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 30170,
+      "full_tokens": 30363,
+      "assistant_tokens": 193
+    },
+    {
+      "sample_id": "57427445f54f8072a277",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 30440,
+      "full_tokens": 30628,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "6088e05dc509d69dbf3f",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 31058,
+      "full_tokens": 31229,
+      "assistant_tokens": 171
+    },
+    {
+      "sample_id": "66be6480cd2618698498",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 31499,
+      "full_tokens": 31750,
+      "assistant_tokens": 251
+    },
+    {
+      "sample_id": "587eca660097fed4d1f5",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 32132,
+      "full_tokens": 32324,
+      "assistant_tokens": 192
+    },
+    {
+      "sample_id": "e61d07d28f3324d8b6fc",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 32985,
+      "full_tokens": 33172,
+      "assistant_tokens": 187
+    },
+    {
+      "sample_id": "8ac1ec9b4f2af4311b66",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 34038,
+      "full_tokens": 34257,
+      "assistant_tokens": 219
+    },
+    {
+      "sample_id": "5ead653335d001179595",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 35511,
+      "full_tokens": 35707,
+      "assistant_tokens": 196
+    },
+    {
+      "sample_id": "7d822f3397510949b216",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 36099,
+      "full_tokens": 36329,
+      "assistant_tokens": 230
+    },
+    {
+      "sample_id": "dd970dceec535170f969",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 37040,
+      "full_tokens": 37185,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "b095cffc5299c0792c36",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 38751,
+      "full_tokens": 38931,
+      "assistant_tokens": 180
+    },
+    {
+      "sample_id": "531a874d0c602931418e",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 39800,
+      "full_tokens": 39941,
+      "assistant_tokens": 141
+    },
+    {
+      "sample_id": "48adb2b00866d40f9acf",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 40360,
+      "full_tokens": 40554,
+      "assistant_tokens": 194
+    },
+    {
+      "sample_id": "88bbe1c9e3932400fdda",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 40764,
+      "full_tokens": 40956,
+      "assistant_tokens": 192
+    },
+    {
+      "sample_id": "6d90c7c755f2d8982261",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 41306,
+      "full_tokens": 41451,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "9b558e05a1edae02637b",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 41745,
+      "full_tokens": 42038,
+      "assistant_tokens": 293
+    },
+    {
+      "sample_id": "6a1641b090dcdb84d142",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 42209,
+      "full_tokens": 42415,
+      "assistant_tokens": 206
+    },
+    {
+      "sample_id": "f453f1337c100915c26f",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 43808,
+      "full_tokens": 44024,
+      "assistant_tokens": 216
+    },
+    {
+      "sample_id": "fe743e1a24089ba1f8e4",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 45262,
+      "full_tokens": 45454,
+      "assistant_tokens": 192
+    },
+    {
+      "sample_id": "6cf53133642fc76e2098",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 46447,
+      "full_tokens": 46613,
+      "assistant_tokens": 166
+    },
+    {
+      "sample_id": "02bca5e7508dd415abf5",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 48639,
+      "full_tokens": 48823,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "ab967a00e431528e8654",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 50780,
+      "full_tokens": 50956,
+      "assistant_tokens": 176
+    }
+  ],
+  "notes": "Retained rows byte-identical; no summarization, compression, truncation or whole-round deletion."
+}

@@ -2,6 +2,11 @@
   "ark_coding_plan": {
     "api_key": "",
     "model": "deepseek-v4.1-flash-economy",
-    "timeout": 120
+    "timeout": 600
+  },
+  "deepseek_official": {
+    "api_key": "",
+    "model": "deepseek-flash",
+    "timeout": 600
   }
 }

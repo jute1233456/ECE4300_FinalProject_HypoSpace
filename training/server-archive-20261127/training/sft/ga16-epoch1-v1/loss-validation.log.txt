@@ -1,0 +1,5 @@
+[RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+PASS: assistant-only loss and gradients match full masked CE
+PASS: accumulation=16, fixed=False, gradient factor=16
+PASS: accumulation=16, fixed=True, gradient factor=1
+PASS: accumulation=5, fixed=True, gradient factor=1

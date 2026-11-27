@@ -25,7 +25,7 @@
 
 统计时只计算enabled_models，过滤历史未启用recip模型；state.total可能包含它们，不是当前有效总任务数。DPO v2在ready前尚未插入tasks.json，应报告“等待训练完成入队”，不能据此判定任务丢失。
 
-汇报每模型：完成/总题数、运行/待跑数、找到解数/全部参考解数、覆盖率，并注明是含在途进度还是仅已完成题。
+汇报每模型：完成/总题数、运行/待跑数、找到解数/全部参考解数、覆盖率，并注明是含在途进度还是仅已完成题。**每道在途题必须同时给出已用/搜索上限与剩余次数**（例如 `used 60/106，剩 46`），否则无法判断任务何时结束；used 取结果 JSON 的 records 数，cap 取 `call_cap`。
 
 计算含在途覆盖率：读取每题JSON的cases和interrupted_case中records，按reference_hit=true且hypothesis_key去重计数；key可能是列表，先转稳定JSON字符串再去重。可优先采用已完成task.result.recovered；不要直接把records数量当成找到解数。
 

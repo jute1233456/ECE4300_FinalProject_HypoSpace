@@ -1,0 +1,88 @@
+{
+  "gateway": "http://127.0.0.1:8005",
+  "token_file": "/opt/data/private/ECE4300-dynamic-pool-20261126/pool-token.txt",
+  "models": [
+    "base",
+    "linear-ep1",
+    "linear-ep2",
+    "recip-ep1",
+    "recip-ep2",
+    "recip-ep4",
+    "sft-pruned-v1-ep2",
+    "sft-pruned-v1-ep1",
+    "dpo-reflection-v1-ep1",
+    "dpo-reflection-v2-ep1",
+    "dpo-reflection-v3-ep1",
+    "dpo-v3-full-ep1"
+  ],
+  "quick_manifest": "/opt/data/private/ECE4300-controller-20261127/quick_validation3_v1.json",
+  "legacy_state": "/opt/data/private/ECE4300-controller-20261127/history/results/qwen-stage22-protocol-examples19-20261126/state.json",
+  "baseline_reserve_max": 3,
+  "python": "/opt/data/private/ECE4300-controller-20261127/hybrid_worker_python.py",
+  "eval_code": "/opt/data/private/ECE4300-controller-20261127/eval-release",
+  "serial_models": false,
+  "max_workers": 9,
+  "model_order": [
+    "linear-ep1",
+    "linear-ep2",
+    "base",
+    "sft-pruned-v1-ep2",
+    "sft-pruned-v1-ep1",
+    "dpo-reflection-v1-ep1",
+    "dpo-reflection-v2-ep1",
+    "dpo-v3-full-ep1",
+    "dpo-reflection-v3-ep1"
+  ],
+  "enabled_models": [
+    "linear-ep1",
+    "linear-ep2",
+    "base",
+    "sft-pruned-v1-ep2",
+    "sft-pruned-v1-ep1",
+    "dpo-reflection-v1-ep1",
+    "dpo-reflection-v2-ep1",
+    "dpo-reflection-v3-ep1",
+    "dpo-v3-full-ep1"
+  ],
+  "future_models": [
+    {
+      "name": "sft-pruned-v1-ep2",
+      "status_url": "http://10.106.254.57:28281/status"
+    },
+    {
+      "name": "sft-pruned-v1-ep1",
+      "status_url": "http://127.0.0.1:28283/status"
+    },
+    {
+      "name": "dpo-reflection-v1-ep1",
+      "status_url": "http://127.0.0.1:28285/status"
+    },
+    {
+      "name": "dpo-reflection-v2-ep1",
+      "status_url": "http://127.0.0.1:28286/status"
+    },
+    {
+      "name": "dpo-reflection-v3-ep1",
+      "status_url": "http://127.0.0.1:28287/status"
+    }
+  ],
+  "additional_suites": [
+    {
+      "name": "mixed100-v1",
+      "manifest": "/opt/data/private/ECE4300-controller-20261127/datasets/mixed100_v1/manifest.json",
+      "sha256": "836ddefa0b20f2b07cdee364bebecac68088a0720269c93632c8ce6a4fdd2ce0",
+      "models": [
+        "sft-pruned-v1-ep1",
+        "dpo-reflection-v3-ep1"
+      ]
+    },
+    {
+      "name": "quick3-v3-full",
+      "manifest": "/opt/data/private/ECE4300-controller-20261127/quick3/full-v3-manifest.json",
+      "sha256": "aa54812845521f0704e7e4acb6dda63e9fd636606d56d4438cce16fed561972f",
+      "models": [
+        "dpo-v3-full-ep1"
+      ]
+    }
+  ]
+}

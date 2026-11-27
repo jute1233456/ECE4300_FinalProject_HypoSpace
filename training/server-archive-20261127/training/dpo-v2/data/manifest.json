@@ -1,0 +1,13 @@
+{
+  "source": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-dpo-v2",
+  "source_pairs": 133,
+  "pairs": 130,
+  "excluded": {
+    "0258751fb1219ad03851023c7487dc7588493116c40ed48b8cc7ff3cfcf71516": "Known incorrect depth-1 claim for y OR NOT x; actual depth 2.",
+    "41ccbd793a5c476736ab753466487bb650a0e513bb33a94a2f086259c663ec2e": "Chosen claims no strict-subset Layer2, contradicted by multiple valid historical strict-subset masks.",
+    "ca14adbc265e2a4757f62e4d6c31cea54021c5b2fa288cd29441649423c3997f": "Chosen forbids NOR compound operands by counting NOT+OR separately, contradicted by accepted NOR compound candidates in same input."
+  },
+  "audit": "Full provenance/hash/template/length checks; targeted semantic review, not exhaustive proof of every label.",
+  "max_full_tokens": 4738,
+  "max_prompt_tokens": 4458
+}

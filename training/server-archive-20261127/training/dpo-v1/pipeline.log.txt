@@ -1,0 +1,175 @@
+{"phase": "training", "gpus": ["node4-4090-g0", "node4-4090-g1"], "command": ["/opt/data/private/ECE4300-controller-20261127/venv/bin/python", "-u", "-m", "server.run_dpo_handoff", "--config", "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1/config.json", "--train-only"]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:08<00:32,  8.16s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:16<00:24,  8.16s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:26<00:18,  9.18s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:32<00:07,  7.89s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:34<00:00,  5.84s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:34<00:00,  6.97s/it]
+{"phase": "reference", "completed": 1, "total": 1}
+{"phase": "training", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 1.25e-06, "effective_batch": 1, "grad_norm": 37.51156997680664, "elapsed_seconds": 14.231519937515259}
+{"phase": "completed", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 1.25e-06, "effective_batch": 1, "grad_norm": 37.51156997680664, "elapsed_seconds": 14.231519937515259, "initial_loss": 0.6931471824645996, "changed_tensors": 504, "adapter_sha256": "da9f0e3ad2de9260dd786662903f2003ad7f49baf7d90a6bf4d36cfe341f4e5d", "peak_gib": [15.03049898147583, 19.571125984191895]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:01<00:04,  1.23s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:02<00:03,  1.06s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.08it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.29it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.77it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.36it/s]
+{"phase": "reference", "completed": 1, "total": 58}
+{"phase": "reference", "completed": 2, "total": 58}
+{"phase": "reference", "completed": 3, "total": 58}
+{"phase": "reference", "completed": 4, "total": 58}
+{"phase": "reference", "completed": 5, "total": 58}
+{"phase": "reference", "completed": 6, "total": 58}
+{"phase": "reference", "completed": 7, "total": 58}
+{"phase": "reference", "completed": 8, "total": 58}
+{"phase": "reference", "completed": 9, "total": 58}
+{"phase": "reference", "completed": 10, "total": 58}
+{"phase": "reference", "completed": 11, "total": 58}
+{"phase": "reference", "completed": 12, "total": 58}
+{"phase": "reference", "completed": 13, "total": 58}
+{"phase": "reference", "completed": 14, "total": 58}
+{"phase": "reference", "completed": 15, "total": 58}
+{"phase": "reference", "completed": 16, "total": 58}
+{"phase": "reference", "completed": 17, "total": 58}
+{"phase": "reference", "completed": 18, "total": 58}
+{"phase": "reference", "completed": 19, "total": 58}
+{"phase": "reference", "completed": 20, "total": 58}
+{"phase": "reference", "completed": 21, "total": 58}
+{"phase": "reference", "completed": 22, "total": 58}
+{"phase": "reference", "completed": 23, "total": 58}
+{"phase": "reference", "completed": 24, "total": 58}
+{"phase": "reference", "completed": 25, "total": 58}
+{"phase": "reference", "completed": 26, "total": 58}
+{"phase": "reference", "completed": 27, "total": 58}
+{"phase": "reference", "completed": 28, "total": 58}
+{"phase": "reference", "completed": 29, "total": 58}
+{"phase": "reference", "completed": 30, "total": 58}
+{"phase": "reference", "completed": 31, "total": 58}
+{"phase": "reference", "completed": 32, "total": 58}
+{"phase": "reference", "completed": 33, "total": 58}
+{"phase": "reference", "completed": 34, "total": 58}
+{"phase": "reference", "completed": 35, "total": 58}
+{"phase": "reference", "completed": 36, "total": 58}
+{"phase": "reference", "completed": 37, "total": 58}
+{"phase": "reference", "completed": 38, "total": 58}
+{"phase": "reference", "completed": 39, "total": 58}
+{"phase": "reference", "completed": 40, "total": 58}
+{"phase": "reference", "completed": 41, "total": 58}
+{"phase": "reference", "completed": 42, "total": 58}
+{"phase": "reference", "completed": 43, "total": 58}
+{"phase": "reference", "completed": 44, "total": 58}
+{"phase": "reference", "completed": 45, "total": 58}
+{"phase": "reference", "completed": 46, "total": 58}
+{"phase": "reference", "completed": 47, "total": 58}
+{"phase": "reference", "completed": 48, "total": 58}
+{"phase": "reference", "completed": 49, "total": 58}
+{"phase": "reference", "completed": 50, "total": 58}
+{"phase": "reference", "completed": 51, "total": 58}
+{"phase": "reference", "completed": 52, "total": 58}
+{"phase": "reference", "completed": 53, "total": 58}
+{"phase": "reference", "completed": 54, "total": 58}
+{"phase": "reference", "completed": 55, "total": 58}
+{"phase": "reference", "completed": 56, "total": 58}
+{"phase": "reference", "completed": 57, "total": 58}
+{"phase": "reference", "completed": 58, "total": 58}
+{"phase": "training", "global_step": 1, "total_updates": 8, "epoch": 0.13793103448275862, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 5e-06, "effective_batch": 8, "grad_norm": 18.013015747070312, "elapsed_seconds": 65.12258410453796}
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/opt/data/private/ECE4300-controller-20261127/code/server/train_dpo.py", line 139, in <module>
+    if __name__=='__main__':main()
+  File "/opt/data/private/ECE4300-controller-20261127/code/server/train_dpo.py", line 114, in main
+    (loss/len(group)).backward()
+  File "/opt/data/private/ECE4300-node4-api-20261125/.venv-inference/lib/python3.10/site-packages/torch/_tensor.py", line 647, in backward
+    torch.autograd.backward(
+  File "/opt/data/private/ECE4300-node4-api-20261125/.venv-inference/lib/python3.10/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/opt/data/private/ECE4300-node4-api-20261125/.venv-inference/lib/python3.10/site-packages/torch/autograd/graph.py", line 829, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 2.44 GiB. GPU 1 has a total capacity of 23.52 GiB of which 1.94 GiB is free. Including non-PyTorch memory, this process has 21.44 GiB memory in use. Of the allocated memory 16.98 GiB is allocated by PyTorch, and 4.00 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/opt/data/private/ECE4300-controller-20261127/code/server/run_dpo_handoff.py", line 84, in <module>
+    status('failed',error=repr(error))
+  File "/opt/data/private/ECE4300-controller-20261127/code/server/run_dpo_handoff.py", line 27, in main
+    subprocess.run(command,cwd=cfg['code'],check=True)
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/opt/data/private/ECE4300-controller-20261127/venv/bin/python', '-u', '-m', 'server.train_dpo', '--config', '/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1/config.json']' returned non-zero exit status 1.
+{"phase": "returned_to_inference", "exit_code": 1, "gpus": ["node4-4090-g0", "node4-4090-g1"]}
+RuntimeError('Training wrapper failed: 1')
+
+--- Restart with exact sequential-backward DPO, attempt 2 ---
+{"phase": "training", "gpus": ["node4-4090-g0", "node4-4090-g1"], "command": ["/opt/data/private/ECE4300-controller-20261127/venv/bin/python", "-u", "-m", "server.run_dpo_handoff", "--config", "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1/config.json", "--train-only"]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:08,  2.19s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:06,  2.20s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:06<00:04,  2.22s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:08<00:01,  2.00s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:08<00:00,  1.50s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:08<00:00,  1.78s/it]
+{"phase": "reference", "completed": 1, "total": 1}
+{"phase": "training", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 1.25e-06, "effective_batch": 1, "grad_norm": 37.51156997680664, "elapsed_seconds": 18.336755752563477}
+{"phase": "completed", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 1.25e-06, "effective_batch": 1, "grad_norm": 37.51156997680664, "elapsed_seconds": 18.336755752563477, "initial_loss": 0.6931471824645996, "changed_tensors": 504, "adapter_sha256": "da9f0e3ad2de9260dd786662903f2003ad7f49baf7d90a6bf4d36cfe341f4e5d", "peak_gib": [14.856399536132812, 18.175134658813477]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.33it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.24it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.20it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.31it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.74it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.49it/s]
+{"phase": "reference", "completed": 1, "total": 58}
+{"phase": "reference", "completed": 2, "total": 58}
+{"phase": "reference", "completed": 3, "total": 58}
+{"phase": "reference", "completed": 4, "total": 58}
+{"phase": "reference", "completed": 5, "total": 58}
+{"phase": "reference", "completed": 6, "total": 58}
+{"phase": "reference", "completed": 7, "total": 58}
+{"phase": "reference", "completed": 8, "total": 58}
+{"phase": "reference", "completed": 9, "total": 58}
+{"phase": "reference", "completed": 10, "total": 58}
+{"phase": "reference", "completed": 11, "total": 58}
+{"phase": "reference", "completed": 12, "total": 58}
+{"phase": "reference", "completed": 13, "total": 58}
+{"phase": "reference", "completed": 14, "total": 58}
+{"phase": "reference", "completed": 15, "total": 58}
+{"phase": "reference", "completed": 16, "total": 58}
+{"phase": "reference", "completed": 17, "total": 58}
+{"phase": "reference", "completed": 18, "total": 58}
+{"phase": "reference", "completed": 19, "total": 58}
+{"phase": "reference", "completed": 20, "total": 58}
+{"phase": "reference", "completed": 21, "total": 58}
+{"phase": "reference", "completed": 22, "total": 58}
+{"phase": "reference", "completed": 23, "total": 58}
+{"phase": "reference", "completed": 24, "total": 58}
+{"phase": "reference", "completed": 25, "total": 58}
+{"phase": "reference", "completed": 26, "total": 58}
+{"phase": "reference", "completed": 27, "total": 58}
+{"phase": "reference", "completed": 28, "total": 58}
+{"phase": "reference", "completed": 29, "total": 58}
+{"phase": "reference", "completed": 30, "total": 58}
+{"phase": "reference", "completed": 31, "total": 58}
+{"phase": "reference", "completed": 32, "total": 58}
+{"phase": "reference", "completed": 33, "total": 58}
+{"phase": "reference", "completed": 34, "total": 58}
+{"phase": "reference", "completed": 35, "total": 58}
+{"phase": "reference", "completed": 36, "total": 58}
+{"phase": "reference", "completed": 37, "total": 58}
+{"phase": "reference", "completed": 38, "total": 58}
+{"phase": "reference", "completed": 39, "total": 58}
+{"phase": "reference", "completed": 40, "total": 58}
+{"phase": "reference", "completed": 41, "total": 58}
+{"phase": "reference", "completed": 42, "total": 58}
+{"phase": "reference", "completed": 43, "total": 58}
+{"phase": "reference", "completed": 44, "total": 58}
+{"phase": "reference", "completed": 45, "total": 58}
+{"phase": "reference", "completed": 46, "total": 58}
+{"phase": "reference", "completed": 47, "total": 58}
+{"phase": "reference", "completed": 48, "total": 58}
+{"phase": "reference", "completed": 49, "total": 58}
+{"phase": "reference", "completed": 50, "total": 58}
+{"phase": "reference", "completed": 51, "total": 58}
+{"phase": "reference", "completed": 52, "total": 58}
+{"phase": "reference", "completed": 53, "total": 58}
+{"phase": "reference", "completed": 54, "total": 58}
+{"phase": "reference", "completed": 55, "total": 58}
+{"phase": "reference", "completed": 56, "total": 58}
+{"phase": "reference", "completed": 57, "total": 58}
+{"phase": "reference", "completed": 58, "total": 58}
+{"phase": "training", "global_step": 1, "total_updates": 8, "epoch": 0.13793103448275862, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 5e-06, "effective_batch": 8, "grad_norm": 18.013015747070312, "elapsed_seconds": 89.64640426635742}
+{"phase": "training", "global_step": 2, "total_updates": 8, "epoch": 0.27586206896551724, "loss": 0.5599030032753944, "reward_margin": 0.2884966842830181, "lr": 3.5e-06, "effective_batch": 8, "grad_norm": 15.729256629943848, "elapsed_seconds": 180.27237033843994}
+{"phase": "training", "global_step": 3, "total_updates": 8, "epoch": 0.41379310344827586, "loss": 0.5355541110038757, "reward_margin": 0.3619618504308164, "lr": 2.5e-06, "effective_batch": 8, "grad_norm": 10.901659965515137, "elapsed_seconds": 255.90827989578247}
+{"phase": "training", "global_step": 4, "total_updates": 8, "epoch": 0.5517241379310345, "loss": 0.5166580006480217, "reward_margin": 0.4108593830605969, "lr": 1.7857142857142859e-06, "effective_batch": 8, "grad_norm": 9.760711669921875, "elapsed_seconds": 311.2623836994171}
+{"phase": "training", "global_step": 5, "total_updates": 8, "epoch": 0.6896551724137931, "loss": 0.44912881404161453, "reward_margin": 0.5900796060450375, "lr": 1.25e-06, "effective_batch": 8, "grad_norm": 10.769903182983398, "elapsed_seconds": 380.9742362499237}
+{"phase": "training", "global_step": 6, "total_updates": 8, "epoch": 0.8275862068965517, "loss": 0.45484838634729385, "reward_margin": 0.5795592330396175, "lr": 8.333333333333333e-07, "effective_batch": 8, "grad_norm": 9.421966552734375, "elapsed_seconds": 473.55180978775024}
+{"phase": "training", "global_step": 7, "total_updates": 8, "epoch": 0.9655172413793104, "loss": 0.4482784532010555, "reward_margin": 0.6042274590581656, "lr": 5.000000000000001e-07, "effective_batch": 8, "grad_norm": 9.274606704711914, "elapsed_seconds": 536.0269205570221}
+{"phase": "training", "global_step": 8, "total_updates": 8, "epoch": 1.0, "loss": 0.37482744455337524, "reward_margin": 0.7903205752372742, "lr": 2.2727272727272729e-07, "effective_batch": 2, "grad_norm": 14.283203125, "elapsed_seconds": 550.2201883792877}
+{"phase": "completed", "global_step": 8, "total_updates": 8, "epoch": 1.0, "loss": 0.37482744455337524, "reward_margin": 0.7903205752372742, "lr": 2.2727272727272729e-07, "effective_batch": 2, "grad_norm": 14.283203125, "elapsed_seconds": 550.2201883792877, "initial_loss": 0.6931471824645996, "changed_tensors": 504, "adapter_sha256": "879c964b75696ec5c270eda9086b8a022a34eda9906366e035e5ad3957f1021d", "peak_gib": [14.898684024810791, 18.331668853759766]}
+{"phase": "returned_to_inference", "exit_code": 0, "gpus": ["node4-4090-g0", "node4-4090-g1"]}

@@ -1,0 +1,203 @@
+{
+  "task": "Stage-MCTS 2.2 revision, sampled 19 questions, DeepSeek teacher",
+  "task_name": "ds22-sampled19",
+  "mcts_version": "2.2",
+  "mcts_variant": "two-step",
+  "case_list": "datasets/sampled.json",
+  "generated_at_utc": "2026-11-26T15:20:34.360093+00:00",
+  "rule": "one task = one canonical file; per case keep the snapshot with most records; all other snapshots must be record-level prefixes; raw run directories are archive only",
+  "canonical_path": "training\\sources\\ds22-sampled19-canonical.jsonl",
+  "canonical_sha256": "c9ae2799123c82e0046feb3ce93a0e07a9e57a5e694eb2f628a3e424c62bdcd8",
+  "runs": [
+    {
+      "label": "merged",
+      "path": "results/ds-stage22-merged/revision",
+      "note": "v1 handoff source"
+    },
+    {
+      "label": "official",
+      "path": "results/ds-stage22-official/revision",
+      "note": "intermediate snapshot"
+    },
+    {
+      "label": "ark-resumed",
+      "path": "results/ds-stage22-ark-resumed/revision",
+      "note": "latest snapshot"
+    }
+  ],
+  "excluded_runs": [
+    {
+      "path": "results/stage22-sampled/stage22",
+      "reason": "old prompt version: tree_config.stage22_revision absent"
+    },
+    {
+      "path": "results/stage22-partition-sampled/stage22",
+      "reason": "no completed or partial records"
+    },
+    {
+      "path": "results/stage22-revision-pilot/stage22",
+      "reason": "2 rounds on 3 pilot questions, superseded by full runs"
+    },
+    {
+      "path": "results/stage22-revision19-20261126T042923Z",
+      "reason": "cancelled wrong provider, excluded from comparisons"
+    }
+  ],
+  "cases": [
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "status": "completed",
+      "n_records": 34,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "2fb9cc452f349eeb0c5b7389a9657d8534061a452d9fc5fb2cd923f2235e7332",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "g3_h3_b2_001",
+      "status": "completed",
+      "n_records": 9,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "7c899e8fc3e1949b1b2e5bce9ca2f8b67c00afbc020acc42469efaf56ccc6eb6",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "g3_h3_b3_006",
+      "status": "completed",
+      "n_records": 33,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "21bc470b7076c65c2041aa72dc7e69429e6efe5ca2dadf0245ccabb87b9ca961",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "g3_h3_b4_001",
+      "status": "completed",
+      "n_records": 134,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "c259c8e1b1ec65a83a75f776aee51dfef5f6a90ffb38b1e2fa2e871a51aa0eda",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "status": "completed",
+      "n_records": 80,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "f34f698ce21b7ea87afa975b046a2e5f72a64fcc9432db7bbafe9e12301be2d4",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "status": "completed",
+      "n_records": 64,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "9cfffe3211e12f7b3237332880e22cb90ac85fbbc10e4cae461fcff1360fe5f7",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "status": "completed",
+      "n_records": 18,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "c689dc0213324ec9cdffed04f1bd3468959231ae567668a1cef4930221979cf8",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "status": "completed",
+      "n_records": 19,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "fe2bf6bbc875d1bd1302a715542a269950f73d1ea3e628bf896b00c35f78952c",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "status": "completed",
+      "n_records": 7,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "369371910924d3146eaf85b40057a6a53712672d671dc65c32979eba79283f5c",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "status": "completed",
+      "n_records": 5,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "002dc04f05e0336d872c569aa7c0ecc870477f5c4ab2ac6ef53e8fa41dd43624",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "status": "completed",
+      "n_records": 6,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "9e77cd72df119f3d17ccf0b7e8df52dd7c41e8350b5394426ec1637ade10b5ab",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "status": "completed",
+      "n_records": 4,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "6620b7a9b08268866490c822ffc3c35b63644caf5eb88e7f061a07b79826e20e",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "status": "completed",
+      "n_records": 3,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "c6dfcb54cb28b62bb61959d9f785de775722f1dd5c06424abb3eff20e7c797dc",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n4_inputs_00_01_10_11_outputs_0110",
+      "status": "completed",
+      "n_records": 2,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "5e2e549c063a7d3de1acda192fa7f37eb3d7a7b78213c3f6ab12cd502e142acd",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "status": "completed",
+      "n_records": 3,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "969b18d3e4740598e1987a1af3760b79a9f2a8df5653a284a37c9d3db166445e",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n4_inputs_00_01_10_11_outputs_1001",
+      "status": "completed",
+      "n_records": 1,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "749444e7fe1994d1eadc1a7b4c2bee5fc40d377e279e800fb27809a7248f92fc",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "status": "completed",
+      "n_records": 2,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "41712666365a0f796ef628251373f9c74947ec4420f0b6a2d1cc8d7a1ed0bbfc",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n6_hard_021",
+      "status": "completed",
+      "n_records": 81,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "a52bd649a687fc57bb766ce1fc83645917356c84f2b25722d69e19ec3f30c964",
+      "all_snapshots_are_prefixes": true
+    },
+    {
+      "case_id": "n6_hard_029",
+      "status": "completed",
+      "n_records": 76,
+      "chosen": "ark-resumed",
+      "chosen_sha256": "35fc1be13e90a2e5a6f4a4380df2f3a6a87cf76f943e445b0a83050017428904",
+      "all_snapshots_are_prefixes": true
+    }
+  ],
+  "completed_cases": 19,
+  "total_cases": 19,
+  "total_records": 581
+}

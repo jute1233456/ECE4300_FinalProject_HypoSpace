@@ -1,0 +1,12 @@
+encoded 309 samples; max_tokens=13706
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.08it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.16it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.32it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:02<00:00,  1.51it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  2.01it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.61it/s]
+trainable params: 43,646,976 || all params: 8,234,382,336 || trainable%: 0.5301
+[RANK 0] Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+model_accepts_loss_kwargs=False; gradient_accumulation_steps=16
+  0%|          | 0/2 [00:00<?, ?it/s] 50%|█████     | 1/2 [00:28<00:28, 28.07s/it]                                             {'loss': 2.6062, 'grad_norm': 7.303720951080322, 'learning_rate': 0.0001, 'epoch': 0.05}
+ 50%|█████     | 1/2 [00:28<00:28, 28.07s/it]100%|██████████| 2/2 [00:54<00:00, 27.29s/it]                                             {'loss': 1.5711, 'grad_norm': 3.352029800415039, 'learning_rate': 5e-05, 'epoch': 0.1}
+100%|██████████| 2/2 [00:54<00:00, 27.29s/it]                                             {'train_runtime': 56.6386, 'train_samples_per_second': 0.565, 'train_steps_per_second': 0.035, 'train_loss': 2.0886791944503784, 'epoch': 0.1}
+100%|██████████| 2/2 [00:56<00:00, 27.29s/it]100%|██████████| 2/2 [00:56<00:00, 28.31s/it]
+gpu0 max_memory_allocated_gb=6.07
+gpu1 max_memory_allocated_gb=9.57

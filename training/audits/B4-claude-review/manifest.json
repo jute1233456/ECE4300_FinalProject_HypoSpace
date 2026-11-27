@@ -1,0 +1,37 @@
+{
+  "source": "training\\data\\ds22-b4-20261126\\train.jsonl",
+  "source_sha256": "18a324ab41e39ce65df7220ae55c999c539e446072d90b7e88be852e2e7ff82a",
+  "decisions": "training\\audits\\B4-claude-review\\decisions.jsonl",
+  "decisions_sha256": "2d61a638ce471970f8d56c017bf198263cfa81a7b129ef2915dfa6578b7469f9",
+  "counts": {
+    "keep": 237,
+    "reject": 0,
+    "uncertain": 6
+  },
+  "by_stage": {
+    "keep/candidate": 80,
+    "keep/expansion": 76,
+    "keep/selection": 81,
+    "uncertain/candidate": 1,
+    "uncertain/expansion": 5
+  },
+  "by_case": {
+    "keep/g3_h3_b4_001": 237,
+    "uncertain/g3_h3_b4_001": 6
+  },
+  "outputs": {
+    "train.filtered.jsonl": {
+      "count": 237,
+      "sha256": "13f08bf94b3e5310b54c65b7d3e29411359f97881f353d8d66d24edb37493b39"
+    },
+    "rejected.jsonl": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "uncertain.jsonl": {
+      "count": 6,
+      "sha256": "a4e513fbecc502a0e5c667b1010cac3043d082a5db71803280c7586ec811eba2"
+    }
+  },
+  "note": "Semantic review only; kept rows are unmodified source lines. uncertain is excluded from the recommended training set."
+}

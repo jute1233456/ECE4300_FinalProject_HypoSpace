@@ -1,0 +1,9 @@
+{
+  "phase": "completed",
+  "utc": "2026-11-26T09:42:23.249368+00:00",
+  "epoch": 2.0,
+  "global_step": 40,
+  "adapter": "/opt/data/private/ECE4300-train-20261126/ga16-epoch2-v1/adapter-epoch2",
+  "finite_adapter_tensors": 504,
+  "nonzero_lora_B_tensors": 252
+}

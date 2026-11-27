@@ -1,0 +1,63 @@
+{
+  "pid": 59944,
+  "phase": "validating",
+  "completed": 43,
+  "total": 80,
+  "running": [
+    {
+      "id": "sft-pruned-v1-ep1/mixed100-v1/medium/causal/n1_002",
+      "pid": 60229
+    },
+    {
+      "id": "dpo-reflection-v3-ep1/3d/g3_h3_b2_002",
+      "pid": 71561
+    },
+    {
+      "id": "dpo-reflection-v3-ep1/boolean/n2_inputs_00_01_outputs_00",
+      "pid": 71566
+    },
+    {
+      "id": "dpo-reflection-v3-ep1/causal/n2_006",
+      "pid": 71586
+    },
+    {
+      "id": "dpo-v3-full-ep1/quick3-v3-full/causal/n2_006",
+      "pid": 71837
+    },
+    {
+      "id": "dpo-v3-full-ep1/quick3-v3-full/3d/g3_h3_b2_002",
+      "pid": 71691
+    },
+    {
+      "id": "dpo-v3-full-ep1/quick3-v3-full/boolean/n2_inputs_00_01_outputs_00",
+      "pid": 71836
+    },
+    {
+      "id": "dpo-reflection-v3-ep1/mixed100-v1/easy/causal/n2_004",
+      "pid": 73239
+    },
+    {
+      "id": "dpo-reflection-v3-ep1/mixed100-v1/easy/3d/g3_h3_b1_001",
+      "pid": 72513
+    }
+  ],
+  "parked": [],
+  "enabled_models": [
+    "linear-ep1",
+    "linear-ep2",
+    "base",
+    "sft-pruned-v1-ep2",
+    "sft-pruned-v1-ep1",
+    "dpo-reflection-v1-ep1",
+    "dpo-reflection-v2-ep1",
+    "dpo-reflection-v3-ep1",
+    "dpo-v3-full-ep1"
+  ],
+  "future_models": {},
+  "scheduling": "grouped-dispatch",
+  "capacity": {
+    "baseline": 10,
+    "validation": 10
+  },
+  "worker_limit": 10
+}

@@ -1,0 +1,207 @@
+{"phase": "training", "gpus": ["node4-4090-g0", "node4-4090-g1"], "command": ["/opt/data/private/ECE4300-controller-20261127/venv/bin/python", "-u", "-m", "server.run_dpo_handoff", "--config", "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/config.json", "--train-only"]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:02<00:09,  2.37s/it]Loading checkpoint shards:  40%|████      | 2/5 [00:04<00:07,  2.43s/it]Loading checkpoint shards:  60%|██████    | 3/5 [00:07<00:05,  2.60s/it]Loading checkpoint shards:  80%|████████  | 4/5 [00:22<00:07,  7.37s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:27<00:00,  6.69s/it]Loading checkpoint shards: 100%|██████████| 5/5 [00:27<00:00,  5.56s/it]
+{"phase": "reference", "completed": 1, "total": 1}
+{"phase": "training", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 2.5e-07, "effective_batch": 1, "grad_norm": 37.42686080932617, "elapsed_seconds": 17.797683715820312, "chosen_logp_delta": 0.0, "rejected_logp_delta": 0.0, "chosen_token_nll": 2.174622115866436, "rejected_token_nll": 0.8935606166294643, "pair_accuracy": 0.0}
+{"phase": "completed", "global_step": 1, "total_updates": 1, "epoch": 1.0, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 2.5e-07, "effective_batch": 1, "grad_norm": 37.42686080932617, "elapsed_seconds": 17.797683715820312, "chosen_logp_delta": 0.0, "rejected_logp_delta": 0.0, "chosen_token_nll": 2.174622115866436, "rejected_token_nll": 0.8935606166294643, "pair_accuracy": 0.0, "initial_loss": 0.6931471824645996, "changed_tensors": 504, "adapter_sha256": "46bc7f81cbf179db88aa0a7d20e7757d82b8edbd4b3dd8f1c940a1b315ee3d7e", "peak_gib": [14.848572254180908, 18.174845695495605]}
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:03,  1.16it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:01<00:02,  1.07it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:02<00:01,  1.15it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:03<00:00,  1.20it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.57it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:03<00:00,  1.35it/s]
+{"phase": "reference", "completed": 1, "total": 185}
+{"phase": "reference", "completed": 2, "total": 185}
+{"phase": "reference", "completed": 3, "total": 185}
+{"phase": "reference", "completed": 4, "total": 185}
+{"phase": "reference", "completed": 5, "total": 185}
+{"phase": "reference", "completed": 6, "total": 185}
+{"phase": "reference", "completed": 7, "total": 185}
+{"phase": "reference", "completed": 8, "total": 185}
+{"phase": "reference", "completed": 9, "total": 185}
+{"phase": "reference", "completed": 10, "total": 185}
+{"phase": "reference", "completed": 11, "total": 185}
+{"phase": "reference", "completed": 12, "total": 185}
+{"phase": "reference", "completed": 13, "total": 185}
+{"phase": "reference", "completed": 14, "total": 185}
+{"phase": "reference", "completed": 15, "total": 185}
+{"phase": "reference", "completed": 16, "total": 185}
+{"phase": "reference", "completed": 17, "total": 185}
+{"phase": "reference", "completed": 18, "total": 185}
+{"phase": "reference", "completed": 19, "total": 185}
+{"phase": "reference", "completed": 20, "total": 185}
+{"phase": "reference", "completed": 21, "total": 185}
+{"phase": "reference", "completed": 22, "total": 185}
+{"phase": "reference", "completed": 23, "total": 185}
+{"phase": "reference", "completed": 24, "total": 185}
+{"phase": "reference", "completed": 25, "total": 185}
+{"phase": "reference", "completed": 26, "total": 185}
+{"phase": "reference", "completed": 27, "total": 185}
+{"phase": "reference", "completed": 28, "total": 185}
+{"phase": "reference", "completed": 29, "total": 185}
+{"phase": "reference", "completed": 30, "total": 185}
+{"phase": "reference", "completed": 31, "total": 185}
+{"phase": "reference", "completed": 32, "total": 185}
+{"phase": "reference", "completed": 33, "total": 185}
+{"phase": "reference", "completed": 34, "total": 185}
+{"phase": "reference", "completed": 35, "total": 185}
+{"phase": "reference", "completed": 36, "total": 185}
+{"phase": "reference", "completed": 37, "total": 185}
+{"phase": "reference", "completed": 38, "total": 185}
+{"phase": "reference", "completed": 39, "total": 185}
+{"phase": "reference", "completed": 40, "total": 185}
+{"phase": "reference", "completed": 41, "total": 185}
+{"phase": "reference", "completed": 42, "total": 185}
+{"phase": "reference", "completed": 43, "total": 185}
+{"phase": "reference", "completed": 44, "total": 185}
+{"phase": "reference", "completed": 45, "total": 185}
+{"phase": "reference", "completed": 46, "total": 185}
+{"phase": "reference", "completed": 47, "total": 185}
+{"phase": "reference", "completed": 48, "total": 185}
+{"phase": "reference", "completed": 49, "total": 185}
+{"phase": "reference", "completed": 50, "total": 185}
+{"phase": "reference", "completed": 51, "total": 185}
+{"phase": "reference", "completed": 52, "total": 185}
+{"phase": "reference", "completed": 53, "total": 185}
+{"phase": "reference", "completed": 54, "total": 185}
+{"phase": "reference", "completed": 55, "total": 185}
+{"phase": "reference", "completed": 56, "total": 185}
+{"phase": "reference", "completed": 57, "total": 185}
+{"phase": "reference", "completed": 58, "total": 185}
+{"phase": "reference", "completed": 59, "total": 185}
+{"phase": "reference", "completed": 60, "total": 185}
+{"phase": "reference", "completed": 61, "total": 185}
+{"phase": "reference", "completed": 62, "total": 185}
+{"phase": "reference", "completed": 63, "total": 185}
+{"phase": "reference", "completed": 64, "total": 185}
+{"phase": "reference", "completed": 65, "total": 185}
+{"phase": "reference", "completed": 66, "total": 185}
+{"phase": "reference", "completed": 67, "total": 185}
+{"phase": "reference", "completed": 68, "total": 185}
+{"phase": "reference", "completed": 69, "total": 185}
+{"phase": "reference", "completed": 70, "total": 185}
+{"phase": "reference", "completed": 71, "total": 185}
+{"phase": "reference", "completed": 72, "total": 185}
+{"phase": "reference", "completed": 73, "total": 185}
+{"phase": "reference", "completed": 74, "total": 185}
+{"phase": "reference", "completed": 75, "total": 185}
+{"phase": "reference", "completed": 76, "total": 185}
+{"phase": "reference", "completed": 77, "total": 185}
+{"phase": "reference", "completed": 78, "total": 185}
+{"phase": "reference", "completed": 79, "total": 185}
+{"phase": "reference", "completed": 80, "total": 185}
+{"phase": "reference", "completed": 81, "total": 185}
+{"phase": "reference", "completed": 82, "total": 185}
+{"phase": "reference", "completed": 83, "total": 185}
+{"phase": "reference", "completed": 84, "total": 185}
+{"phase": "reference", "completed": 85, "total": 185}
+{"phase": "reference", "completed": 86, "total": 185}
+{"phase": "reference", "completed": 87, "total": 185}
+{"phase": "reference", "completed": 88, "total": 185}
+{"phase": "reference", "completed": 89, "total": 185}
+{"phase": "reference", "completed": 90, "total": 185}
+{"phase": "reference", "completed": 91, "total": 185}
+{"phase": "reference", "completed": 92, "total": 185}
+{"phase": "reference", "completed": 93, "total": 185}
+{"phase": "reference", "completed": 94, "total": 185}
+{"phase": "reference", "completed": 95, "total": 185}
+{"phase": "reference", "completed": 96, "total": 185}
+{"phase": "reference", "completed": 97, "total": 185}
+{"phase": "reference", "completed": 98, "total": 185}
+{"phase": "reference", "completed": 99, "total": 185}
+{"phase": "reference", "completed": 100, "total": 185}
+{"phase": "reference", "completed": 101, "total": 185}
+{"phase": "reference", "completed": 102, "total": 185}
+{"phase": "reference", "completed": 103, "total": 185}
+{"phase": "reference", "completed": 104, "total": 185}
+{"phase": "reference", "completed": 105, "total": 185}
+{"phase": "reference", "completed": 106, "total": 185}
+{"phase": "reference", "completed": 107, "total": 185}
+{"phase": "reference", "completed": 108, "total": 185}
+{"phase": "reference", "completed": 109, "total": 185}
+{"phase": "reference", "completed": 110, "total": 185}
+{"phase": "reference", "completed": 111, "total": 185}
+{"phase": "reference", "completed": 112, "total": 185}
+{"phase": "reference", "completed": 113, "total": 185}
+{"phase": "reference", "completed": 114, "total": 185}
+{"phase": "reference", "completed": 115, "total": 185}
+{"phase": "reference", "completed": 116, "total": 185}
+{"phase": "reference", "completed": 117, "total": 185}
+{"phase": "reference", "completed": 118, "total": 185}
+{"phase": "reference", "completed": 119, "total": 185}
+{"phase": "reference", "completed": 120, "total": 185}
+{"phase": "reference", "completed": 121, "total": 185}
+{"phase": "reference", "completed": 122, "total": 185}
+{"phase": "reference", "completed": 123, "total": 185}
+{"phase": "reference", "completed": 124, "total": 185}
+{"phase": "reference", "completed": 125, "total": 185}
+{"phase": "reference", "completed": 126, "total": 185}
+{"phase": "reference", "completed": 127, "total": 185}
+{"phase": "reference", "completed": 128, "total": 185}
+{"phase": "reference", "completed": 129, "total": 185}
+{"phase": "reference", "completed": 130, "total": 185}
+{"phase": "reference", "completed": 131, "total": 185}
+{"phase": "reference", "completed": 132, "total": 185}
+{"phase": "reference", "completed": 133, "total": 185}
+{"phase": "reference", "completed": 134, "total": 185}
+{"phase": "reference", "completed": 135, "total": 185}
+{"phase": "reference", "completed": 136, "total": 185}
+{"phase": "reference", "completed": 137, "total": 185}
+{"phase": "reference", "completed": 138, "total": 185}
+{"phase": "reference", "completed": 139, "total": 185}
+{"phase": "reference", "completed": 140, "total": 185}
+{"phase": "reference", "completed": 141, "total": 185}
+{"phase": "reference", "completed": 142, "total": 185}
+{"phase": "reference", "completed": 143, "total": 185}
+{"phase": "reference", "completed": 144, "total": 185}
+{"phase": "reference", "completed": 145, "total": 185}
+{"phase": "reference", "completed": 146, "total": 185}
+{"phase": "reference", "completed": 147, "total": 185}
+{"phase": "reference", "completed": 148, "total": 185}
+{"phase": "reference", "completed": 149, "total": 185}
+{"phase": "reference", "completed": 150, "total": 185}
+{"phase": "reference", "completed": 151, "total": 185}
+{"phase": "reference", "completed": 152, "total": 185}
+{"phase": "reference", "completed": 153, "total": 185}
+{"phase": "reference", "completed": 154, "total": 185}
+{"phase": "reference", "completed": 155, "total": 185}
+{"phase": "reference", "completed": 156, "total": 185}
+{"phase": "reference", "completed": 157, "total": 185}
+{"phase": "reference", "completed": 158, "total": 185}
+{"phase": "reference", "completed": 159, "total": 185}
+{"phase": "reference", "completed": 160, "total": 185}
+{"phase": "reference", "completed": 161, "total": 185}
+{"phase": "reference", "completed": 162, "total": 185}
+{"phase": "reference", "completed": 163, "total": 185}
+{"phase": "reference", "completed": 164, "total": 185}
+{"phase": "reference", "completed": 165, "total": 185}
+{"phase": "reference", "completed": 166, "total": 185}
+{"phase": "reference", "completed": 167, "total": 185}
+{"phase": "reference", "completed": 168, "total": 185}
+{"phase": "reference", "completed": 169, "total": 185}
+{"phase": "reference", "completed": 170, "total": 185}
+{"phase": "reference", "completed": 171, "total": 185}
+{"phase": "reference", "completed": 172, "total": 185}
+{"phase": "reference", "completed": 173, "total": 185}
+{"phase": "reference", "completed": 174, "total": 185}
+{"phase": "reference", "completed": 175, "total": 185}
+{"phase": "reference", "completed": 176, "total": 185}
+{"phase": "reference", "completed": 177, "total": 185}
+{"phase": "reference", "completed": 178, "total": 185}
+{"phase": "reference", "completed": 179, "total": 185}
+{"phase": "reference", "completed": 180, "total": 185}
+{"phase": "reference", "completed": 181, "total": 185}
+{"phase": "reference", "completed": 182, "total": 185}
+{"phase": "reference", "completed": 183, "total": 185}
+{"phase": "reference", "completed": 184, "total": 185}
+{"phase": "reference", "completed": 185, "total": 185}
+{"phase": "training", "global_step": 1, "total_updates": 12, "epoch": 0.08648648648648649, "loss": 0.6931471824645996, "reward_margin": 0.0, "lr": 5e-07, "effective_batch": 16, "grad_norm": 16.111879348754883, "elapsed_seconds": 130.11597228050232, "chosen_logp_delta": 0.0, "rejected_logp_delta": 0.0, "chosen_token_nll": 2.3471459853704832, "rejected_token_nll": 0.8722244389821101, "pair_accuracy": 0.0}
+{"phase": "training", "global_step": 2, "total_updates": 12, "epoch": 0.17297297297297298, "loss": 0.6673774160444736, "reward_margin": 0.05278248869581148, "lr": 1e-06, "effective_batch": 16, "grad_norm": 17.795181274414062, "elapsed_seconds": 268.83221316337585, "chosen_logp_delta": 0.3447284698486328, "rejected_logp_delta": -0.18309640884399414, "chosen_token_nll": 2.4991099986714462, "rejected_token_nll": 0.8804009505195133, "pair_accuracy": 0.8125}
+{"phase": "training", "global_step": 3, "total_updates": 12, "epoch": 0.2594594594594595, "loss": 0.6522994302213192, "reward_margin": 0.08385372345219366, "lr": 7.692307692307691e-07, "effective_batch": 16, "grad_norm": 16.564464569091797, "elapsed_seconds": 397.3774347305298, "chosen_logp_delta": 0.48901939392089844, "rejected_logp_delta": -0.349517822265625, "chosen_token_nll": 2.5821569114536707, "rejected_token_nll": 0.861451086727891, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 4, "total_updates": 12, "epoch": 0.34594594594594597, "loss": 0.6182555966079235, "reward_margin": 0.156563856638968, "lr": 5.999999999999999e-07, "effective_batch": 16, "grad_norm": 16.985158920288086, "elapsed_seconds": 559.3470463752747, "chosen_logp_delta": 0.9539260864257812, "rejected_logp_delta": -0.6117124557495117, "chosen_token_nll": 2.5665635026924867, "rejected_token_nll": 0.8510963159592033, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 5, "total_updates": 12, "epoch": 0.43243243243243246, "loss": 0.6080689169466496, "reward_margin": 0.1786455176770687, "lr": 4.7058823529411767e-07, "effective_batch": 16, "grad_norm": 15.837313652038574, "elapsed_seconds": 704.75497174263, "chosen_logp_delta": 1.076812744140625, "rejected_logp_delta": -0.7096424102783203, "chosen_token_nll": 2.493261093609169, "rejected_token_nll": 0.9380266157868039, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 6, "total_updates": 12, "epoch": 0.518918918918919, "loss": 0.5986389629542828, "reward_margin": 0.20096454955637455, "lr": 3.684210526315789e-07, "effective_batch": 16, "grad_norm": 14.96306324005127, "elapsed_seconds": 835.4421334266663, "chosen_logp_delta": 1.2057571411132812, "rejected_logp_delta": -0.8038883209228516, "chosen_token_nll": 2.624609278895774, "rejected_token_nll": 1.0155018506117146, "pair_accuracy": 0.9375}
+{"phase": "training", "global_step": 7, "total_updates": 12, "epoch": 0.6054054054054054, "loss": 0.593205451965332, "reward_margin": 0.21241815341636539, "lr": 2.857142857142857e-07, "effective_batch": 16, "grad_norm": 14.119585990905762, "elapsed_seconds": 996.6339116096497, "chosen_logp_delta": 1.197617530822754, "rejected_logp_delta": -0.926563948392868, "chosen_token_nll": 2.240798973239141, "rejected_token_nll": 0.8794622811976033, "pair_accuracy": 0.9375}
+{"phase": "training", "global_step": 8, "total_updates": 12, "epoch": 0.6918918918918919, "loss": 0.5890118815004826, "reward_margin": 0.22292271198239177, "lr": 2.173913043478261e-07, "effective_batch": 16, "grad_norm": 13.325555801391602, "elapsed_seconds": 1110.281790971756, "chosen_logp_delta": 1.3794279098510742, "rejected_logp_delta": -0.8497991561889648, "chosen_token_nll": 2.3159210153868464, "rejected_token_nll": 0.9943033845630339, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 9, "total_updates": 12, "epoch": 0.7783783783783784, "loss": 0.5669583976268768, "reward_margin": 0.27192416600883007, "lr": 1.6000000000000003e-07, "effective_batch": 16, "grad_norm": 15.08398723602295, "elapsed_seconds": 1262.3038747310638, "chosen_logp_delta": 1.431722640991211, "rejected_logp_delta": -1.2875189781188965, "chosen_token_nll": 2.489091494732245, "rejected_token_nll": 0.9491246590128668, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 10, "total_updates": 12, "epoch": 0.8648648648648649, "loss": 0.5643645785748959, "reward_margin": 0.27733078971505165, "lr": 1.111111111111111e-07, "effective_batch": 16, "grad_norm": 15.653194427490234, "elapsed_seconds": 1423.2865808010101, "chosen_logp_delta": 1.599710464477539, "rejected_logp_delta": -1.1735973358154297, "chosen_token_nll": 2.4269362433965043, "rejected_token_nll": 0.8771383758614913, "pair_accuracy": 1.0}
+{"phase": "training", "global_step": 11, "total_updates": 12, "epoch": 0.9513513513513514, "loss": 0.5882805399596691, "reward_margin": 0.22455797565635294, "lr": 6.896551724137928e-08, "effective_batch": 16, "grad_norm": 13.570391654968262, "elapsed_seconds": 1559.5307927131653, "chosen_logp_delta": 1.4717750549316406, "rejected_logp_delta": -0.7738046646118164, "chosen_token_nll": 2.4866352849361846, "rejected_token_nll": 1.1698681923348293, "pair_accuracy": 0.9375}
+{"phase": "training", "global_step": 12, "total_updates": 12, "epoch": 1.0, "loss": 0.5615438554022048, "reward_margin": 0.2843688163492415, "lr": 3.2258064516129035e-08, "effective_batch": 9, "grad_norm": 16.02011489868164, "elapsed_seconds": 1634.5210528373718, "chosen_logp_delta": 1.5867445203993056, "rejected_logp_delta": -1.256943596733941, "chosen_token_nll": 2.4520512690874554, "rejected_token_nll": 0.915091361444783, "pair_accuracy": 1.0}
+{"phase": "completed", "global_step": 12, "total_updates": 12, "epoch": 1.0, "loss": 0.5615438554022048, "reward_margin": 0.2843688163492415, "lr": 3.2258064516129035e-08, "effective_batch": 9, "grad_norm": 16.02011489868164, "elapsed_seconds": 1634.5210528373718, "chosen_logp_delta": 1.5867445203993056, "rejected_logp_delta": -1.256943596733941, "chosen_token_nll": 2.4520512690874554, "rejected_token_nll": 0.915091361444783, "pair_accuracy": 1.0, "initial_loss": 0.6931471824645996, "changed_tensors": 504, "adapter_sha256": "e950bed5d54bdd8b35012233dd9cfecdcf7dc22be3aeba9a004a57ef74eebf3f", "peak_gib": [14.889208793640137, 18.321614265441895]}
+{"phase": "returned_to_inference", "exit_code": 0, "gpus": ["node4-4090-g0", "node4-4090-g1"]}

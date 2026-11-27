@@ -1,0 +1,19 @@
+{
+  "phase": "completed",
+  "global_step": 9,
+  "total_updates": 9,
+  "epoch": 1.0,
+  "loss": 0.6233553290367126,
+  "reward_margin": 0.14488106220960617,
+  "lr": 4.545454545454545e-08,
+  "effective_batch": 2,
+  "grad_norm": 19.62143325805664,
+  "elapsed_seconds": 1181.8517060279846,
+  "initial_loss": 0.6931471824645996,
+  "changed_tensors": 504,
+  "adapter_sha256": "60759d504dfe35f33857fc524c62c8511b8ffa09ed27aecd7cc61a32b748975f",
+  "peak_gib": [
+    14.898684024810791,
+    18.331668853759766
+  ]
+}

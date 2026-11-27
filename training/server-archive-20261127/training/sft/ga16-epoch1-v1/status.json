@@ -1,0 +1,7 @@
+{
+  "phase": "completed",
+  "utc": "2026-11-26T09:13:27.808520+00:00",
+  "epoch": 1.0,
+  "global_step": 20,
+  "adapter": "/opt/data/private/ECE4300-train-20261126/ga16-epoch1-v1/adapter-epoch1"
+}

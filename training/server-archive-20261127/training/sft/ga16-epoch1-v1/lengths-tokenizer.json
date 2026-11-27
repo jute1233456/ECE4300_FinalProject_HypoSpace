@@ -1,0 +1,2678 @@
+{
+  "samples": "/tmp/ece-len/train.jsonl",
+  "tokenizer": "models/Qwen3-8B",
+  "thinking": "off",
+  "template_prefix_mismatches": 0,
+  "skipped_missing_roles": [],
+  "per_stage": {
+    "candidate": {
+      "n": 103,
+      "min": 1448,
+      "p50": 2017,
+      "p90": 3230,
+      "p99": 4289,
+      "max": 4386,
+      "mean": 2221.7
+    },
+    "candidate:assistant": {
+      "n": 103,
+      "min": 5,
+      "p50": 17,
+      "p90": 69,
+      "p99": 69,
+      "max": 69,
+      "mean": 29.6
+    },
+    "candidate:prefix": {
+      "n": 103,
+      "min": 1439,
+      "p50": 1998,
+      "p90": 3161,
+      "p99": 4220,
+      "max": 4317,
+      "mean": 2192.1
+    },
+    "expansion": {
+      "n": 103,
+      "min": 1502,
+      "p50": 2035,
+      "p90": 3162,
+      "p99": 4237,
+      "max": 4332,
+      "mean": 2239.1
+    },
+    "expansion:assistant": {
+      "n": 103,
+      "min": 94,
+      "p50": 154,
+      "p90": 196,
+      "p99": 252,
+      "max": 281,
+      "mean": 156.0
+    },
+    "expansion:prefix": {
+      "n": 103,
+      "min": 1391,
+      "p50": 1878,
+      "p90": 2965,
+      "p99": 4021,
+      "max": 4177,
+      "mean": 2083.1
+    },
+    "selection": {
+      "n": 103,
+      "min": 1495,
+      "p50": 3129,
+      "p90": 8566,
+      "p99": 13289,
+      "max": 13706,
+      "mean": 4096.7
+    },
+    "selection:assistant": {
+      "n": 103,
+      "min": 102,
+      "p50": 160,
+      "p90": 213,
+      "p99": 237,
+      "max": 238,
+      "mean": 161.2
+    },
+    "selection:prefix": {
+      "n": 103,
+      "min": 1377,
+      "p50": 2961,
+      "p90": 8371,
+      "p99": 13089,
+      "max": 13538,
+      "mean": 3935.5
+    }
+  },
+  "over_bucket": {
+    "2048": {
+      "selection": 80,
+      "expansion": 51,
+      "candidate": 46
+    },
+    "4096": {
+      "selection": 33,
+      "candidate": 3,
+      "expansion": 2
+    },
+    "8192": {
+      "selection": 11
+    },
+    "10240": {
+      "selection": 7
+    },
+    "12288": {
+      "selection": 3
+    },
+    "16384": {},
+    "32768": {}
+  },
+  "all": {
+    "n": 309,
+    "min": 1448,
+    "p50": 2152,
+    "p90": 4386,
+    "p99": 12036,
+    "max": 13706,
+    "mean": 2852.5
+  },
+  "longest": [
+    {
+      "sample_id": "f23b61ebbbbc765293fb",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 13538,
+      "full_tokens": 13706,
+      "assistant_tokens": 168
+    },
+    {
+      "sample_id": "2ce21ffa296e838d4871",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 13089,
+      "full_tokens": 13289,
+      "assistant_tokens": 200
+    },
+    {
+      "sample_id": "2761967219725ac5a50e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 12595,
+      "full_tokens": 12831,
+      "assistant_tokens": 236
+    },
+    {
+      "sample_id": "bf833e486f3d3c261248",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 11810,
+      "full_tokens": 12036,
+      "assistant_tokens": 226
+    },
+    {
+      "sample_id": "f31e40b5aa29e47c5099",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 11360,
+      "full_tokens": 11514,
+      "assistant_tokens": 154
+    },
+    {
+      "sample_id": "84f5e7b726a1a7db266f",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 10833,
+      "full_tokens": 11059,
+      "assistant_tokens": 226
+    },
+    {
+      "sample_id": "4e4ca00080f3eb6d5aaa",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 10388,
+      "full_tokens": 10599,
+      "assistant_tokens": 211
+    },
+    {
+      "sample_id": "f128d563cb333fd98c3e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 9919,
+      "full_tokens": 10110,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "a0319862cca6edec8377",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 9485,
+      "full_tokens": 9723,
+      "assistant_tokens": 238
+    },
+    {
+      "sample_id": "7a5559149509392eb5bc",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 8978,
+      "full_tokens": 9186,
+      "assistant_tokens": 208
+    }
+  ],
+  "details": [
+    {
+      "sample_id": "46022a31f2a12664158c",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 1377,
+      "full_tokens": 1495,
+      "assistant_tokens": 118
+    },
+    {
+      "sample_id": "42fbd0dd40015b7bbf12",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1391,
+      "full_tokens": 1502,
+      "assistant_tokens": 111
+    },
+    {
+      "sample_id": "6dbd2190ed2a7e8be001",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1439,
+      "full_tokens": 1448,
+      "assistant_tokens": 9
+    },
+    {
+      "sample_id": "5a0ebfb46b99a3e3e1a6",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 1590,
+      "full_tokens": 1748,
+      "assistant_tokens": 158
+    },
+    {
+      "sample_id": "00652e9df8ea67c1746d",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1492,
+      "full_tokens": 1660,
+      "assistant_tokens": 168
+    },
+    {
+      "sample_id": "ed06581373f67969e1c1",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1607,
+      "full_tokens": 1620,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "13a4b8fba3f44b0257ca",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 1897,
+      "full_tokens": 2065,
+      "assistant_tokens": 168
+    },
+    {
+      "sample_id": "987d47df5f9e3e9bd27d",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1636,
+      "full_tokens": 1795,
+      "assistant_tokens": 159
+    },
+    {
+      "sample_id": "c6e691985c26736403c5",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1739,
+      "full_tokens": 1749,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "432f97cb4646650e25f0",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 2053,
+      "full_tokens": 2179,
+      "assistant_tokens": 126
+    },
+    {
+      "sample_id": "9e3c4b53bec53d51f59b",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1493,
+      "full_tokens": 1592,
+      "assistant_tokens": 99
+    },
+    {
+      "sample_id": "5d4e5394db30de32b511",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1522,
+      "full_tokens": 1534,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "4122acb898563e79157a",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 2300,
+      "full_tokens": 2475,
+      "assistant_tokens": 175
+    },
+    {
+      "sample_id": "34a7e7034ac25b5dc26c",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1674,
+      "full_tokens": 1809,
+      "assistant_tokens": 135
+    },
+    {
+      "sample_id": "28ba9d1b5126eda9a8d3",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1770,
+      "full_tokens": 1782,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "85abd39c67967dabd286",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 2846,
+      "full_tokens": 2965,
+      "assistant_tokens": 119
+    },
+    {
+      "sample_id": "c44dfdb36e07698d5029",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1618,
+      "full_tokens": 1713,
+      "assistant_tokens": 95
+    },
+    {
+      "sample_id": "5509b73275c4650fba7d",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1633,
+      "full_tokens": 1645,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "1ae2cbf563d5881efe0c",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 3072,
+      "full_tokens": 3195,
+      "assistant_tokens": 123
+    },
+    {
+      "sample_id": "288dd8b1611ab4f64903",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1658,
+      "full_tokens": 1773,
+      "assistant_tokens": 115
+    },
+    {
+      "sample_id": "372b2c4eea52d77b33f8",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1698,
+      "full_tokens": 1708,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "5c6461cbae7ff89ac1b3",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 3236,
+      "full_tokens": 3373,
+      "assistant_tokens": 137
+    },
+    {
+      "sample_id": "65bdc3cd1a5d4a267218",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1786,
+      "full_tokens": 1941,
+      "assistant_tokens": 155
+    },
+    {
+      "sample_id": "f774b3d26c6bc0474775",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1894,
+      "full_tokens": 1904,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "856c4647b29600685910",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 3495,
+      "full_tokens": 3672,
+      "assistant_tokens": 177
+    },
+    {
+      "sample_id": "bfa31594259e0f0ea589",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1688,
+      "full_tokens": 1824,
+      "assistant_tokens": 136
+    },
+    {
+      "sample_id": "416ea47f1ee0172b2c82",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1752,
+      "full_tokens": 1760,
+      "assistant_tokens": 8
+    },
+    {
+      "sample_id": "f7fce8a8f3e21cc358d9",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 3735,
+      "full_tokens": 3900,
+      "assistant_tokens": 165
+    },
+    {
+      "sample_id": "4b82e76635debadc8c6a",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1715,
+      "full_tokens": 1899,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "616227a350feb14a5cb7",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1853,
+      "full_tokens": 1863,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "7d44826b57ee3aff525e",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 4276,
+      "full_tokens": 4436,
+      "assistant_tokens": 160
+    },
+    {
+      "sample_id": "85532d5eccd3ad95e7bf",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1760,
+      "full_tokens": 1892,
+      "assistant_tokens": 132
+    },
+    {
+      "sample_id": "529476c3ff79682b8abd",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1829,
+      "full_tokens": 1839,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "28fe6914e227730e9bb2",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 5514,
+      "full_tokens": 5681,
+      "assistant_tokens": 167
+    },
+    {
+      "sample_id": "c777162da4cdeb173d5d",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1946,
+      "full_tokens": 2098,
+      "assistant_tokens": 152
+    },
+    {
+      "sample_id": "ab5d9c3ddb40727b5290",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 2039,
+      "full_tokens": 2045,
+      "assistant_tokens": 6
+    },
+    {
+      "sample_id": "19c7f067fbeaacb9d9c5",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 5745,
+      "full_tokens": 5876,
+      "assistant_tokens": 131
+    },
+    {
+      "sample_id": "7ab12a75f5ff7d5ece78",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1684,
+      "full_tokens": 1778,
+      "assistant_tokens": 94
+    },
+    {
+      "sample_id": "21283310bd352b5060b2",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1702,
+      "full_tokens": 1708,
+      "assistant_tokens": 6
+    },
+    {
+      "sample_id": "361642bcb7a2d797d203",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "selection",
+      "prefix_tokens": 7582,
+      "full_tokens": 7751,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "e2f497b99547c8e86987",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "expansion",
+      "prefix_tokens": 1796,
+      "full_tokens": 1917,
+      "assistant_tokens": 121
+    },
+    {
+      "sample_id": "9987434827a5b0318e16",
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "stage": "candidate",
+      "prefix_tokens": 1845,
+      "full_tokens": 1857,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "7846455e50b7ff22ecae",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 1504,
+      "full_tokens": 1614,
+      "assistant_tokens": 110
+    },
+    {
+      "sample_id": "cb6b18b35081ebbd1e01",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 1507,
+      "full_tokens": 1625,
+      "assistant_tokens": 118
+    },
+    {
+      "sample_id": "f1932e8eb74cd9bfe623",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 1570,
+      "full_tokens": 1595,
+      "assistant_tokens": 25
+    },
+    {
+      "sample_id": "d2d4e802a84386a610ae",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 1821,
+      "full_tokens": 1957,
+      "assistant_tokens": 136
+    },
+    {
+      "sample_id": "fe2aecb43365b00658b4",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 1688,
+      "full_tokens": 1827,
+      "assistant_tokens": 139
+    },
+    {
+      "sample_id": "721f1f4266297ea1d724",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 1772,
+      "full_tokens": 1819,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "3912c79bffb47855f9dc",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 2145,
+      "full_tokens": 2336,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "9d2f7c6fe2215cf7d2fd",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 1897,
+      "full_tokens": 2066,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "51b084623fde575efc6d",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2029,
+      "full_tokens": 2076,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "e7b8be7895c753204cfe",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 2450,
+      "full_tokens": 2595,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "85eb4aa2ed1768f621d3",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 1961,
+      "full_tokens": 2082,
+      "assistant_tokens": 121
+    },
+    {
+      "sample_id": "a1f6a9f33f59753ddc54",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2026,
+      "full_tokens": 2073,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "df2494a6e699db124be1",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 2665,
+      "full_tokens": 2848,
+      "assistant_tokens": 183
+    },
+    {
+      "sample_id": "fcbb9b7772ec643b8713",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 2053,
+      "full_tokens": 2198,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "dfbb7d12b778e521bf55",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2156,
+      "full_tokens": 2225,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "50d07dc7df65733a54c0",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 3028,
+      "full_tokens": 3185,
+      "assistant_tokens": 157
+    },
+    {
+      "sample_id": "77f5dcf4914b9b8a9b0f",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 2197,
+      "full_tokens": 2363,
+      "assistant_tokens": 166
+    },
+    {
+      "sample_id": "63cce95b916d0e948929",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2315,
+      "full_tokens": 2384,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "bbac4bf2ae89addf0e9f",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 3262,
+      "full_tokens": 3407,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "cad886a8675e163856e1",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 2236,
+      "full_tokens": 2389,
+      "assistant_tokens": 153
+    },
+    {
+      "sample_id": "8346917ccdb00356ee94",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2339,
+      "full_tokens": 2408,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "1abf678f745cd4f24877",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 3597,
+      "full_tokens": 3798,
+      "assistant_tokens": 201
+    },
+    {
+      "sample_id": "d1c13e36338f08a52eb8",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 2453,
+      "full_tokens": 2601,
+      "assistant_tokens": 148
+    },
+    {
+      "sample_id": "8a750a2d9056a8b2ab47",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2566,
+      "full_tokens": 2635,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "2b7d62efb96365dc4601",
+      "case_id": "g3_h3_b2_001",
+      "stage": "selection",
+      "prefix_tokens": 3898,
+      "full_tokens": 4059,
+      "assistant_tokens": 161
+    },
+    {
+      "sample_id": "bb56e6108d7c7c4af53b",
+      "case_id": "g3_h3_b2_001",
+      "stage": "expansion",
+      "prefix_tokens": 2506,
+      "full_tokens": 2639,
+      "assistant_tokens": 133
+    },
+    {
+      "sample_id": "279e6f41bb6ea00a59f1",
+      "case_id": "g3_h3_b2_001",
+      "stage": "candidate",
+      "prefix_tokens": 2589,
+      "full_tokens": 2658,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "e1654c35170657af333a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 1586,
+      "full_tokens": 1702,
+      "assistant_tokens": 116
+    },
+    {
+      "sample_id": "6f73504a80b0827b0869",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 1597,
+      "full_tokens": 1785,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "ddb36c17234cb9fd1798",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 1732,
+      "full_tokens": 1779,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "7dc4a8c0926598910b6c",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 1904,
+      "full_tokens": 2059,
+      "assistant_tokens": 155
+    },
+    {
+      "sample_id": "825facc6b8f2ac367cf4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 1780,
+      "full_tokens": 1953,
+      "assistant_tokens": 173
+    },
+    {
+      "sample_id": "86c36788cea6946ab925",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 1912,
+      "full_tokens": 1959,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "d70866beaf093bfbf69f",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 2231,
+      "full_tokens": 2364,
+      "assistant_tokens": 133
+    },
+    {
+      "sample_id": "b10f3fe223007c978ab5",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 1892,
+      "full_tokens": 2055,
+      "assistant_tokens": 163
+    },
+    {
+      "sample_id": "337699f68c40c7f11871",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2032,
+      "full_tokens": 2101,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "637e79666b2749f8db81",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 2567,
+      "full_tokens": 2788,
+      "assistant_tokens": 221
+    },
+    {
+      "sample_id": "5cfaadfd623986cab4b9",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 1955,
+      "full_tokens": 2137,
+      "assistant_tokens": 182
+    },
+    {
+      "sample_id": "62c45b9f79158bd83988",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2083,
+      "full_tokens": 2152,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "0b2e31700827fae17c4e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 2961,
+      "full_tokens": 3145,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "730618884ac55efdae79",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2180,
+      "full_tokens": 2337,
+      "assistant_tokens": 157
+    },
+    {
+      "sample_id": "cbc9a075df6f31db9062",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2294,
+      "full_tokens": 2363,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "0872da2ca174c2fdd75d",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 3266,
+      "full_tokens": 3479,
+      "assistant_tokens": 213
+    },
+    {
+      "sample_id": "eba1292075e6310a6ce7",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2151,
+      "full_tokens": 2341,
+      "assistant_tokens": 190
+    },
+    {
+      "sample_id": "1441c91a281c5cdb4f7d",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2319,
+      "full_tokens": 2388,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "1cb107e5a62634fbd1dd",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 3647,
+      "full_tokens": 3843,
+      "assistant_tokens": 196
+    },
+    {
+      "sample_id": "7657da8696eb50c13807",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2245,
+      "full_tokens": 2414,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "df0daf4ad582da97a74e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2392,
+      "full_tokens": 2439,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "a69257e325dfc10eb7bd",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 4031,
+      "full_tokens": 4191,
+      "assistant_tokens": 160
+    },
+    {
+      "sample_id": "f275901f620c49a8c825",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2387,
+      "full_tokens": 2567,
+      "assistant_tokens": 180
+    },
+    {
+      "sample_id": "a8fde5e1a889232aabde",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2551,
+      "full_tokens": 2620,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "5111c04671ea8f85db1a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 4458,
+      "full_tokens": 4602,
+      "assistant_tokens": 144
+    },
+    {
+      "sample_id": "817585c77bcf9a16f1f4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2319,
+      "full_tokens": 2541,
+      "assistant_tokens": 222
+    },
+    {
+      "sample_id": "582d48ce264555c160e1",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2518,
+      "full_tokens": 2565,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "c25096be8edf6061ab65",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 4891,
+      "full_tokens": 5085,
+      "assistant_tokens": 194
+    },
+    {
+      "sample_id": "923bc48931e5b2a46943",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2505,
+      "full_tokens": 2686,
+      "assistant_tokens": 181
+    },
+    {
+      "sample_id": "546b1685ec362c849a64",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2645,
+      "full_tokens": 2714,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "5102388768e4c3410ec4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 5290,
+      "full_tokens": 5468,
+      "assistant_tokens": 178
+    },
+    {
+      "sample_id": "ed4817076122908793fd",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2606,
+      "full_tokens": 2887,
+      "assistant_tokens": 281
+    },
+    {
+      "sample_id": "32c1ff974b23ebf14730",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2909,
+      "full_tokens": 2978,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "dd6c5ba46b033fd53103",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 5817,
+      "full_tokens": 6035,
+      "assistant_tokens": 218
+    },
+    {
+      "sample_id": "2ac08697f8210e0b2b83",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2557,
+      "full_tokens": 2705,
+      "assistant_tokens": 148
+    },
+    {
+      "sample_id": "5a2c2232bc45fa581a13",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2660,
+      "full_tokens": 2729,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "e6a52ba3b7720a8a2c77",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 6208,
+      "full_tokens": 6411,
+      "assistant_tokens": 203
+    },
+    {
+      "sample_id": "8ed2028cda86e238648a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2806,
+      "full_tokens": 2973,
+      "assistant_tokens": 167
+    },
+    {
+      "sample_id": "264887db6d4686f944ab",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2950,
+      "full_tokens": 3019,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "9351872a74da9fc0bd6e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 6692,
+      "full_tokens": 6876,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "e0047db67f4e05b3391e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2965,
+      "full_tokens": 3095,
+      "assistant_tokens": 130
+    },
+    {
+      "sample_id": "ad798eb9c98a239a67a0",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3037,
+      "full_tokens": 3062,
+      "assistant_tokens": 25
+    },
+    {
+      "sample_id": "7b03f28f37f729061b0c",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 7017,
+      "full_tokens": 7231,
+      "assistant_tokens": 214
+    },
+    {
+      "sample_id": "33a2673ea4227c8f87f6",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2802,
+      "full_tokens": 2998,
+      "assistant_tokens": 196
+    },
+    {
+      "sample_id": "0896441d439bb77f359e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2986,
+      "full_tokens": 3033,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "6f43ad6bc51aba231393",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 7925,
+      "full_tokens": 8106,
+      "assistant_tokens": 181
+    },
+    {
+      "sample_id": "c4958bd251cd09f3fb20",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2817,
+      "full_tokens": 2976,
+      "assistant_tokens": 159
+    },
+    {
+      "sample_id": "0cc6b68d992344fe809c",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 2930,
+      "full_tokens": 2999,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "9ba0863bd12143ead24a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 8371,
+      "full_tokens": 8566,
+      "assistant_tokens": 195
+    },
+    {
+      "sample_id": "998ae406f43eaad47f76",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2932,
+      "full_tokens": 3162,
+      "assistant_tokens": 230
+    },
+    {
+      "sample_id": "d9a60c86197b74bfced5",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3161,
+      "full_tokens": 3230,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "7a5559149509392eb5bc",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 8978,
+      "full_tokens": 9186,
+      "assistant_tokens": 208
+    },
+    {
+      "sample_id": "23b02fd1966ff5767148",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 2990,
+      "full_tokens": 3188,
+      "assistant_tokens": 198
+    },
+    {
+      "sample_id": "0f4ffcff5c86caf6d4f5",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3169,
+      "full_tokens": 3238,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "a0319862cca6edec8377",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 9485,
+      "full_tokens": 9723,
+      "assistant_tokens": 238
+    },
+    {
+      "sample_id": "cf115fcc6397c11b9ec7",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3078,
+      "full_tokens": 3266,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "15cd2caa0976e5d867c4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3231,
+      "full_tokens": 3278,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "f128d563cb333fd98c3e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 9919,
+      "full_tokens": 10110,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "b8f623827b646be54743",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3400,
+      "full_tokens": 3593,
+      "assistant_tokens": 193
+    },
+    {
+      "sample_id": "49c8db63658cfb575b51",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3580,
+      "full_tokens": 3627,
+      "assistant_tokens": 47
+    },
+    {
+      "sample_id": "4e4ca00080f3eb6d5aaa",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 10388,
+      "full_tokens": 10599,
+      "assistant_tokens": 211
+    },
+    {
+      "sample_id": "8d0a99276cdf1f41826e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3541,
+      "full_tokens": 3759,
+      "assistant_tokens": 218
+    },
+    {
+      "sample_id": "7ac1087f59522b175480",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3745,
+      "full_tokens": 3814,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "84f5e7b726a1a7db266f",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 10833,
+      "full_tokens": 11059,
+      "assistant_tokens": 226
+    },
+    {
+      "sample_id": "a51fb6f58b4825c38ea4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3315,
+      "full_tokens": 3533,
+      "assistant_tokens": 218
+    },
+    {
+      "sample_id": "f0bbde2d841e480b0628",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3534,
+      "full_tokens": 3603,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "f31e40b5aa29e47c5099",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 11360,
+      "full_tokens": 11514,
+      "assistant_tokens": 154
+    },
+    {
+      "sample_id": "b9906162eb9a24c64225",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3175,
+      "full_tokens": 3351,
+      "assistant_tokens": 176
+    },
+    {
+      "sample_id": "b37dd9ef5c3b5139367a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3315,
+      "full_tokens": 3384,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "bf833e486f3d3c261248",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 11810,
+      "full_tokens": 12036,
+      "assistant_tokens": 226
+    },
+    {
+      "sample_id": "9cdafb42e75ddd98fe21",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3893,
+      "full_tokens": 4078,
+      "assistant_tokens": 185
+    },
+    {
+      "sample_id": "2b8fffce14a6185e6c7a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 4067,
+      "full_tokens": 4136,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "2761967219725ac5a50e",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 12595,
+      "full_tokens": 12831,
+      "assistant_tokens": 236
+    },
+    {
+      "sample_id": "0ad82303643eb6f200d1",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 4021,
+      "full_tokens": 4237,
+      "assistant_tokens": 216
+    },
+    {
+      "sample_id": "828835a63e49e83b5d4b",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 4220,
+      "full_tokens": 4289,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "2ce21ffa296e838d4871",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 13089,
+      "full_tokens": 13289,
+      "assistant_tokens": 200
+    },
+    {
+      "sample_id": "c3c25e775fc26c3c1f1b",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 4177,
+      "full_tokens": 4332,
+      "assistant_tokens": 155
+    },
+    {
+      "sample_id": "981dfdfcff1484faefec",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 4317,
+      "full_tokens": 4386,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "f23b61ebbbbc765293fb",
+      "case_id": "g3_h3_b3_006",
+      "stage": "selection",
+      "prefix_tokens": 13538,
+      "full_tokens": 13706,
+      "assistant_tokens": 168
+    },
+    {
+      "sample_id": "5ca5de1c706ffddda3e4",
+      "case_id": "g3_h3_b3_006",
+      "stage": "expansion",
+      "prefix_tokens": 3723,
+      "full_tokens": 3940,
+      "assistant_tokens": 217
+    },
+    {
+      "sample_id": "35fc46ee67945d69c20a",
+      "case_id": "g3_h3_b3_006",
+      "stage": "candidate",
+      "prefix_tokens": 3931,
+      "full_tokens": 4000,
+      "assistant_tokens": 69
+    },
+    {
+      "sample_id": "577c89733a01c5fd08e3",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 1513,
+      "full_tokens": 1636,
+      "assistant_tokens": 123
+    },
+    {
+      "sample_id": "456e31fb113fcf6be5a8",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1529,
+      "full_tokens": 1699,
+      "assistant_tokens": 170
+    },
+    {
+      "sample_id": "78b047088be1c26277c3",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1645,
+      "full_tokens": 1652,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "503f589cba4d2e82b0fe",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 1774,
+      "full_tokens": 1900,
+      "assistant_tokens": 126
+    },
+    {
+      "sample_id": "d00c825b27fcf97250a4",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1628,
+      "full_tokens": 1772,
+      "assistant_tokens": 144
+    },
+    {
+      "sample_id": "5240b86f80507a334c49",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1717,
+      "full_tokens": 1725,
+      "assistant_tokens": 8
+    },
+    {
+      "sample_id": "f025b91d7ae90603af54",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2015,
+      "full_tokens": 2124,
+      "assistant_tokens": 109
+    },
+    {
+      "sample_id": "deab89182470b31dca3b",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1684,
+      "full_tokens": 1818,
+      "assistant_tokens": 134
+    },
+    {
+      "sample_id": "da59a161b2b4fad7d36f",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1732,
+      "full_tokens": 1745,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "6fd8dfedc08ff91b98fe",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2125,
+      "full_tokens": 2273,
+      "assistant_tokens": 148
+    },
+    {
+      "sample_id": "74acc74226eb63b19459",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1640,
+      "full_tokens": 1775,
+      "assistant_tokens": 135
+    },
+    {
+      "sample_id": "701b9037af509a3434c5",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1720,
+      "full_tokens": 1737,
+      "assistant_tokens": 17
+    },
+    {
+      "sample_id": "9ae15906567be6d260a3",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2390,
+      "full_tokens": 2529,
+      "assistant_tokens": 139
+    },
+    {
+      "sample_id": "370267fd0c251a29b8dc",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1697,
+      "full_tokens": 1817,
+      "assistant_tokens": 120
+    },
+    {
+      "sample_id": "6ef3e9ac51ca1b93077c",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1739,
+      "full_tokens": 1750,
+      "assistant_tokens": 11
+    },
+    {
+      "sample_id": "bcab7d041e26363dc749",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2611,
+      "full_tokens": 2762,
+      "assistant_tokens": 151
+    },
+    {
+      "sample_id": "cfaba66ee5da61ec74e6",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1798,
+      "full_tokens": 2050,
+      "assistant_tokens": 252
+    },
+    {
+      "sample_id": "520fbafdbe6f30010182",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2027,
+      "full_tokens": 2042,
+      "assistant_tokens": 15
+    },
+    {
+      "sample_id": "2b10210a5f94633541dd",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2900,
+      "full_tokens": 3063,
+      "assistant_tokens": 163
+    },
+    {
+      "sample_id": "86602bdcab8835e0a071",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1878,
+      "full_tokens": 2069,
+      "assistant_tokens": 191
+    },
+    {
+      "sample_id": "e82bec56257524a59e4a",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2028,
+      "full_tokens": 2042,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "578fbb4f3ff252f9fbe0",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3169,
+      "full_tokens": 3341,
+      "assistant_tokens": 172
+    },
+    {
+      "sample_id": "fd0fd4f9ca36a7fee596",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1963,
+      "full_tokens": 2174,
+      "assistant_tokens": 211
+    },
+    {
+      "sample_id": "c660aef19ece1025123b",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2117,
+      "full_tokens": 2132,
+      "assistant_tokens": 15
+    },
+    {
+      "sample_id": "bc9ebd28ba448078f058",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3762,
+      "full_tokens": 3941,
+      "assistant_tokens": 179
+    },
+    {
+      "sample_id": "170b7240d5b6566d101f",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1816,
+      "full_tokens": 1926,
+      "assistant_tokens": 110
+    },
+    {
+      "sample_id": "a260d5b4d2e2d113b4d8",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1859,
+      "full_tokens": 1870,
+      "assistant_tokens": 11
+    },
+    {
+      "sample_id": "55058acab368747ccc4f",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3959,
+      "full_tokens": 4196,
+      "assistant_tokens": 237
+    },
+    {
+      "sample_id": "e59962d8b321089d4867",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2181,
+      "full_tokens": 2309,
+      "assistant_tokens": 128
+    },
+    {
+      "sample_id": "a56b674eb0f2881b1fa5",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2245,
+      "full_tokens": 2254,
+      "assistant_tokens": 9
+    },
+    {
+      "sample_id": "ac202879cee615d6bbd4",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 4182,
+      "full_tokens": 4402,
+      "assistant_tokens": 220
+    },
+    {
+      "sample_id": "8ff01156b2ad196970b8",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1901,
+      "full_tokens": 2009,
+      "assistant_tokens": 108
+    },
+    {
+      "sample_id": "575961820898d3373946",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1928,
+      "full_tokens": 1947,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "9cadef91f3a21df202e6",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 4375,
+      "full_tokens": 4510,
+      "assistant_tokens": 135
+    },
+    {
+      "sample_id": "afc9496f7d1cc10f2244",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2114,
+      "full_tokens": 2301,
+      "assistant_tokens": 187
+    },
+    {
+      "sample_id": "f402235ab0227d082354",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2267,
+      "full_tokens": 2279,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "cd2787b0e65552116763",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 4721,
+      "full_tokens": 4898,
+      "assistant_tokens": 177
+    },
+    {
+      "sample_id": "1bdda431b8ca19a2967c",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1904,
+      "full_tokens": 2021,
+      "assistant_tokens": 117
+    },
+    {
+      "sample_id": "5d9f6dcea0146798387f",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1949,
+      "full_tokens": 1956,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "ff7abb9c472af4ec93a4",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 5441,
+      "full_tokens": 5612,
+      "assistant_tokens": 171
+    },
+    {
+      "sample_id": "6a00f04368305c78a1d9",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2458,
+      "full_tokens": 2620,
+      "assistant_tokens": 162
+    },
+    {
+      "sample_id": "05dfc3785dd949d28a47",
+      "case_id": "n2_inputs_00_01_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2566,
+      "full_tokens": 2585,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "e82f34494085ceabd468",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 1516,
+      "full_tokens": 1631,
+      "assistant_tokens": 115
+    },
+    {
+      "sample_id": "6281fbe3c59ea44e929c",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1520,
+      "full_tokens": 1663,
+      "assistant_tokens": 143
+    },
+    {
+      "sample_id": "543a0f1edb4cd3329e4a",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1616,
+      "full_tokens": 1629,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "f4c5ff0d45e27cd4c1ff",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 1834,
+      "full_tokens": 1965,
+      "assistant_tokens": 131
+    },
+    {
+      "sample_id": "9b17ff8075c4d3c93592",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1671,
+      "full_tokens": 1788,
+      "assistant_tokens": 117
+    },
+    {
+      "sample_id": "4e965fde6b84ff7b8bc0",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1723,
+      "full_tokens": 1730,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "99d7e6d1eb9c0f6013e1",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 1973,
+      "full_tokens": 2091,
+      "assistant_tokens": 118
+    },
+    {
+      "sample_id": "d9d807f1f546848774e2",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1658,
+      "full_tokens": 1812,
+      "assistant_tokens": 154
+    },
+    {
+      "sample_id": "558b76532158b1fa83fa",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1757,
+      "full_tokens": 1762,
+      "assistant_tokens": 5
+    },
+    {
+      "sample_id": "6f210194243e227ae465",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2189,
+      "full_tokens": 2343,
+      "assistant_tokens": 154
+    },
+    {
+      "sample_id": "61b09b4d2177efe8cc0b",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1742,
+      "full_tokens": 1911,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "f2f4e9b6a782cfb32ac3",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 1880,
+      "full_tokens": 1902,
+      "assistant_tokens": 22
+    },
+    {
+      "sample_id": "9f71d43eb143227365b3",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2547,
+      "full_tokens": 2711,
+      "assistant_tokens": 164
+    },
+    {
+      "sample_id": "7e181c6786307677cc16",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1892,
+      "full_tokens": 2080,
+      "assistant_tokens": 188
+    },
+    {
+      "sample_id": "b52ba7dc66857e0e2d27",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2034,
+      "full_tokens": 2048,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "623b25e4206d55dfe4b7",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 2795,
+      "full_tokens": 2954,
+      "assistant_tokens": 159
+    },
+    {
+      "sample_id": "45c3be9ebb92a12627a6",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 1954,
+      "full_tokens": 2114,
+      "assistant_tokens": 160
+    },
+    {
+      "sample_id": "becd587597ab16cc3fe0",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2076,
+      "full_tokens": 2094,
+      "assistant_tokens": 18
+    },
+    {
+      "sample_id": "7cb07b1048e66fc240cb",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3071,
+      "full_tokens": 3267,
+      "assistant_tokens": 196
+    },
+    {
+      "sample_id": "762bbb8259711c9e0daf",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2069,
+      "full_tokens": 2206,
+      "assistant_tokens": 137
+    },
+    {
+      "sample_id": "9f58fd2305555da66e93",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2159,
+      "full_tokens": 2174,
+      "assistant_tokens": 15
+    },
+    {
+      "sample_id": "b254f3793ebcd894db6d",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3318,
+      "full_tokens": 3505,
+      "assistant_tokens": 187
+    },
+    {
+      "sample_id": "76726e960f82be2f6d87",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2129,
+      "full_tokens": 2309,
+      "assistant_tokens": 180
+    },
+    {
+      "sample_id": "d1d8f5c2dad7e0db1ebf",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2263,
+      "full_tokens": 2280,
+      "assistant_tokens": 17
+    },
+    {
+      "sample_id": "031b345ee0e517c5f28f",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3557,
+      "full_tokens": 3681,
+      "assistant_tokens": 124
+    },
+    {
+      "sample_id": "edb24c531510fb0cdd37",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2116,
+      "full_tokens": 2279,
+      "assistant_tokens": 163
+    },
+    {
+      "sample_id": "7e5d6352bf75d065b28e",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2236,
+      "full_tokens": 2250,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "0c16a257f09a8cba6344",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 3831,
+      "full_tokens": 3960,
+      "assistant_tokens": 129
+    },
+    {
+      "sample_id": "ce3cac1abcf6703a4df6",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2207,
+      "full_tokens": 2376,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "97b397a187d5e7346b50",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2331,
+      "full_tokens": 2342,
+      "assistant_tokens": 11
+    },
+    {
+      "sample_id": "7fb5352fdb60ceb0c2d6",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 4317,
+      "full_tokens": 4491,
+      "assistant_tokens": 174
+    },
+    {
+      "sample_id": "d410b2e56c62ad531d34",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2351,
+      "full_tokens": 2516,
+      "assistant_tokens": 165
+    },
+    {
+      "sample_id": "49d15b25e7c29cae46e1",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2478,
+      "full_tokens": 2497,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "f7ef01d77a7f50e743fc",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 4970,
+      "full_tokens": 5188,
+      "assistant_tokens": 218
+    },
+    {
+      "sample_id": "ba047fedfe51929e4b9a",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2494,
+      "full_tokens": 2630,
+      "assistant_tokens": 136
+    },
+    {
+      "sample_id": "d17445a97fa7b5790e81",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2560,
+      "full_tokens": 2570,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "514e975f7bee6628f8e3",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 5151,
+      "full_tokens": 5323,
+      "assistant_tokens": 172
+    },
+    {
+      "sample_id": "70c331d25680a3a14122",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2497,
+      "full_tokens": 2652,
+      "assistant_tokens": 155
+    },
+    {
+      "sample_id": "2c446001d68bc89b4935",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2610,
+      "full_tokens": 2623,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "36adb0838de4a4e4f23e",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "selection",
+      "prefix_tokens": 5424,
+      "full_tokens": 5581,
+      "assistant_tokens": 157
+    },
+    {
+      "sample_id": "4d036d84c14559235263",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "expansion",
+      "prefix_tokens": 2561,
+      "full_tokens": 2720,
+      "assistant_tokens": 159
+    },
+    {
+      "sample_id": "2ea71229e89da5bec0e9",
+      "case_id": "n2_inputs_00_10_outputs_01",
+      "stage": "candidate",
+      "prefix_tokens": 2669,
+      "full_tokens": 2681,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "593c3dab752de7520c24",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "selection",
+      "prefix_tokens": 1572,
+      "full_tokens": 1692,
+      "assistant_tokens": 120
+    },
+    {
+      "sample_id": "ee0ebc3f70ca928c7755",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "expansion",
+      "prefix_tokens": 1580,
+      "full_tokens": 1702,
+      "assistant_tokens": 122
+    },
+    {
+      "sample_id": "baf9028ab3c5de22bac5",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "candidate",
+      "prefix_tokens": 1624,
+      "full_tokens": 1631,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "f163ab244e15f27e0108",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "selection",
+      "prefix_tokens": 2450,
+      "full_tokens": 2577,
+      "assistant_tokens": 127
+    },
+    {
+      "sample_id": "004c31ec16ed2b54dd54",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "expansion",
+      "prefix_tokens": 1622,
+      "full_tokens": 1757,
+      "assistant_tokens": 135
+    },
+    {
+      "sample_id": "b116e05d4654ada0c4ea",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "candidate",
+      "prefix_tokens": 1691,
+      "full_tokens": 1706,
+      "assistant_tokens": 15
+    },
+    {
+      "sample_id": "eb7890716532369c5809",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "selection",
+      "prefix_tokens": 2651,
+      "full_tokens": 2770,
+      "assistant_tokens": 119
+    },
+    {
+      "sample_id": "9c2691fe6d5a5d93a5ac",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "expansion",
+      "prefix_tokens": 1656,
+      "full_tokens": 1799,
+      "assistant_tokens": 143
+    },
+    {
+      "sample_id": "a53738517a91b5d4a92b",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "candidate",
+      "prefix_tokens": 1757,
+      "full_tokens": 1774,
+      "assistant_tokens": 17
+    },
+    {
+      "sample_id": "6a8f20581101032db561",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "selection",
+      "prefix_tokens": 2974,
+      "full_tokens": 3129,
+      "assistant_tokens": 155
+    },
+    {
+      "sample_id": "d67677b63deb19b4fd4b",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "expansion",
+      "prefix_tokens": 1816,
+      "full_tokens": 2000,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "d5f57c7036c750631e1c",
+      "case_id": "n3_inputs_00_01_10_outputs_011",
+      "stage": "candidate",
+      "prefix_tokens": 1956,
+      "full_tokens": 1980,
+      "assistant_tokens": 24
+    },
+    {
+      "sample_id": "197a36a6520986dabc7a",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 1507,
+      "full_tokens": 1609,
+      "assistant_tokens": 102
+    },
+    {
+      "sample_id": "208899aa4b97bc2927b5",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1495,
+      "full_tokens": 1610,
+      "assistant_tokens": 115
+    },
+    {
+      "sample_id": "a7ba425f6f9169482468",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1557,
+      "full_tokens": 1565,
+      "assistant_tokens": 8
+    },
+    {
+      "sample_id": "d325804da45e0c6e9e81",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 2040,
+      "full_tokens": 2185,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "1df4a33775c0a325aa7a",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1735,
+      "full_tokens": 1881,
+      "assistant_tokens": 146
+    },
+    {
+      "sample_id": "8b0c40fd84182491a812",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1844,
+      "full_tokens": 1861,
+      "assistant_tokens": 17
+    },
+    {
+      "sample_id": "8fb60110d2191e10d3e4",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 2359,
+      "full_tokens": 2504,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "4680bf2e9ab8b93b6f2a",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1724,
+      "full_tokens": 1860,
+      "assistant_tokens": 136
+    },
+    {
+      "sample_id": "a76f84280a525227c8a7",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1797,
+      "full_tokens": 1811,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "51939f8168614bb24db6",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 2561,
+      "full_tokens": 2729,
+      "assistant_tokens": 168
+    },
+    {
+      "sample_id": "b786af31da892987e0e0",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1838,
+      "full_tokens": 2002,
+      "assistant_tokens": 164
+    },
+    {
+      "sample_id": "2078d4e04219cdcb9935",
+      "case_id": "n3_inputs_00_01_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1967,
+      "full_tokens": 1986,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "14427135914dded7ee37",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 1517,
+      "full_tokens": 1663,
+      "assistant_tokens": 146
+    },
+    {
+      "sample_id": "7d2c6fe75d72d52ad5e9",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1553,
+      "full_tokens": 1700,
+      "assistant_tokens": 147
+    },
+    {
+      "sample_id": "77a2d7e2a61e33faf9ae",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1644,
+      "full_tokens": 1661,
+      "assistant_tokens": 17
+    },
+    {
+      "sample_id": "32eedb5bccc759aacf3a",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 1813,
+      "full_tokens": 1943,
+      "assistant_tokens": 130
+    },
+    {
+      "sample_id": "6e26a600ff428b71f749",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1662,
+      "full_tokens": 1833,
+      "assistant_tokens": 171
+    },
+    {
+      "sample_id": "2e9a29a6393a353f42d7",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 1777,
+      "full_tokens": 1791,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "446eef8f8cfe99e7c443",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 2696,
+      "full_tokens": 2838,
+      "assistant_tokens": 142
+    },
+    {
+      "sample_id": "5d63f6c1a3efcbd54775",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 1911,
+      "full_tokens": 2067,
+      "assistant_tokens": 156
+    },
+    {
+      "sample_id": "6ea9e2e855ae49d6d6a9",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 2029,
+      "full_tokens": 2048,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "fd7994eb5ededb56901d",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "selection",
+      "prefix_tokens": 2972,
+      "full_tokens": 3141,
+      "assistant_tokens": 169
+    },
+    {
+      "sample_id": "adfe8a5a6c957ae00c87",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "expansion",
+      "prefix_tokens": 2015,
+      "full_tokens": 2160,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "3eb5f31a37b9ed697827",
+      "case_id": "n3_inputs_00_10_11_outputs_101",
+      "stage": "candidate",
+      "prefix_tokens": 2100,
+      "full_tokens": 2112,
+      "assistant_tokens": 12
+    },
+    {
+      "sample_id": "880560c74310c5441819",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "selection",
+      "prefix_tokens": 1522,
+      "full_tokens": 1697,
+      "assistant_tokens": 175
+    },
+    {
+      "sample_id": "8dc2cd1b591d6d03a5c5",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "expansion",
+      "prefix_tokens": 1584,
+      "full_tokens": 1731,
+      "assistant_tokens": 147
+    },
+    {
+      "sample_id": "483409088d149d60bed6",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "candidate",
+      "prefix_tokens": 1669,
+      "full_tokens": 1679,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "4cc6f0dcee69102803d3",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "selection",
+      "prefix_tokens": 1778,
+      "full_tokens": 1954,
+      "assistant_tokens": 176
+    },
+    {
+      "sample_id": "bdfc846ca8d0db47bc6e",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "expansion",
+      "prefix_tokens": 1691,
+      "full_tokens": 1845,
+      "assistant_tokens": 154
+    },
+    {
+      "sample_id": "a8e10a36ddf7eb6b0ad9",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "candidate",
+      "prefix_tokens": 1791,
+      "full_tokens": 1804,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "e86ddc2fa12fae069f9b",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "selection",
+      "prefix_tokens": 2312,
+      "full_tokens": 2497,
+      "assistant_tokens": 185
+    },
+    {
+      "sample_id": "49e1c200204343d67967",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "expansion",
+      "prefix_tokens": 1849,
+      "full_tokens": 2035,
+      "assistant_tokens": 186
+    },
+    {
+      "sample_id": "df8e0e4ded50ba806200",
+      "case_id": "n3_inputs_01_10_11_outputs_110",
+      "stage": "candidate",
+      "prefix_tokens": 1998,
+      "full_tokens": 2017,
+      "assistant_tokens": 19
+    },
+    {
+      "sample_id": "01e75d63816ea081eb89",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "selection",
+      "prefix_tokens": 1519,
+      "full_tokens": 1644,
+      "assistant_tokens": 125
+    },
+    {
+      "sample_id": "6bfede0a03032af9a931",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "expansion",
+      "prefix_tokens": 1527,
+      "full_tokens": 1641,
+      "assistant_tokens": 114
+    },
+    {
+      "sample_id": "1af854a5788382449714",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "candidate",
+      "prefix_tokens": 1577,
+      "full_tokens": 1601,
+      "assistant_tokens": 24
+    },
+    {
+      "sample_id": "271459fea8071f48df20",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "selection",
+      "prefix_tokens": 1833,
+      "full_tokens": 1993,
+      "assistant_tokens": 160
+    },
+    {
+      "sample_id": "357e1ae8edff88bf1615",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "expansion",
+      "prefix_tokens": 1723,
+      "full_tokens": 1838,
+      "assistant_tokens": 115
+    },
+    {
+      "sample_id": "9e261bbe1a0505e8f2bd",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "candidate",
+      "prefix_tokens": 1771,
+      "full_tokens": 1778,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "f3fce27751aba944a0ed",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "selection",
+      "prefix_tokens": 1990,
+      "full_tokens": 2131,
+      "assistant_tokens": 141
+    },
+    {
+      "sample_id": "ecdc3c89743464d81d69",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "expansion",
+      "prefix_tokens": 1685,
+      "full_tokens": 1822,
+      "assistant_tokens": 137
+    },
+    {
+      "sample_id": "daff59c57a17a903dd24",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0001",
+      "stage": "candidate",
+      "prefix_tokens": 1766,
+      "full_tokens": 1781,
+      "assistant_tokens": 15
+    },
+    {
+      "sample_id": "7686ec98d0c4d74fa448",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0110",
+      "stage": "selection",
+      "prefix_tokens": 1723,
+      "full_tokens": 1845,
+      "assistant_tokens": 122
+    },
+    {
+      "sample_id": "066a398c1b23dcebab99",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0110",
+      "stage": "expansion",
+      "prefix_tokens": 1585,
+      "full_tokens": 1691,
+      "assistant_tokens": 106
+    },
+    {
+      "sample_id": "29004cf3ac4be07ecf54",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0110",
+      "stage": "candidate",
+      "prefix_tokens": 1621,
+      "full_tokens": 1637,
+      "assistant_tokens": 16
+    },
+    {
+      "sample_id": "0dee1bed7d6bd4af3f8a",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "selection",
+      "prefix_tokens": 1531,
+      "full_tokens": 1641,
+      "assistant_tokens": 110
+    },
+    {
+      "sample_id": "60db45ff70323ba17aa9",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "expansion",
+      "prefix_tokens": 1531,
+      "full_tokens": 1663,
+      "assistant_tokens": 132
+    },
+    {
+      "sample_id": "f8ccc5a4e634bf285c61",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "candidate",
+      "prefix_tokens": 1599,
+      "full_tokens": 1606,
+      "assistant_tokens": 7
+    },
+    {
+      "sample_id": "6492eadfbcb375ba2878",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "selection",
+      "prefix_tokens": 1800,
+      "full_tokens": 1933,
+      "assistant_tokens": 133
+    },
+    {
+      "sample_id": "d0388722846dea6f944f",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "expansion",
+      "prefix_tokens": 1670,
+      "full_tokens": 1798,
+      "assistant_tokens": 128
+    },
+    {
+      "sample_id": "b031be4d66c31a7cf63f",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "candidate",
+      "prefix_tokens": 1742,
+      "full_tokens": 1755,
+      "assistant_tokens": 13
+    },
+    {
+      "sample_id": "f103eb2ee6666c6f2e9d",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "selection",
+      "prefix_tokens": 1984,
+      "full_tokens": 2135,
+      "assistant_tokens": 151
+    },
+    {
+      "sample_id": "0b3e3308bbb76cde4631",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "expansion",
+      "prefix_tokens": 1709,
+      "full_tokens": 1840,
+      "assistant_tokens": 131
+    },
+    {
+      "sample_id": "fd002fc28bef86143a1b",
+      "case_id": "n4_inputs_00_01_10_11_outputs_0111",
+      "stage": "candidate",
+      "prefix_tokens": 1784,
+      "full_tokens": 1798,
+      "assistant_tokens": 14
+    },
+    {
+      "sample_id": "b50b6b5d0225e747a80d",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1001",
+      "stage": "selection",
+      "prefix_tokens": 1525,
+      "full_tokens": 1627,
+      "assistant_tokens": 102
+    },
+    {
+      "sample_id": "3bef3213f05e119a4d10",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1001",
+      "stage": "expansion",
+      "prefix_tokens": 1516,
+      "full_tokens": 1626,
+      "assistant_tokens": 110
+    },
+    {
+      "sample_id": "b939ccf474389e35f86d",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1001",
+      "stage": "candidate",
+      "prefix_tokens": 1568,
+      "full_tokens": 1586,
+      "assistant_tokens": 18
+    },
+    {
+      "sample_id": "4b0ec3c7693397eef97f",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "selection",
+      "prefix_tokens": 1547,
+      "full_tokens": 1660,
+      "assistant_tokens": 113
+    },
+    {
+      "sample_id": "150ea84661aac96e3803",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "expansion",
+      "prefix_tokens": 1541,
+      "full_tokens": 1666,
+      "assistant_tokens": 125
+    },
+    {
+      "sample_id": "a7efe47adac31ee46c18",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "candidate",
+      "prefix_tokens": 1613,
+      "full_tokens": 1623,
+      "assistant_tokens": 10
+    },
+    {
+      "sample_id": "04634025d4b3f8d8783a",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "selection",
+      "prefix_tokens": 1805,
+      "full_tokens": 1935,
+      "assistant_tokens": 130
+    },
+    {
+      "sample_id": "24ec4b442f440c4a9475",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "expansion",
+      "prefix_tokens": 1645,
+      "full_tokens": 1773,
+      "assistant_tokens": 128
+    },
+    {
+      "sample_id": "3bd2b4f5f4028d01ce3b",
+      "case_id": "n4_inputs_00_01_10_11_outputs_1110",
+      "stage": "candidate",
+      "prefix_tokens": 1714,
+      "full_tokens": 1727,
+      "assistant_tokens": 13
+    }
+  ]
+}

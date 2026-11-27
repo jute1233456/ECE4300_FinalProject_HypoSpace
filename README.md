@@ -2,18 +2,28 @@
 
 本项目探索提高大语言模型在 HypoSpace 基准测试上的表现。
 
-## 当前工作入口（2026-11-25）
+## 当前工作入口（2026-11-27）
 
-当前服务器实验使用 Qwen3-8B 与 MCTS 2.1，先完成27道中等评测题，再生成并运行独立训练题。单次请求额度32768，实际使用32K总上下文扣除输入后的剩余额度，保留此前16K断点的变更记录。
+当前主线是 Qwen3-8B + Stage-MCTS 2.2（`isolated_examples_v1`），在 quick3（3 题 45 解）和 mixed100_v1（25 题 293 解）上评测。已完成 QLoRA SFT（`sft-pruned-v1-ep1`/`ep2`）与 DPO v1/v2/v3；V3 混合反思（反思用 V3、其余步骤用 SFT ep1）和全阶段 V3 对照正在验证。
 
-- 当前流程、结果位置和历史脚本区别：[当前运行说明](docs/CURRENT_RUN.md)。
-- 方法版本、变体与训练数据边界：[版本定义](config/mcts_versions.json)、[交接说明](AGENTS.md)。
-- 本地服务器备份、Git提交范围：[本地归档与提交规则](docs/ARCHIVING.md)。
-- 详细历史记录：[服务器计划与记录](SERVER_PLAN.md)。
+- 当前结论：**SFT 相对 base 有明确提升**（quick3 60.0%→80.0%）；**DPO 尚未显示稳定的额外收益**。V3 结果未完成，不提前下结论。
+- 实验与监控：[监控口径](docs/CC_MONITOR_CURRENT.md)、[V3 混合实验](docs/DPO_V3_HYBRID_RUN.md)、[V3 mixed100 队列](docs/DPO_V3_MIXED100_QUEUE.md)。
+- 数据与训练：[数据流水线](docs/TRAINING_DATA_PIPELINE.md)、[DPO 数据集 v3](docs/DPO_DATASET_V3.md)、[QLoRA 首轮验证](docs/QLORA_EPOCH1_VALIDATION.md)。
+- 服务器数据归档：[紧凑归档](training/server-archive-20261127/)（不含权重）、[归档说明](docs/SERVER_DATA_ARCHIVE.md)。
+- 报告大纲：[docs/PROJECT_REPORT_OUTLINE.md](docs/PROJECT_REPORT_OUTLINE.md)。
+- 方法版本与交接：[config/mcts_versions.json](config/mcts_versions.json)、[AGENTS.md](AGENTS.md)。
 
-下面的方舟接口及早期实验说明仍供复现历史配置使用，不代表当前服务器的模型或生成额度。
+早期 2026-11-25 的 MCTS 2.1 说明保留在 [docs/CURRENT_RUN.md](docs/CURRENT_RUN.md)，仅作历史，不代表当前配置。
 
-当前正式题库、固定答题模型和断点接续命令见 [Agent 交接说明](AGENTS.md)。
+### 训练数据说明
+
+`training/sources/ds22-sampled19-canonical.jsonl` 有 112 MB，超过 GitHub 单文件限制，因此**不提交原文件**，提交同目录的 `.jsonl.gz`。复现前先解压：
+
+```bash
+gzip -dk training/sources/ds22-sampled19-canonical.jsonl.gz
+```
+
+其余已审计训练数据、DPO 数据与运行参数在 `training/data/`、`training/audits/`、`training/server-archive-20261127/`。
 
 ## 官方代码来源
 

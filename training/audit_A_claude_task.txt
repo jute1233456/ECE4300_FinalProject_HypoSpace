@@ -1,0 +1,17 @@
+请执行 A 数据集的完整语义质量审查。你有本地读取权限，请自行读取文件，不需要用户逐条提供。
+
+项目根目录是当前工作目录。输入 training/data/ds22-all-completed/train.jsonl 共309条，SHA256为23d181e2661a0b6e81b59acdd010757a897952df064c870f5a3c6320c65b58e2。先核对，不要改动输入。
+先读 docs/TRAINING_DATA_PIPELINE.md、training/stage_sft.py 和关联的题库与评分代码。题干、messages、source 和 canonical 数据供交叉核对。不要运行训练、答题实验、API请求、网络请求，不操作任何现有进程、密钥、服务器、Git。
+
+用户授权由 Claude Code 审查全部309条并剔除不适合训练的负面数据。最终答案正确不代表selection/expansion推理正确。逐条审查 assistant 的决策理由、推理及其与 user 输入的一致性，检查实际messages里的监督内容，不凭仅有的标签做判定。
+重点检查虚构约束/隐藏评分规则、错误NOR计层、错误穷尽论证、把找到一个解当找全、同义重复扩展、计划与候选冲突、无根据推断、依赖未提供信息、矛盾理由、重建输入与教师目标不匹配。
+多解题不因逻辑真值等价而自动认作重复，遵循本项目结构评分。重复候选本身不自动等于有害，必须检查本条实际训练目标和上下文。不能因为猜不到选节点理由或缺少完整证明就自动删除合理的探索。selection、expansion、candidate独立判断，不能因前序有错自动删除仍独立正确的candidate；若candidate输入包含明显有害指导则说明风险。
+决定使用 keep / reject / uncertain。reject必须有具体引用和可核对的原因；uncertain隔离并不纳入推荐训练集。不得把评测题重合当删除理由，用户已有明确训练全部完成题、评测做减法的安排。不要重写教师输出。
+
+在 training/audits/A-claude-review/ 生成：
+1 decisions.jsonl：每条一行，严格覆盖输入所有sample_id，各包含 sample_id,case_id,stage,decision,reason_code,evidence（短引用）,explanation,confidence；keep也要实际给理由。
+2 build_filtered.py：读取原A和decisions，验证ID全覆盖/无重复/无多余，再按原始顺序和原始JSON行原样输出 train.filtered.jsonl、rejected.jsonl、uncertain.jsonl；manifest.json记录源与各输出SHA256、样本数、各阶段与各题统计。只过滤，不修改原始内容和原始ledger。
+3 report.md：解释审查标准、数量、主要问题、边界样本及复核建议。明确是模型语义审查，未训练且不能保证所有推理正确。
+执行构建和一致性检查，结束后返回摘要。
+
+可以写临时本地检查脚本辅助索引，但必须实际阅读每条训练目标并给具体判定。不要仅用关键词或脚本统一生成keep/reject来代替语义审查。若任务预算导致审查未完成，清楚标出完成范围，不能伪造309条已审查。

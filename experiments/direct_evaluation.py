@@ -9,6 +9,7 @@ from pathlib import Path
 import re
 from statistics import mean
 import sys
+from itertools import count
 from time import sleep
 
 from .boolean_scoring import expand_nor
@@ -172,6 +173,8 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         continuation.add_argument("--continue-from", type=Path,
                                   help="Fork an old-model checkpoint and continue with the fixed answer model")
     parser.add_argument("--search-cap", type=int, help="Total API attempts for a single case")
+    parser.add_argument("--unlimited-search", action="store_true",
+                        help="Continue tree search without a fixed attempt or submission budget")
     token_limit = parser.add_mutually_exclusive_group()
     token_limit.add_argument("--max-tokens", type=int, default=2048)
     token_limit.add_argument("--provider-token-limit", dest="max_tokens", action="store_const", const=None)
@@ -182,6 +185,9 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     reflection = parser.add_mutually_exclusive_group()
     reflection.add_argument("--self-reflection", action="store_true")
     reflection.add_argument("--two-step-reflection", action="store_true")
+    parser.add_argument("--partition-reflection", action="store_true")
+    parser.add_argument("--stage22-revision", action="store_true")
+    parser.add_argument("--provider", choices=("ark", "deepseek"), default="ark")
     parser.add_argument("--exploration-list", choices=("on", "off"),
                         help="Compare LLM node selection with or without round-based deferral")
     tree_limit = parser.add_mutually_exclusive_group()
@@ -202,9 +208,12 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     if balanced:
         parser.add_argument("--import-progress", type=Path, help="Prepare a checkpoint from the old hard run")
     args = parser.parse_args()
+    if args.provider == "deepseek":
+        from llm.deepseek_official import DeepSeekOfficialClient
+        args.model = DeepSeekOfficialClient.MODEL
     if args.dataset_root:
         dataset_root = args.dataset_root
-    if not args.base_url and args.model != ANSWER_MODEL:
+    if args.provider == "ark" and not args.base_url and args.model != ANSWER_MODEL:
         parser.error("Alternative models require --base-url; Ark default is unchanged")
     if args.enable_thinking and not args.base_url:
         parser.error("--enable-thinking requires --base-url")
@@ -230,8 +239,8 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         parser.error('MCTS 1.0 does not use tree tools')
     if args.mcts_version in ('2.0','2.1','2.2'):
         args.tree_tools = True
-    if args.mcts_version == '2.2' and not (args.enable_thinking and args.base_url and args.two_step_reflection):
-        parser.error('Stage-MCTS 2.2 requires local thinking API and two-step reflection')
+    if args.mcts_version == '2.2' and not args.two_step_reflection:
+        parser.error('Stage-MCTS 2.2 requires two-step reflection')
     if args.method == 'mcts-tree' and args.tree_policy == 'llm' and not args.mcts_version:
         args.mcts_version = '2.0' if args.tree_tools else '1.0'
     if args.full_tree and (args.method != 'mcts-tree' or args.tree_policy != 'llm'):
@@ -320,7 +329,12 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                          chat_template_kwargs={"enable_thinking": args.enable_thinking})
     if args.tree_tools and not args.enable_thinking:
         from llm.deepseek_tree_tools import DeepseekTreeToolClient
-        client = DeepseekTreeToolClient(model=args.model)
+        if args.mcts_version == '2.2':
+            from llm.ark_stage_tree import ArkStageTreeClient
+            client = ArkStageTreeClient(model=args.model, provider=args.provider)
+            client.revision = args.stage22_revision
+        else:
+            client = DeepseekTreeToolClient(model=args.model, provider=args.provider)
     elif args.enable_thinking:
         from llm.local_thinking import LocalThinkingClient
         client_type = LocalThinkingClient
@@ -333,9 +347,13 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         client = client_type(tokenizer_path=ROOT/'models/Qwen3-8B', api_key='local',
             model=args.model, base_url=args.base_url, timeout=3600, generation_options=local_options)
     else:
-        client = (OpenAICompatibleClient(api_key="local", model=args.model, base_url=args.base_url,
-                                        timeout=3600, generation_options=local_options)
-                  if args.base_url else ArkCodingPlanClient(model=args.model))
+        if args.provider == "deepseek":
+            from llm.deepseek_official import DeepSeekOfficialClient
+            client = DeepSeekOfficialClient(model=args.model)
+        else:
+            client = (OpenAICompatibleClient(api_key="local", model=args.model, base_url=args.base_url,
+                                            timeout=3600, generation_options=local_options)
+                      if args.base_url else ArkCodingPlanClient(model=args.model))
     if args.reflection_model:
         if not (args.enable_thinking and args.tree_tools and args.two_step_reflection):
             parser.error('--reflection-model requires local thinking tree search with reflection')
@@ -421,6 +439,10 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         if args.reflection_model:
             result['tree_config']['stage_models'] = client.stage_models
             result['tree_config']['model_strategy'] = 'hybrid-reflection-v3'
+        if args.stage22_revision:
+            result["tree_config"]["stage22_revision"] = True
+        if args.partition_reflection:
+            result["tree_config"]["partition_reflection"] = True
         result["api_call_cap"] = 2 * call_cap
 
     if import_progress:
@@ -572,14 +594,17 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
             submitted = sum(record.get("submitted", False) for record in records)
         started = datetime.now(timezone.utc)
         failure_reason = None
-        for call_index in range(len(records) + 1, search_cap + 1):
+        attempts = (count(len(records) + 1) if args.unlimited_search
+                    else range(len(records) + 1, search_cap + 1))
+        for call_index in attempts:
             if balanced or easy or args.method == "mcts-tree" or (hard and (call_index == 1 or call_index % 10 == 0)):
                 result["interrupted_case"] = {"domain": domain, "case_id": case_id,
                                               "prompt": prompt, "records": records}
                 save()
             if isinstance(agent, ReasoningTreeAgent) and agent.exhausted:
                 break
-            if early_stop and (recovered == keys or (not args.unbounded_tree and submitted >= queries)):
+            if early_stop and (recovered == keys or (
+                    not args.unlimited_search and not args.unbounded_tree and submitted >= queries)):
                 break
             if hard and (call_index == 1 or call_index % 10 == 0):
                 print(f"{args.method} {domain}/{case_id}: call {call_index}/{search_cap}, "
@@ -602,6 +627,20 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                         "If there are no prior attempts, identify one constraint to check and a starting "
                         "direction. Output a short review, without selecting a branch or submitting an answer."
                     )
+                    if args.partition_reflection:
+                        from .partition_reflection import review_prompt_for_partitions
+                        review_prompt = review_prompt_for_partitions(prompt, records)
+                    if args.stage22_revision:
+                        feedback = [dict(answer=record.get("answer"), valid=record.get("valid"),
+                                         reward=record.get("reward"), plan=record.get("plan_path"))
+                                    for record in records if record.get("answer")][-8:]
+                        review_prompt += (
+                            "\nObserved outcomes: " + json.dumps(feedback, ensure_ascii=False)
+                            + "\nIdentify one failed decision with evidence, the next actionable "
+                            "adjustment, and a constraint to check. Reward +1 means a new valid "
+                            "candidate, -1 a repeated valid candidate, 0 no valid novelty. "
+                            "Finding one valid answer does not prove exhaustion."
+                        )
                     if args.full_tree:
                         review_prompt += agent.tree_prompt()
                     review = (client.review(review_prompt, max_tokens=args.max_tokens)
@@ -634,6 +673,14 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                     record_request(args.pause_file, False)
                 consecutive_errors += 1
                 if balanced and consecutive_errors >= 3:
+                    if args.stage22_revision:
+                        result["interrupted_case"] = {"domain": domain, "case_id": case_id,
+                                                      "prompt": prompt, "records": records}
+                        save()
+                        print("Repeated connection failures: retrying after 60 seconds.", flush=True)
+                        sleep(60)
+                        consecutive_errors = 0
+                        continue
                     failure_reason = str(error)
                     print(f"Skipping {domain}/{case_id} after repeated request errors: {failure_reason}",
                           flush=True)

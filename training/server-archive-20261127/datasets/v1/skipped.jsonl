@@ -1,0 +1,3 @@
+{"state_id": "0aa97f863803a56603a8f55ea37aaacea053f8395f1fe8474ce6f43e5ced75c6", "case_id": "n1_inputs_10_outputs_1", "domain": "boolean", "reason": "五条均为可用建议，无高置信 harmful，按规则不配对。", "judgment_summary": ["helpful"]}
+{"state_id": "d2daaf3849c06f92f5748e94cd88accbfa1b54a65836961df6576630b3765bb4", "case_id": "n6_hard_029", "domain": "causal", "reason": "pair did not reach high/high confidence (chosen medium, rejected high); kept out of dpo.jsonl", "judgment_summary": ["harmful", "helpful", "uncertain"]}
+{"state_id": "eb2a690325a541fb7f45ac3affb680e6186bebe000cabff50e17f5e447f2a21c", "case_id": "n6_hard_029", "domain": "causal", "reason": "五条均为合法方向，无高置信 harmful，按规则不配对。", "judgment_summary": ["helpful", "uncertain"]}

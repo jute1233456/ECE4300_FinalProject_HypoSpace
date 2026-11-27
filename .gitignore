@@ -63,3 +63,7 @@ Desktop.ini
 /server/diagnostics/
 /server/windows-api-smoke.json
 /HypoSpace.pdf
+
+# Large canonical source (>100MB GitHub limit): commit .gz, not .jsonl
+/training/sources/*.jsonl
+!/training/sources/*.jsonl.gz

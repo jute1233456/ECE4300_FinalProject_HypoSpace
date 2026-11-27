@@ -1,0 +1,98 @@
+[
+  {
+    "phase": "training",
+    "global_step": 1,
+    "total_updates": 8,
+    "epoch": 0.13793103448275862,
+    "loss": 0.6931471824645996,
+    "reward_margin": 0.0,
+    "lr": 5e-06,
+    "effective_batch": 8,
+    "grad_norm": 18.013015747070312,
+    "elapsed_seconds": 89.64640426635742
+  },
+  {
+    "phase": "training",
+    "global_step": 2,
+    "total_updates": 8,
+    "epoch": 0.27586206896551724,
+    "loss": 0.5599030032753944,
+    "reward_margin": 0.2884966842830181,
+    "lr": 3.5e-06,
+    "effective_batch": 8,
+    "grad_norm": 15.729256629943848,
+    "elapsed_seconds": 180.27237033843994
+  },
+  {
+    "phase": "training",
+    "global_step": 3,
+    "total_updates": 8,
+    "epoch": 0.41379310344827586,
+    "loss": 0.5355541110038757,
+    "reward_margin": 0.3619618504308164,
+    "lr": 2.5e-06,
+    "effective_batch": 8,
+    "grad_norm": 10.901659965515137,
+    "elapsed_seconds": 255.90827989578247
+  },
+  {
+    "phase": "training",
+    "global_step": 4,
+    "total_updates": 8,
+    "epoch": 0.5517241379310345,
+    "loss": 0.5166580006480217,
+    "reward_margin": 0.4108593830605969,
+    "lr": 1.7857142857142859e-06,
+    "effective_batch": 8,
+    "grad_norm": 9.760711669921875,
+    "elapsed_seconds": 311.2623836994171
+  },
+  {
+    "phase": "training",
+    "global_step": 5,
+    "total_updates": 8,
+    "epoch": 0.6896551724137931,
+    "loss": 0.44912881404161453,
+    "reward_margin": 0.5900796060450375,
+    "lr": 1.25e-06,
+    "effective_batch": 8,
+    "grad_norm": 10.769903182983398,
+    "elapsed_seconds": 380.9742362499237
+  },
+  {
+    "phase": "training",
+    "global_step": 6,
+    "total_updates": 8,
+    "epoch": 0.8275862068965517,
+    "loss": 0.45484838634729385,
+    "reward_margin": 0.5795592330396175,
+    "lr": 8.333333333333333e-07,
+    "effective_batch": 8,
+    "grad_norm": 9.421966552734375,
+    "elapsed_seconds": 473.55180978775024
+  },
+  {
+    "phase": "training",
+    "global_step": 7,
+    "total_updates": 8,
+    "epoch": 0.9655172413793104,
+    "loss": 0.4482784532010555,
+    "reward_margin": 0.6042274590581656,
+    "lr": 5.000000000000001e-07,
+    "effective_batch": 8,
+    "grad_norm": 9.274606704711914,
+    "elapsed_seconds": 536.0269205570221
+  },
+  {
+    "phase": "training",
+    "global_step": 8,
+    "total_updates": 8,
+    "epoch": 1.0,
+    "loss": 0.37482744455337524,
+    "reward_margin": 0.7903205752372742,
+    "lr": 2.2727272727272729e-07,
+    "effective_batch": 2,
+    "grad_norm": 14.283203125,
+    "elapsed_seconds": 550.2201883792877
+  }
+]

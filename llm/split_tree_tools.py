@@ -103,6 +103,8 @@ class SplitTreeToolClient(TreeToolClient):
                 final = f'Branch: {branch}\n'+(f'Plan: {plan}\n' if plan else '')+candidate
         except ValueError as error:
             failure = str(error)
+        except LLMError:
+            raise
         except Exception as error:
             raise LLMError(f'Stage-MCTS inference failed: {type(error).__name__}', details=dict(
                 **self._accounting(), api_requests=self.requests, tool_trace=self.reader.trace)) from error
@@ -117,6 +119,7 @@ class SplitTreeToolClient(TreeToolClient):
             finish_reason='length' if any(r.get('response', {}).get('choices', [{}])[0].get('finish_reason')
                 == 'length' for r in self.requests) else 'stop',
             reasoning_text='\n'.join(reasoning),
-            reasoning_tokens=sum(len(self.tokenizer.encode(t, add_special_tokens=False)) for t in reasoning),
+            reasoning_tokens=(sum(len(self.tokenizer.encode(t, add_special_tokens=False)) for t in reasoning)
+                              if self.tokenizer is not None else None),
             final_answer_missing=not bool(final), effective_max_tokens=max_tokens,
             tool_trace=self.reader.trace, api_requests=self.requests, protocol_error=failure)

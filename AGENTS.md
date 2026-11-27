@@ -1,5 +1,52 @@
 # ECE4300 Final Project 交接说明
 
+## 最新：停止 DPO 采集，V3 混合 mixed100 排队尾（2026-11-27）
+
+用户明确停止数据生成；reflection-v2-collection 已设置 PAUSE、stop_requested.json，采集器合作退出，已有在途 API 只保存后归还卡。未经用户重新明确授权，不恢复采集；本条覆盖下文旧的“空卡继续采集”授权。V3 混合组 dpo-reflection-v3-ep1 已加入统一 quick3 的 mixed100-v1：新增22题248解，复用原quick3三题45解，共25题293解。该组 model_order 已移到尾部，现有在途任务不打断。全流程V3对照组 dpo-v3-full-ep1 仍单独跑三题，不扩大其题库。详见 docs/DPO_V3_MIXED100_QUEUE.md。
+
+## 本地数据归档（2026-11-27 21:00 快照，任务完成后需更新）
+
+已从四号机 `EEC430004-4090` 汇总可提交 git 的微调数据/参数/评测摘要到本地 `training/server-archive-20261127/`（13 MB，121 文件，无模型权重/分词器/原始大结果）：DPO v1/v2/v3 的 config、data、status、pipeline、adapter/smoke 元数据；SFT/QLoRA 运行参数与日志；DPO 数据集 v1/v2/v3-additive 文本；quick3 的 80 任务紧凑结果索引。原始 quick3 结果与 DPO 数据集全量只在 `local-backups/server-full-20261127/`（git 忽略）。导出脚本 `scripts/export_server_archive.py`，更新步骤见 `docs/SERVER_DATA_ARCHIVE.md`。
+
+**这是快照，不是最终数据**：导出时 SFT ep1 仍剩 `n1_002`，DPO v3 混合组 25 题和全阶段对照组 3 题在跑，采集 `stopped`（PAUSE，1107/2084）。这些任务结束后必须重新导出并更新目录、README 和本小节；采集若恢复并新增完整状态，还要先做下一批离线评审再更新 `datasets/`。
+
+## 最新：保守DPO v2已获授权，空余卡允许继续采集（2026-11-27）
+
+用户批准商讨后的配置：从SFT ep1重新训练DPO v2，130对（原133对剔除3条有明确错误的正样本）、lr1e-6、累积16、1epoch共9更新、warmup2步、反比例下降、beta0.1。四号机训练根/opt/data/private/ECE4300-train-20261127/dpo-reflection-v2-ep1/，训练后自动quick3，仅3题，不追加DPO混合题库。候选采集重新获授权，仅用训练/推理之外余卡，已从605份断点启动，覆盖下方暂停采集要求。详见docs/DPO_REFLECTION_V2_RUN.md。
+
+## 最新：混合题库双模型测试，候选采集暂停（2026-11-27）
+
+用户要求sft-pruned-v1-ep1与dpo-reflection-v1-ep1跑mixed100_v1（25题293解），复用已有quick3三题，每模型仅追加22题248解，共44新任务。唯一队列仍为四号机controller根quick3，additional_suites动态接入，原5个在途题进程保留，新旧合计9worker。两个模型summary.total现为25；旧quick3三题可筛无suite字段任务。用户随后明确暂停采集：reflection-v2-collection保留PAUSE，采集器合作停止，605份回答、149完整状态、0错误，卡全部归还。未经用户明确重新开启，不恢复采集。本条覆盖下文此前开启采集的说明。详见docs/MIXED100_SFT_DPO_QUEUE.md。
+
+## 最新：用户已明确开启采集v2（覆盖下方停止要求）
+
+用户2026-11-27明确“确定没问题那就开启”。reflection-v2-collection生成器已启动，动态PID见该目录state.json；一状态一GPU任务，521状态×4候选。已确认首份真实SFT ep1响应保存、模型名正确、无split/偏好标签。只采集，仍不评分或配对。原stop_requested已改名归档，PAUSE已解除。当前优先既有验证/基线，空卡自动领状态。其余三卡的ep1能力补齐后台任务在控制根目录publish-dpo-ep1-pool-resumed，旧停止条款仅为历史。
+
+## 最新采集范围v2：不划分、不评分、按状态调度，仍停止
+
+用户要求程序只记录固定输入、关联DS历史回答和目标SFT ep1候选，不负责验证划分、评分、筛选或配对。已改为v2，521输入/561份DS历史记录，计划每状态4份候选；一个状态一个GPU任务，空几卡并行几状态，断点只补缺失候选。新地址四号机 `/opt/data/private/ECE4300-dpo-candidates-20261127/reflection-v2-collection/`；统一records.jsonl无split字段。停止标记和启动保护保留，没有生成进程，候选0份；未经明确用户指令不得启动。旧v1仅为归档，详见docs/DPO_COLLECTION_V2.md。
+
+## 最新用户要求：停止DPO数据生成，待用户检查后明确开启
+
+2026-11-27用户要求先停止DPO生成，检查方案后再开启。已停止PID47030及为DPO扩展ep1加载的发布进程47170，恢复其排空中的lab4090-g0；主验证和补基线队列继续。正式生成0份、占卡0。数据根目录state.json为user_stopped，PAUSE与stop_requested.json保留；未经用户明确指令不得重启、删暂停文件或继续生成。现有521个输入及train/validation分组原样保留供检查，不代表用户确认该划分。下方“自动生成”说明均被本条暂停要求覆盖。
+
+## 最新：DPO只生成未评分反思数据（2026-11-27）
+
+用户明确本程序不评分、不调用CC、不构造偏好对；先保存输出，完成后交给用户安排CC统一评分。以sft-pruned-v1-ep1生成，阶段可配置，第一批优先reflection。521个固定状态×4份=2084回答，按真实题族分train415/validation106；这些题SFT已见，仅是DPO阶段holdout。生成器在四号机 `/opt/data/private/ECE4300-dpo-candidates-20261127/reflection-v1/`，动态PID见state.json，等待优先队列和空闲模型卡后自动采样。完成后导出review/*.unscored.jsonl及cc-review.tar.gz。代码在dpo/，详见docs/DPO_GENERATION_V1.md。新一号机双4090已用EEC430001-4090重新加入，当前九卡池；控制服务仍在四号机，不要迁回一号机。
+
+## 最新：一号机已退出，控制服务迁到四号机（2026-11-27）
+
+用户要求释放即将到期的一号机双4090。已排空并停止其GPU和全部本项目控制服务；实测两卡0MiB/0%。网关和两个队列迁至SSH `EEC430004-4090` 的 `/opt/data/private/ECE4300-controller-20261127/`，新网关该机8005端口，七卡池已真实续跑。主验证状态 `quick3/state.json`，补基线状态 `mixed100-baselines-v1/state.json`；PID必须动态读取。历史结果映射到新根目录 `history/results/`，本地也有历史结果和最终检查点归档。训练已在四号机完成，权重不依赖一号机。不要重启一号机旧控制器。详见 `docs/MAIN_VM_RETIREMENT_20261127.md`。以下一号机8005及旧PID均为历史描述。
+
+## B 数据集审查完成：4 题 507 条 + 非命中推理 90 条（2026-11-26）
+
+- 输入 `training/data/ds22-new4-20261126/train.jsonl`（`n1_inputs_01_outputs_1`、`n1_inputs_10_outputs_1`、`n6_hard_021`、`n6_hard_029`，因果域首次入库）。
+- 结构复核：169/169 candidate 经交接包离线评分器通过（因果 63/57 参考图）。
+- 主集：**487 keep / 0 reject / 20 uncertain**；`training/audits/B-claude-review/train.filtered.jsonl`，未决项在 `uncertain.jsonl`。
+- 用户指出“未命中参考解 ≠ 思路无价值”：另审 45 个非命中轮次的 90 条 selection/expansion，**21 keep / 69 uncertain**，输出 `train.reasoning_only.jsonl`，每条带 `candidate_verified=false`、`round_outcome=invalid`，**不得自动并入主集**。
+- 主要发现：布尔两题 40%/46% 的 token 花在反复提出三层深度结构（同一失败候选多次重提）；因果两题仅 1%/0%。另有幂等填充（`y AND y`）、虚构评分/最小性规则、selection-expansion 冲突。
+- **b4 已跑完并补审**（19/19，`all_recovered`，覆盖率 1.0）：`g3_h3_b4_001` 81 轮 → 243 条，**237 keep / 6 uncertain / 0 reject**，见 `training/audits/B4-claude-review/`。DS 19 题等权覆盖率 **0.9903**；合并可训练集 **724 条**（B 487 + B4 237），另有非命中推理 21 条单独存放。tokenizer/loss mask 仍未实测。
+
 ## 当前真实状态：九卡动态池已部署，三题验证已续跑
 
 2026-11-26用户要求将验证从6题缩为3题，并实测训练/推理卡无全局中断切换。**已部署并验证，不是下文“离线尚未部署”阶段。** 一号机 `EEC4300` `/opt/data/private/ECE4300-dynamic-pool-20261126/`，新网关8005，旧8002/8003/8004全部兼容转发至8005；六台节点代理内网28280，新模型端口28000/28001。九卡均支持Qwen3-8B及五个原适配器。逐卡role及worker上限可动态修改，排空只等当前API，不再全局停题。
@@ -85,7 +132,7 @@
 
 新运行可用 `--mcts-version 1.0|2.0|2.1`，2.x 自动启用读树工具；结果记录版本与变体。2.1 另保存提示词原文和哈希。不同方法版本禁止共用断点；修改已发布提示词必须升版本。既有结果缺少版本时仅依据原配置推断并明确来源，不把历史结果改标为新方法。
 
-进度汇报必须同时给出方法版本、完成题数/总题数、覆盖率及统计题数；未完成组的覆盖率按正常完成题等权平均。比较优劣时先对齐共同题目，并区分生成截断、网络错误、工具读取错误。
+进度汇报必须同时给出方法版本、完成题数/总题数、覆盖率及统计题数；未完成组的覆盖率按正常完成题等权平均。每个在途题还必须给出已用/搜索上限与剩余搜索预算（used/cap，剩 N），不能只报找到解数。比较优劣时先对齐共同题目，并区分生成截断、网络错误、工具读取错误。
 
 ## 项目目标
 
@@ -245,7 +292,7 @@ ECE_BACKENDS=http://127.0.0.1:8000,http://127.0.0.1:8001,http://10.106.31.1:8000
 
 ### 三号机（EEC430003，单 RTX 5090）部署
 
-`EEC430003` = `10.1.3.100:25871`（主机 `interactive28913`，密钥 `~/.ssh/lab4090_codex`）。部署步骤：
+`EEC430003` = `10.1.3.100:25163`（主机 `interactive3139`，密钥 `~/.ssh/lab4090_codex`；2026-11-27 更新，旧端口 25871 已失效）。部署步骤：
 
 1. 同步代码 + tests（从本地 `tar czf - agents experiments llm datasets server tests HypoSpace requirements*.txt | ssh EEC430003 'tar xzf -'`）。
 2. `bash server/bootstrap.sh`（建 `.venv-inference` + 装 vLLM + ModelScope 下载 Qwen3-8B）。

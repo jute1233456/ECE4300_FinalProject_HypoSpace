@@ -9,9 +9,14 @@ def main():
     parser.add_argument("--model", help="覆盖配置文件中的模型名称")
     parser.add_argument("--config", help="配置文件路径；默认 config/llm.json")
     parser.add_argument("--max-tokens", type=int, default=1024)
+    parser.add_argument("--provider", choices=("ark", "deepseek"), default="ark")
     args = parser.parse_args()
     try:
-        client = ArkCodingPlanClient(model=args.model, config_path=args.config)
+        if args.provider == "deepseek":
+            from .deepseek_official import DeepSeekOfficialClient
+            client = DeepSeekOfficialClient(model=args.model, config_path=args.config)
+        else:
+            client = ArkCodingPlanClient(model=args.model, config_path=args.config)
         result = client.generate(args.prompt, max_tokens=args.max_tokens)
     except (ValueError, LLMError) as error:
         print(str(error), file=sys.stderr)

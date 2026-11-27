@@ -1,0 +1,35 @@
+{
+  "name": "dpo-reflection-v1-ep1",
+  "owner": "dpo-reflection-v1-ep1",
+  "output": "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1",
+  "model": "/opt/data/private/models/Qwen3-8B",
+  "sft_adapter": "/opt/data/private/ECE4300-dynamic-pool-20261126/adapters/sft-pruned-v1-ep1",
+  "sft_sha256": "8fa112bf26333cd24ea3c2c3759cd5584453a2cce83e75ba8781f569e4bac63e",
+  "data": "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1/data/dpo.jsonl",
+  "data_sha256": "206b0458acb4e853164a9aea00eb439f9c1593479df420ebf46b12aa4932cee5",
+  "max_length": 8192,
+  "epochs": 1,
+  "grad_accum": 8,
+  "lr": 5e-06,
+  "beta": 0.1,
+  "warmup_ratio": 0.1,
+  "seed": 33550336,
+  "code": "/opt/data/private/ECE4300-controller-20261127/code",
+  "python": "/opt/data/private/ECE4300-controller-20261127/venv/bin/python",
+  "gateway": "http://127.0.0.1:8005",
+  "token_file": "/opt/data/private/ECE4300-dynamic-pool-20261126/pool-token.txt",
+  "client_config": "/opt/data/private/ECE4300-dynamic-pool-20261126/training-client.json",
+  "gpus": [
+    "node4-4090-g0",
+    "node4-4090-g1"
+  ],
+  "publish_gpus": [
+    "node4-4090-g0",
+    "node4-4090-g1",
+    "node4-5090-g0"
+  ],
+  "asset_root": "/opt/data/private/ECE4300-dynamic-pool-20261126/adapters",
+  "status_port": 28285,
+  "training_request": "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v1-ep1/training-request.json",
+  "quick_tasks": "/opt/data/private/ECE4300-controller-20261127/quick3/tasks.json"
+}

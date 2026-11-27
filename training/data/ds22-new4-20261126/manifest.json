@@ -1,0 +1,694 @@
+{
+  "builder_version": "stage-sft-1",
+  "protocol": "isolated_examples_v1",
+  "canonical_path": "training\\sources\\ds22-sampled19-canonical.jsonl",
+  "canonical_sha256": "074defd10e319f2602bf7912c8ef1eadcf15aee49f01aa20a6edb480d7b4ca93",
+  "generated_at_utc": "2026-11-26T15:01:52.496825+00:00",
+  "train_samples": 507,
+  "valid_samples": 0,
+  "samples_by_stage": {
+    "selection": 169,
+    "expansion": 169,
+    "candidate": 169
+  },
+  "families": {
+    "train": [
+      "n1_inputs_01_outputs_1",
+      "n1_inputs_10_outputs_1",
+      "n6_hard_021",
+      "n6_hard_029"
+    ],
+    "valid": []
+  },
+  "already_in_ledger": 0,
+  "new_samples": 507,
+  "skipped_cases_new_only": [],
+  "issues": [
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 7,
+      "reason": "duplicate_of_record_2"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 10,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 13,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 14,
+      "reason": "duplicate_of_record_11"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 15,
+      "reason": "duplicate_of_record_6"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 16,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 17,
+      "reason": "duplicate_of_record_5"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 20,
+      "reason": "duplicate_of_record_2"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 22,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 23,
+      "reason": "duplicate_of_record_18"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 24,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 25,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 26,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 27,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 28,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 29,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 31,
+      "reason": "duplicate_of_record_9"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 35,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 37,
+      "reason": "duplicate_of_record_2"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 41,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 42,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 44,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 46,
+      "reason": "duplicate_of_record_4"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 47,
+      "reason": "duplicate_of_record_3"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 48,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 49,
+      "reason": "duplicate_of_record_4"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 50,
+      "reason": "duplicate_of_record_21"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 51,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 52,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 54,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 55,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 56,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 57,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 59,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 60,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 61,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 62,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 63,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 64,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 65,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 66,
+      "reason": "duplicate_of_record_32"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 67,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 68,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 69,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 70,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 71,
+      "reason": "duplicate_of_record_43"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 72,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 73,
+      "reason": "duplicate_of_record_40"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 74,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 75,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 76,
+      "reason": "duplicate_of_record_6"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 77,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 78,
+      "reason": "duplicate_of_record_32"
+    },
+    {
+      "case_id": "n1_inputs_01_outputs_1",
+      "record": 79,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 4,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 9,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 13,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 15,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 17,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 18,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 19,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 20,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 21,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 26,
+      "reason": "duplicate_of_record_25"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 27,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 28,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 29,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 30,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 32,
+      "reason": "duplicate_of_record_23"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 35,
+      "reason": "duplicate_of_record_22"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 38,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 39,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 40,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 41,
+      "reason": "duplicate_of_record_1"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 42,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 43,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 44,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 45,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 46,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 47,
+      "reason": "duplicate_of_record_3"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 48,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 49,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 50,
+      "reason": "duplicate_of_record_25"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 51,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 52,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 54,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 55,
+      "reason": "duplicate_of_record_1"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 56,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 57,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 58,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 59,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 60,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 61,
+      "reason": "duplicate_of_record_37"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 62,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n1_inputs_10_outputs_1",
+      "record": 63,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 16,
+      "reason": "duplicate_of_record_3"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 20,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 26,
+      "reason": "duplicate_of_record_3"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 31,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 32,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 33,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 34,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 45,
+      "reason": "duplicate_of_record_1"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 51,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 52,
+      "reason": "duplicate_of_record_25"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 53,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 63,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 64,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 65,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 67,
+      "reason": "duplicate_of_record_4"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 69,
+      "reason": "duplicate_of_record_9"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 72,
+      "reason": "protocol_error: Unexpected tool arguments"
+    },
+    {
+      "case_id": "n6_hard_021",
+      "record": 79,
+      "reason": "duplicate_of_record_3"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 2,
+      "reason": "protocol_error: Unterminated string starting at: line 1 column 2 (char 1)"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 16,
+      "reason": "duplicate_of_record_0"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 26,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 27,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 28,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 29,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 30,
+      "reason": "duplicate_of_record_12"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 33,
+      "reason": "duplicate_of_record_7"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 47,
+      "reason": "duplicate_of_record_32"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 56,
+      "reason": "duplicate_of_record_0"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 57,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 58,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 59,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 60,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 61,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 68,
+      "reason": "duplicate_of_record_36"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 70,
+      "reason": "duplicate_of_record_17"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 71,
+      "reason": "duplicate_of_record_49"
+    },
+    {
+      "case_id": "n6_hard_029",
+      "record": 74,
+      "reason": "duplicate_of_record_39"
+    }
+  ],
+  "flags": {
+    "input_reconstructed": true,
+    "plan_unverified": true,
+    "reference_verified": true,
+    "label_mask_checked": false
+  }
+}

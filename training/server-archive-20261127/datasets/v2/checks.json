@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "pairs": 133,
+  "skipped": 15,
+  "states": 148,
+  "rule": "simple-reflection-dpo-v2"
+}

@@ -1,0 +1,15 @@
+{
+  "model": "dpo-reflection-v2-ep1",
+  "phase": "ready",
+  "utc": 1795759679.0614998,
+  "pid": 60580,
+  "sha256": "60759d504dfe35f33857fc524c62c8511b8ffa09ed27aecd7cc61a32b748975f",
+  "epochs": 1,
+  "pairs": 130,
+  "global_step": 9,
+  "gpus": [
+    "node4-4090-g0",
+    "node4-4090-g1",
+    "node4-5090-g0"
+  ]
+}

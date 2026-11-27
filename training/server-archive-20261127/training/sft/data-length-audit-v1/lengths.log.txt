@@ -1,0 +1,203 @@
+{
+  "samples": "/opt/data/private/ECE4300-train-20261126/data-length-audit-v1/train.jsonl",
+  "tokenizer": "/opt/data/private/ECE4300-node4-api-20261125/models/Qwen3-8B",
+  "thinking": "off",
+  "template_prefix_mismatches": 0,
+  "skipped_missing_roles": [],
+  "per_stage": {
+    "candidate": {
+      "n": 346,
+      "min": 1204,
+      "p50": 2551,
+      "p90": 5156,
+      "p99": 7783,
+      "max": 8694,
+      "mean": 2984.6
+    },
+    "candidate:assistant": {
+      "n": 346,
+      "min": 5,
+      "p50": 35,
+      "p90": 69,
+      "p99": 69,
+      "max": 69,
+      "mean": 37.7
+    },
+    "candidate:prefix": {
+      "n": 346,
+      "min": 1177,
+      "p50": 2508,
+      "p90": 5087,
+      "p99": 7714,
+      "max": 8625,
+      "mean": 2946.9
+    },
+    "expansion": {
+      "n": 332,
+      "min": 1258,
+      "p50": 2550,
+      "p90": 5161,
+      "p99": 7665,
+      "max": 8636,
+      "mean": 2980.3
+    },
+    "expansion:assistant": {
+      "n": 332,
+      "min": 89,
+      "p50": 147,
+      "p90": 193,
+      "p99": 252,
+      "max": 281,
+      "mean": 151.2
+    },
+    "expansion:prefix": {
+      "n": 332,
+      "min": 1151,
+      "p50": 2403,
+      "p90": 4998,
+      "p99": 7488,
+      "max": 8419,
+      "mean": 2829.1
+    },
+    "selection": {
+      "n": 346,
+      "min": 1251,
+      "p50": 6876,
+      "p90": 21065,
+      "p99": 45454,
+      "max": 50956,
+      "mean": 10162.9
+    },
+    "selection:assistant": {
+      "n": 346,
+      "min": 76,
+      "p50": 169,
+      "p90": 218,
+      "p99": 264,
+      "max": 293,
+      "mean": 170.1
+    },
+    "selection:prefix": {
+      "n": 346,
+      "min": 1175,
+      "p50": 6692,
+      "p90": 20867,
+      "p99": 45262,
+      "max": 50780,
+      "mean": 9992.8
+    }
+  },
+  "over_bucket": {
+    "8192": {
+      "selection": 155,
+      "expansion": 1,
+      "candidate": 1
+    },
+    "12288": {
+      "selection": 101
+    },
+    "14336": {
+      "selection": 80
+    },
+    "16384": {
+      "selection": 61
+    },
+    "24576": {
+      "selection": 31
+    },
+    "32768": {
+      "selection": 17
+    }
+  },
+  "all": {
+    "n": 1024,
+    "min": 1204,
+    "p50": 2956,
+    "p90": 12082,
+    "p99": 39941,
+    "max": 50956,
+    "mean": 5408.7
+  },
+  "longest": [
+    {
+      "sample_id": "ab967a00e431528e8654",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 50780,
+      "full_tokens": 50956,
+      "assistant_tokens": 176
+    },
+    {
+      "sample_id": "02bca5e7508dd415abf5",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 48639,
+      "full_tokens": 48823,
+      "assistant_tokens": 184
+    },
+    {
+      "sample_id": "6cf53133642fc76e2098",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 46447,
+      "full_tokens": 46613,
+      "assistant_tokens": 166
+    },
+    {
+      "sample_id": "fe743e1a24089ba1f8e4",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 45262,
+      "full_tokens": 45454,
+      "assistant_tokens": 192
+    },
+    {
+      "sample_id": "f453f1337c100915c26f",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 43808,
+      "full_tokens": 44024,
+      "assistant_tokens": 216
+    },
+    {
+      "sample_id": "6a1641b090dcdb84d142",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 42209,
+      "full_tokens": 42415,
+      "assistant_tokens": 206
+    },
+    {
+      "sample_id": "9b558e05a1edae02637b",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 41745,
+      "full_tokens": 42038,
+      "assistant_tokens": 293
+    },
+    {
+      "sample_id": "6d90c7c755f2d8982261",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 41306,
+      "full_tokens": 41451,
+      "assistant_tokens": 145
+    },
+    {
+      "sample_id": "88bbe1c9e3932400fdda",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 40764,
+      "full_tokens": 40956,
+      "assistant_tokens": 192
+    },
+    {
+      "sample_id": "48adb2b00866d40f9acf",
+      "case_id": "g3_h3_b4_001",
+      "stage": "selection",
+      "prefix_tokens": 40360,
+      "full_tokens": 40554,
+      "assistant_tokens": 194
+    }
+  ]
+}

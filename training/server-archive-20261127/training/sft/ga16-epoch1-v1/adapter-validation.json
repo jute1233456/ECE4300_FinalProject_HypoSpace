@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "epoch": 1.0,
+  "global_step": 20,
+  "adapter_tensors": 504,
+  "adapter_parameters": 43646976,
+  "nonzero_lora_B_tensors": 252,
+  "reloaded_forward_shape": [
+    1,
+    1,
+    151936
+  ],
+  "purpose": "load and finite-forward validation only; not quality evaluation"
+}

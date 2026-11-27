@@ -1,0 +1,40 @@
+{
+  "output": "training\\data\\ds22-sft-20261126\\train.jsonl",
+  "sha256": "a5762f6ca09cfbe8031879eec85351e2a7a980254b2852f04ac9654df452729b",
+  "samples": 724,
+  "sources": [
+    {
+      "path": "training\\audits\\B-claude-review\\train.filtered.jsonl",
+      "count": 487,
+      "sha256": "eb200843e1ea8a0dbe5e4706022b765ca2a04c0a201445ebbeca456d74fc04e2"
+    },
+    {
+      "path": "training\\audits\\B4-claude-review\\train.filtered.jsonl",
+      "count": 237,
+      "sha256": "13f08bf94b3e5310b54c65b7d3e29411359f97881f353d8d66d24edb37493b39"
+    }
+  ],
+  "by_stage": {
+    "selection": 245,
+    "expansion": 233,
+    "candidate": 246
+  },
+  "by_case": {
+    "n1_inputs_01_outputs_1": 73,
+    "n1_inputs_10_outputs_1": 62,
+    "n6_hard_021": 187,
+    "n6_hard_029": 165,
+    "g3_h3_b4_001": 237
+  },
+  "excluded": {
+    "uncertain": 26,
+    "reasoning_only": 21
+  },
+  "flags": {
+    "input_reconstructed": true,
+    "plan_unverified": true,
+    "reference_verified": true,
+    "label_mask_checked": false
+  },
+  "note": "Semantic-audited SFT set: B(487)+B4(237). Rows are unmodified filtered lines. uncertain and reasoning_only are NOT included."
+}

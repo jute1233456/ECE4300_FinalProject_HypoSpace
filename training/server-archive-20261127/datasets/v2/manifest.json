@@ -1,0 +1,94 @@
+{
+  "dataset_name": "simple-reflection-dpo-v2",
+  "created_utc": "2026-11-27T05:27:33Z",
+  "supersedes": "simple-reflection-dpo-v1 (59 pairs / 62 states), kept unchanged for reproducibility",
+  "rule_version": "simple-reflection-dpo-v2",
+  "judgment_rule": "helpful/harmful/neutral/uncertain by offline reading; one high-confidence helpful+harmful pair per state; skip when no high-confidence harmful",
+  "snapshot": {
+    "v1": {
+      "snapshot_dir": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-v1",
+      "snapshot_utc": "2026-11-26T23:23:05Z",
+      "snapshot_manifest_sha256": "79dd9caaf520a668654b2ca3c9bbeee16c1f0253660dcc08a0dd0d0a96e94491",
+      "states_file_sha256": "b93d1be088ff4fbdf29c2d59fab0df074a88b510fb916024d70c9b8fecea25b7",
+      "states_lines": 521,
+      "response_files": 262,
+      "review_index_sha256": "81db86f48f9e13b783df1d9765de0cfd9bd16fe1611da638ad97f4f6465cd602"
+    },
+    "increment": {
+      "dir": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-v2-increment",
+      "source_state_file_sha256": "b93d1be088ff4fbdf29c2d59fab0df074a88b510fb916024d70c9b8fecea25b7",
+      "selected_states": 86,
+      "response_files": 344,
+      "snapshot_manifest_sha256": "cac754f6d8dc2b7eb28c747f305abceab4a17070c81c0db386bf59fc8c59809c",
+      "states_file_sha256": "4606fa6b7ac3b0f6d8883b01f0a10235bfcc08ea7f5d5928418e9651e7a46034"
+    }
+  },
+  "selection": {
+    "reviewed_states": 148,
+    "v1_states": 62,
+    "increment_states": 86,
+    "pairs": 133,
+    "skipped": 15,
+    "criterion": "all complete states at collection pause: four non-empty qwen sft-pruned-v1-ep1 candidates plus one DS historical answer"
+  },
+  "statistics": {
+    "judgment_counts": {
+      "helpful": 311,
+      "harmful": 379,
+      "uncertain": 50
+    },
+    "pairs_by_domain": {
+      "boolean": 53,
+      "3d": 49,
+      "causal": 31
+    },
+    "chosen_source_type": {
+      "ds": 118,
+      "qwen": 15
+    },
+    "rejected_source_type": {
+      "qwen": 133
+    },
+    "increment_pair_domain": {
+      "boolean": 31,
+      "3d": 25,
+      "causal": 18
+    },
+    "increment_chosen_source": {
+      "ds": 68,
+      "qwen": 6
+    },
+    "increment_rejected_source": {
+      "qwen": 74
+    },
+    "increment_skip_reasons": {
+      "五条均给出合法未尝试方向，无高置信 harmful，按规则不配对。": 1,
+      "最强的 helpful 仅为 medium，且没有 high/high 组合，按规则跳过。": 1,
+      "仅 C 有可用分析但混入虚构失败证据，其他均为高置信 harmful，无 high/high 组合。": 1,
+      "仅 B 为 high helpful，harmful 均为 medium，无 high/high 组合。": 1,
+      "pair did not reach high/high confidence (chosen medium, rejected high); kept out of dpo.jsonl": 1,
+      "五条都是合法方向，没有高置信 harmful，按规则不配对。": 1,
+      "五条都是合法方向，没有高置信 harmful。": 2,
+      "仅 E 为 helpful 但置信度 medium，其余 harmful 也为 medium，无 high/high 组合。": 1,
+      "全部为合法建议，没有 harmful。": 2,
+      "五条都是合法未出现方向，没有 harmful。": 1
+    }
+  },
+  "format": {
+    "dpo.jsonl": "TRL conversational preference format: prompt = verbatim system+user messages; chosen/rejected = [{'role':'assistant','content': <verbatim text>}]",
+    "labels": "A-E were anonymised during review; label->source mapping is in pair_manifest.jsonl and the per-state judgments.",
+    "no_split": "No train/validation/test split is assigned.",
+    "provenance_caveat": "DS answers were produced on reconstructed stage inputs (input_reconstructed=true) and are recorded continuations, not freshly sampled candidates."
+  },
+  "checks": {
+    "all_148_states_have_5_judgments": true,
+    "every_pair_chosen_helpful_rejected_harmful": true,
+    "every_pair_both_high_confidence": true,
+    "one_pair_per_state": true,
+    "texts_verbatim_from_frozen_files": true,
+    "no_thinking_or_reference_solutions_appended": true,
+    "no_split_field": true,
+    "prompt_identical_for_chosen_and_rejected": true,
+    "v1_rows_unchanged": true
+  }
+}

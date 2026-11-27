@@ -1,0 +1,44 @@
+{
+  "source": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\data\\ds22-new4-20261126\\train.jsonl",
+  "source_sha256": "2a06681660312bed0736a7c34e26829b23dbaa07eb83465725034e4f676a8d9a",
+  "decisions": "E:\\学习资料\\NUS\\ECE4300 Machine Learning\\Final Project\\training\\audits\\B-claude-review\\decisions.jsonl",
+  "decisions_sha256": "442b682aaf5ee608ba4bea6ed2042b50e674410f39fb50bdc5a0ee7b1f51191e",
+  "counts": {
+    "keep": 487,
+    "reject": 0,
+    "uncertain": 20
+  },
+  "by_stage": {
+    "keep/candidate": 166,
+    "keep/expansion": 157,
+    "keep/selection": 164,
+    "uncertain/candidate": 3,
+    "uncertain/expansion": 12,
+    "uncertain/selection": 5
+  },
+  "by_case": {
+    "keep/n1_inputs_01_outputs_1": 73,
+    "keep/n1_inputs_10_outputs_1": 62,
+    "keep/n6_hard_021": 187,
+    "keep/n6_hard_029": 165,
+    "uncertain/n1_inputs_01_outputs_1": 5,
+    "uncertain/n1_inputs_10_outputs_1": 7,
+    "uncertain/n6_hard_021": 2,
+    "uncertain/n6_hard_029": 6
+  },
+  "outputs": {
+    "train.filtered.jsonl": {
+      "count": 487,
+      "sha256": "eb200843e1ea8a0dbe5e4706022b765ca2a04c0a201445ebbeca456d74fc04e2"
+    },
+    "rejected.jsonl": {
+      "count": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "uncertain.jsonl": {
+      "count": 20,
+      "sha256": "b724c8defb24ae8ed0c826d88d005766a293e6145750cf9bd20684b748dbfcc8"
+    }
+  },
+  "note": "Semantic review only; kept rows are unmodified source lines. uncertain is excluded from the recommended training set."
+}

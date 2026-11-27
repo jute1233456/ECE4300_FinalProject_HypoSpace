@@ -35,8 +35,12 @@ class DeepseekTreeToolResponse(LLMResponse):
 
 
 class DeepseekTreeToolClient(ArkCodingPlanClient):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, provider="ark", **kwargs):
+        if provider == "deepseek":
+            from .deepseek_official import DeepSeekOfficialClient
+            DeepSeekOfficialClient.__init__(self, **kwargs)
+        else:
+            super().__init__(**kwargs)
         self.separate_reasoning = True
         self.agent = None
         self.reader = None
@@ -56,6 +60,8 @@ class DeepseekTreeToolClient(ArkCodingPlanClient):
 
     def _chat(self, messages, max_tokens):
         payload = {"model": self.model, "messages": messages, "stream": False, "tools": FUNCTIONS}
+        if self.base_url == "https://api.deepseek.com":
+            payload["tools"] = [{"type": "function", "function": definition} for definition in FUNCTIONS]
         if max_tokens is not None:
             payload["max_tokens"] = max_tokens
         request = Request(

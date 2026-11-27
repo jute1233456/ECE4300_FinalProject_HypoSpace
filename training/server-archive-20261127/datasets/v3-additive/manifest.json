@@ -1,0 +1,82 @@
+{
+  "dataset_name": "simple-reflection-dpo-v3-additive",
+  "created_utc": "2026-11-27T09:58:56Z",
+  "base": {
+    "path": "/opt/data/private/ECE4300-train-20261127/dpo-reflection-v2-ep1/data",
+    "pairs": 130,
+    "dpo_sha256": "6e06f4e925255c4df305d72ab89f6ef1aecdcefc5f195dadfe724bb01423c2c9",
+    "pair_manifest_sha256": "7fd522a122e4cfee4c0306718464f37a27ca7d565ababc7433e28cf62a2d3aa7",
+    "source_pairs": 133,
+    "excluded": {
+      "0258751fb1219ad03851023c7487dc7588493116c40ed48b8cc7ff3cfcf71516": "Known incorrect depth-1 claim for y OR NOT x; actual depth 2.",
+      "41ccbd793a5c476736ab753466487bb650a0e513bb33a94a2f086259c663ec2e": "Chosen claims no strict-subset Layer2, contradicted by multiple valid historical strict-subset masks.",
+      "ca14adbc265e2a4757f62e4d6c31cea54021c5b2fa288cd29441649423c3997f": "Chosen forbids NOR compound operands by counting NOT+OR separately, contradicted by accepted NOR compound candidates in same input."
+    },
+    "max_full_tokens": 4738,
+    "max_prompt_tokens": 4458
+  },
+  "increment": {
+    "path": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-v3-increment",
+    "states": 35,
+    "pairs": 30,
+    "skipped": 5,
+    "states_sha256": "83334db2f1c69b661a3c3a8222e8d5e7bc2286f0533cb8d9958d1c20f4c603dc",
+    "labels_sha256": "e4e6f4148a47bb8bb789235b0e892d5535ec53bd9c5a51b067b4fc39b8f8f617"
+  },
+  "selection": {
+    "reviewed_states": 183,
+    "pairs": 160,
+    "skipped": 20,
+    "note": "additive: 130-pair base unchanged + 30 new pairs; three v2 exclusions remain excluded"
+  },
+  "statistics": {
+    "judgment_counts_v3": {
+      "harmful": 91,
+      "helpful": 83,
+      "uncertain": 1
+    },
+    "pairs_by_domain": {
+      "boolean": 65,
+      "3d": 58,
+      "causal": 37
+    },
+    "chosen_source_type": {
+      "ds": 141,
+      "qwen": 19
+    },
+    "rejected_source_type": {
+      "qwen": 160
+    },
+    "increment_pair_domain": {
+      "boolean": 14,
+      "3d": 10,
+      "causal": 6
+    },
+    "increment_chosen_source": {
+      "qwen": 6,
+      "ds": 24
+    },
+    "increment_rejected_source": {
+      "qwen": 30
+    },
+    "increment_skip_reasons": {
+      "D 为 medium helpful，其余为 harmful，无 high/high 组合。": 1,
+      "仅 B 为 high helpful，harmful 均为 medium，无 high/high 组合。": 1,
+      "五条均为合法方向，没有高置信 harmful。": 1,
+      "全部为合法方向，没有 harmful。": 1,
+      "全部为合法未出现方向，没有 harmful。": 1
+    }
+  },
+  "format": {
+    "dpo.jsonl": "TRL conversational preference format; base 130 rows first, then 30 new rows",
+    "no_split": "No train/validation/test split assigned."
+  },
+  "checks": {
+    "base_130_unchanged": true,
+    "new_pairs_disjoint_from_base_and_excluded": true,
+    "new_pairs_high_high": true,
+    "texts_verbatim": true,
+    "no_thinking": true,
+    "no_split": true
+  }
+}

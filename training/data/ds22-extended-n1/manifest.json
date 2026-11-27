@@ -1,0 +1,131 @@
+{
+  "builder_version": "stage-sft-1",
+  "protocol": "isolated_examples_v1",
+  "canonical_path": "training\\sources\\ds22-sampled19-canonical.jsonl",
+  "canonical_sha256": "36c2a93229a202f50d01571877208ce888d39a715af40bd83aa4db2b62a5ef2f",
+  "generated_at_utc": "2026-11-26T08:21:14.005690+00:00",
+  "train_samples": 42,
+  "valid_samples": 0,
+  "samples_by_stage": {
+    "selection": 14,
+    "expansion": 14,
+    "candidate": 14
+  },
+  "families": {
+    "train": [
+      "extended_n1_inputs_00_outputs_1"
+    ],
+    "valid": []
+  },
+  "already_in_ledger": 42,
+  "new_samples": 0,
+  "skipped_cases_new_only": [],
+  "issues": [
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 5,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 11,
+      "reason": "duplicate_of_record_1"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 13,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 14,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 15,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 18,
+      "reason": "duplicate_of_record_8"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 19,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 20,
+      "reason": "duplicate_of_record_2"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 21,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 22,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 23,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 24,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 25,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 26,
+      "reason": "empty record"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 27,
+      "reason": "duplicate_of_record_1"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 28,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 29,
+      "reason": "duplicate_of_record_4"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 30,
+      "reason": "not_reference_hit"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 31,
+      "reason": "duplicate_of_record_2"
+    },
+    {
+      "case_id": "extended_n1_inputs_00_outputs_1",
+      "record": 32,
+      "reason": "duplicate_of_record_16"
+    }
+  ],
+  "flags": {
+    "input_reconstructed": true,
+    "plan_unverified": true,
+    "reference_verified": true,
+    "label_mask_checked": false
+  }
+}

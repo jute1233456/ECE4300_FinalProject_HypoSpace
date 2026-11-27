@@ -1,0 +1,6 @@
+{
+  "source": "/opt/data/private/ECE4300-dpo-datasets-20261127/simple-reflection-v1/dataset",
+  "excluded_state_id": "0258751fb1219ad03851023c7487dc7588493116c40ed48b8cc7ff3cfcf71516",
+  "pairs": 58,
+  "reason": "Chosen incorrectly labels y OR NOT x as depth 1; actual depth 2."
+}

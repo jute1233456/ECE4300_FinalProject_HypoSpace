@@ -1,0 +1,196 @@
+{
+  "time": "2026-11-27T07:07:51.488449+08:00",
+  "current": [
+    {
+      "model": "base",
+      "domain": "causal",
+      "found": 16,
+      "refs": 24,
+      "completed": true,
+      "rounds": 58,
+      "budget": 58
+    },
+    {
+      "model": "linear-ep1",
+      "domain": "causal",
+      "found": 15,
+      "refs": 24,
+      "completed": false,
+      "rounds": 37,
+      "budget": 58
+    },
+    {
+      "model": "linear-ep2",
+      "domain": "causal",
+      "found": 15,
+      "refs": 24,
+      "completed": false,
+      "rounds": 50,
+      "budget": 58
+    },
+    {
+      "model": "sft-pruned-v1-ep1",
+      "domain": "causal",
+      "found": 14,
+      "refs": 24,
+      "completed": false,
+      "rounds": 25,
+      "budget": 58
+    },
+    {
+      "model": "sft-pruned-v1-ep2",
+      "domain": "causal",
+      "found": 12,
+      "refs": 24,
+      "completed": false,
+      "rounds": 51,
+      "budget": 58
+    },
+    {
+      "model": "base",
+      "domain": "3d",
+      "found": 5,
+      "refs": 9,
+      "completed": true,
+      "rounds": 28,
+      "budget": 28
+    },
+    {
+      "model": "linear-ep1",
+      "domain": "3d",
+      "found": 9,
+      "refs": 9,
+      "completed": true,
+      "rounds": 19,
+      "budget": 28
+    },
+    {
+      "model": "linear-ep2",
+      "domain": "3d",
+      "found": 8,
+      "refs": 9,
+      "completed": true,
+      "rounds": 28,
+      "budget": 28
+    },
+    {
+      "model": "sft-pruned-v1-ep1",
+      "domain": "3d",
+      "found": 9,
+      "refs": 9,
+      "completed": true,
+      "rounds": 27,
+      "budget": 28
+    },
+    {
+      "model": "sft-pruned-v1-ep2",
+      "domain": "3d",
+      "found": 7,
+      "refs": 9,
+      "completed": true,
+      "rounds": 28,
+      "budget": 28
+    },
+    {
+      "model": "base",
+      "domain": "boolean",
+      "found": 6,
+      "refs": 12,
+      "completed": true,
+      "rounds": 34,
+      "budget": 34
+    },
+    {
+      "model": "linear-ep1",
+      "domain": "boolean",
+      "found": 8,
+      "refs": 12,
+      "completed": true,
+      "rounds": 34,
+      "budget": 34
+    },
+    {
+      "model": "linear-ep2",
+      "domain": "boolean",
+      "found": 6,
+      "refs": 12,
+      "completed": true,
+      "rounds": 34,
+      "budget": 34
+    },
+    {
+      "model": "sft-pruned-v1-ep1",
+      "domain": "boolean",
+      "found": 7,
+      "refs": 12,
+      "completed": true,
+      "rounds": 34,
+      "budget": 34
+    },
+    {
+      "model": "sft-pruned-v1-ep2",
+      "domain": "boolean",
+      "found": 4,
+      "refs": 12,
+      "completed": true,
+      "rounds": 34,
+      "budget": 34
+    }
+  ],
+  "baselines": [
+    {
+      "method": "direct",
+      "domain": "causal",
+      "found": 3,
+      "refs": 24,
+      "rounds": 29,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/direct/causal-n2_006.json"
+    },
+    {
+      "method": "memory",
+      "domain": "causal",
+      "found": 13,
+      "refs": 24,
+      "rounds": 29,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/memory/causal-n2_006.json"
+    },
+    {
+      "method": "direct",
+      "domain": "3d",
+      "found": 3,
+      "refs": 9,
+      "rounds": 14,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/direct/3d-g3_h3_b2_002.json"
+    },
+    {
+      "method": "memory",
+      "domain": "3d",
+      "found": 8,
+      "refs": 9,
+      "rounds": 14,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/memory/3d-g3_h3_b2_002.json"
+    },
+    {
+      "method": "direct",
+      "domain": "boolean",
+      "found": 2,
+      "refs": 12,
+      "rounds": 17,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/direct/boolean-n2_inputs_00_01_outputs_00.json"
+    },
+    {
+      "method": "memory",
+      "domain": "boolean",
+      "found": 4,
+      "refs": 12,
+      "rounds": 17,
+      "max_tokens": 16384,
+      "source": "/opt/data/private/ECE4300-controller-20261127/history/results/server-medium-dm/memory/boolean-n2_inputs_00_01_outputs_00.json"
+    }
+  ]
+}
