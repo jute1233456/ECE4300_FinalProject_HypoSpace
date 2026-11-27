@@ -35,6 +35,19 @@ SSH `EEC430004-4090`。
 
 ## 监控给 CC
 
+连接：`ssh EEC430004-4090`。以下均为这台服务器上的绝对路径：
+
+- 总流程状态：`/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/status.json`
+- 连续日志和参考概率计算进度：`/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/pipeline.log`
+- 冒烟结果：`/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/smoke/status.json`
+- 正式训练进度、loss、概率变化：`/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/adapter/status.json`
+- 正式训练结束后完整更新历史：`/opt/data/private/ECE4300-train-20261127/dpo-reflection-v3-ep1/adapter/history.json`
+- 三题任务列表：`/opt/data/private/ECE4300-controller-20261127/quick3/tasks.json`，筛选 `model=dpo-reflection-v3-ep1`。
+- 三题汇总：`/opt/data/private/ECE4300-controller-20261127/quick3/summary.json`，读取 `dpo-reflection-v3-ep1` 项。
+- 三题原始结果与逐题日志：`/opt/data/private/ECE4300-controller-20261127/quick3/results/dpo-reflection-v3-ep1/`
+
+`adapter/status.json` 的 phase=reference 表示正式更新前的冻结参考概率计算，完成数见 pipeline.log 的 reference/completed/total；不能把它报成卡住或已完成参数更新。phase=training 才报告 global_step/12。顶层 phase=ready 仅表示发布成功，不表示三题验证完成。smoke 的一步完成不代表正式训练完成。
+
 只读检查训练根的 `status.json` 与 `pipeline.log`。`waiting_for_collection_to_yield` 表示等指定卡当前 API 完成；`training` 阶段细分见 `smoke/status.json`、`adapter/status.json` 和 pipeline 中的 reference 计算进度。不要用旧固定 PID 判断存活。
 
 训练 ready 后查 quick3 的 `tasks.json` 中 `model=dpo-reflection-v3-ep1` 三项，再读对应结果：`reflection_response.model` 必须是 V3，记录的搜索 `model` 必须是 SFT ep1，同时核对 `stage_models`。覆盖率用三个题各自 recovered/references；三题未完成不报最终整体覆盖率。原 SFT 和全阶段 DPO v1/v2 的既有结果保留作对照，不把混合结果混进旧分组。
