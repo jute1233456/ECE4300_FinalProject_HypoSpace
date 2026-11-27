@@ -17,7 +17,7 @@ from agents import DirectAgent
 from agents.reasoning_tree import ReasoningTreeAgent
 from agents.search import MCTSAgent, MemoryAgent, StructuredMemoryAgent
 from agents.coverage_search import CoverageMCTSAgent
-from llm import ArkCodingPlanClient, LLMError
+from llm import ArkCodingPlanClient, LLMError, OpenAICompatibleClient
 from llm.ark_coding_plan import ANSWER_MODEL
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -115,6 +115,28 @@ def load_domain(domain, path):
     return benchmark, prepare, score
 
 
+def boolean_eval_suffix(benchmark):
+    """Extra formatting instructions used by the balanced Boolean scorer."""
+    suffix = (
+        "\n\nCandidate formatting: Put the complete expression on a single line "
+        "beginning with Expression:. Use the listed variable names, uppercase operators, "
+        "and balanced parentheses. Keep each operation and its grouping explicit. "
+        "Keep nested operations even when a shorter formula has the same truth table. "
+        "Format-only template: Expression: (<left operand>) AND (<right operand>). "
+        "Replace placeholders with actual operands."
+    )
+    if "NOR" in benchmark.operators:
+        suffix += (
+            " Use NOT (...) around an OR expression to write each NOR gate. "
+            "For scoring, NOT ((A) OR (B)) denotes the same NOR gate as NOR(A, B). "
+            "Apply this notation recursively: NOR(A, NOR(B, C)) is written as "
+            "NOT ((A) OR NOT ((B) OR (C))). A, B and C are placeholders for operands, "
+            "not extra variables. Keep the original grouping and operator structure; "
+            "do not apply De Morgan's laws, absorption, or double-negation elimination."
+        )
+    return suffix
+
+
 def summarize(cases):
     summary = {}
     for group in ("all", "causal", "3d", "boolean"):
@@ -184,7 +206,11 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
     tree_limit.add_argument("--unbounded-tree", action="store_true",
                             help="Allow reasoning paths and sibling counts to grow within the search budget")
     parser.add_argument("--duplicate-reward", type=int, choices=(0, -1), default=0)
-    parser.add_argument("--model", choices=(ANSWER_MODEL,), default=ANSWER_MODEL)
+    parser.add_argument("--model", default=ANSWER_MODEL)
+    parser.add_argument("--base-url", default=None,
+                        help="OpenAI-compatible local endpoint, for example http://127.0.0.1:8000/v1")
+    parser.add_argument("--api-key", default="local")
+    parser.add_argument("--temperature", type=float, default=None)
     parser.add_argument("--pause-file", type=Path, default=ROOT / "results" / "PAUSE",
                         help="Pause between requests while this file exists")
     parser.add_argument("--plan", action="store_true", help="Show workload without model calls")
@@ -200,6 +226,12 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
 
     if args.max_tokens is not None and args.max_tokens < 1:
         parser.error("--max-tokens must be positive")
+    if args.temperature is not None and (args.temperature < 0 or args.temperature > 2):
+        parser.error("--temperature must be between 0 and 2")
+    if not args.base_url and args.model != ANSWER_MODEL:
+        parser.error(f"--model must be {ANSWER_MODEL} unless --base-url is set")
+    if args.base_url and args.temperature is None:
+        args.temperature = 0.8
     if args.exploration_list and (args.method != "mcts-tree" or args.tree_policy != "llm"):
         parser.error("--exploration-list requires --method mcts-tree --tree-policy llm")
     if args.unbounded_tree and (args.method != "mcts-tree" or args.tree_policy != "llm"):
@@ -239,23 +271,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
             case_id = case.get("observation_set_id") or case["observation_id"]
             prompt = benchmark.create_prompt(observations, [])
             if domain == "boolean" and (balanced or not args.resume):
-                prompt += (
-                    "\n\nCandidate formatting: Put the complete expression on a single line "
-                    "beginning with Expression:. Use the listed variable names, uppercase operators, "
-                    "and balanced parentheses. Keep each operation and its grouping explicit. "
-                    "Keep nested operations even when a shorter formula has the same truth table. "
-                    "Format-only template: Expression: (<left operand>) AND (<right operand>). "
-                    "Replace placeholders with actual operands."
-                )
-                if "NOR" in benchmark.operators:
-                    prompt += (
-                        " Use NOT (...) around an OR expression to write each NOR gate. "
-                        "For scoring, NOT ((A) OR (B)) denotes the same NOR gate as NOR(A, B). "
-                        "Apply this notation recursively: NOR(A, NOR(B, C)) is written as "
-                        "NOT ((A) OR NOT ((B) OR (C))). A, B and C are placeholders for operands, "
-                        "not extra variables. Keep the original grouping and operator structure; "
-                        "do not apply De Morgan's laws, absorption, or double-negation elimination."
-                    )
+                prompt += boolean_eval_suffix(benchmark)
             jobs.append((domain, case_id, prompt, observations, keys, score,
                          args.queries or (len(keys) + 5 if early_stop else len(keys))))
 
@@ -282,7 +298,13 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         if args.method == "memory-structured":
             return StructuredMemoryAgent(client)
         return {"direct": DirectAgent, "memory": MemoryAgent, "mcts": MCTSAgent}[args.method](client)
-    client = ArkCodingPlanClient(model=args.model)
+    if args.base_url:
+        extra = {"chat_template_kwargs": {"enable_thinking": False}} if "qwen3" in args.model.lower() else None
+        client = OpenAICompatibleClient(
+            api_key=args.api_key, model=args.model, base_url=args.base_url,
+            timeout=600, temperature=args.temperature, extra_payload=extra)
+    else:
+        client = ArkCodingPlanClient(model=args.model)
     now = datetime.now(timezone.utc)
     mode = "medium" if medium else "quick" if quick else "baseline"
     if hard:

@@ -10,21 +10,28 @@ class OpenAICompatibleClient(LLMClient):
     """Adapter for providers implementing the chat/completions wire format."""
 
     def __init__(self, *, api_key: str, model: str, base_url: str,
-                 timeout: float = 120):
+                 timeout: float = 120, temperature: float | None = None,
+                 extra_payload: dict | None = None):
         if not api_key or not api_key.strip():
             raise ValueError("API key is required")
         if not model or not model.strip():
             raise ValueError("Model is required")
         parsed = urlparse(base_url)
-        if (parsed.scheme != "https" or not parsed.netloc or parsed.username
-                or parsed.password or parsed.query or parsed.fragment):
+        local_http = parsed.scheme == "http" and parsed.hostname in {"127.0.0.1", "localhost"}
+        if (parsed.scheme != "https" and not local_http) or not parsed.netloc or parsed.username \
+                or parsed.password or parsed.query or parsed.fragment:
             raise ValueError("Base URL must be an HTTPS URL without credentials/query/fragment")
         if timeout <= 0:
             raise ValueError("Timeout must be positive")
+        if temperature is not None and (isinstance(temperature, bool)
+                or not isinstance(temperature, (int, float)) or not 0 <= temperature <= 2):
+            raise ValueError("Temperature must be between 0 and 2")
         self._api_key = api_key.strip()
         self.model = model
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
+        self.temperature = None if temperature is None else float(temperature)
+        self.extra_payload = dict(extra_payload or {})
 
     def generate(self, prompt: str, *, system: str | None = None,
                  max_tokens: int | None = 1024) -> LLMResponse:
@@ -40,6 +47,10 @@ class OpenAICompatibleClient(LLMClient):
                    "stream": False}
         if max_tokens is not None:
             payload["max_tokens"] = max_tokens
+        if self.temperature is not None:
+            payload["temperature"] = self.temperature
+        if self.extra_payload:
+            payload.update(self.extra_payload)
         request = Request(
             self.base_url + "/chat/completions",
             data=json.dumps(payload).encode("utf-8"),

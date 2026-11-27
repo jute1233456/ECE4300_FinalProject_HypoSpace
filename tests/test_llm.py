@@ -5,6 +5,7 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 from urllib.error import HTTPError
 from llm import ArkCodingPlanClient, LLMClient, LLMError
+from llm.openai_compatible import OpenAICompatibleClient
 
 
 class ClientTests(unittest.TestCase):
@@ -79,6 +80,14 @@ class ClientTests(unittest.TestCase):
     def test_empty_key_rejected(self):
         with self.assertRaises(ValueError):
             ArkCodingPlanClient(api_key="")
+
+    def test_local_http_endpoint_is_allowed(self):
+        client = OpenAICompatibleClient(
+            api_key="local", model="local-model", base_url="http://127.0.0.1:8000/v1",
+            temperature=0.8)
+        self.assertEqual(client.temperature, 0.8)
+        with self.assertRaises(ValueError):
+            OpenAICompatibleClient(api_key="local", model="local-model", base_url="http://example.com/v1")
 
 
 if __name__ == "__main__":

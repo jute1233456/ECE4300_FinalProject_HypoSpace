@@ -1,0 +1,95 @@
+{
+  "mode": "hard_balanced",
+  "agent": "MemoryAgent",
+  "history": true,
+  "started_utc": "2026-11-26T14:06:37.617381+00:00",
+  "requested_model": "qwen3-8b-plain",
+  "max_tokens": 256,
+  "queries_per_case": 2,
+  "datasets": {
+    "3d": {
+      "sha256": "d55358a555adeb1c698aa4a5cbab767251748e25071c53335d61c3edb6892589",
+      "cases": 31
+    }
+  },
+  "expected_cases": 1,
+  "expected_requests": 2,
+  "method": "memory",
+  "call_cap": 2,
+  "early_stop": true,
+  "completed": true,
+  "cases": [
+    {
+      "submission_cap": 2,
+      "submitted": 2,
+      "model_call_cap": 2,
+      "seconds": 8.144065,
+      "stop_reason": "submission_cap",
+      "domain": "3d",
+      "case_id": "g3_h3_b2_001",
+      "prompt": "You are given observations of a 3D structure made of unit blocks on a 3x3 grid.\n        Each observation shows a view of the structure from a specific angle.\n        The maximum height of the structure is 3 layers.\n\n        Observations (Top View - shows 1 if ANY layer has a block at that position):\n        \nTop view:\n1 1 0\n0 0 0\n0 0 0\n\n        \n        Task: Infer the complete 3D structure that could produce these observations.\n\n        Structure specifications:\n        - Grid size: 3x3\n        - Maximum height: 3 layers\n        - The structure consists of layers stacked from bottom to top, where each layer is a 3x3 grid with 0 (empty) or 1 (block).\n        \n        Important constraints:\n        1. Layer 1 is the BOTTOM layer (ground level) - it should contain blocks, not be all zeros\n        2. Blocks must be supported from below (a block at height h requires a block at height h-1 in the same position)\n        3. Do not add unnecessary empty layers at the bottom or top\n        4. Layers are numbered from bottom (Layer 1) to top (Layer N)\n        5. Do not exceed the maximum height of 3 layers\n        \n\n        Provide your answer as a 3D structure with each layer specified.\n\n        Output format:\n        Structure:\n        Layer 1:  (bottom layer - should contain at least one block)\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        Layer 2:\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        (continue for all layers needed, up to maximum 3 layers)\n        \n        Example of CORRECT output format for a 3x3 grid:\n        Structure:\n        Layer 1:\n        1 0 1\n        0 0 0\n        1 0 1\n        Layer 2:\n        1 0 0\n        0 0 0\n        0 0 1\n        \n        Note: This represents a 3x3x2 structure where:\n        - Layer 1 (bottom) has blocks at corners: (0,0), (0,2), (2,0), (2,2)\n        - Layer 2 (top) has blocks at (0,0) and (2,2), both supported by blocks in Layer 1 below\n        - Every '1' in Layer 2 has a '1' directly below it in Layer 1 (physical support requirement)\n        - Uses spaces between digits (not commas or other separators)\n        \n        INCORRECT formats to avoid:\n        1. Don't start with empty bottom layer: Layer 1 should contain blocks\n        2. Don't use commas: \"1,0,1\" - use spaces instead: \"1 0 1\"\n        3. Don't add blocks without support below them (physics violation)\n        4. Don't exceed 3 layers in height\n        ",
+      "reference_count": 9,
+      "records": [
+        {
+          "text": "Structure:\nLayer 1:\n1 1 0\n0 0 0\n0 0 0\nLayer 2:\n1 1 0\n0 0 0\n0 0 0\nLayer 3:\n1 1 0\n0 0 0\n0 0 0",
+          "model": "qwen3-8b-plain",
+          "prompt_tokens": 675,
+          "completion_tokens": 68,
+          "total_tokens": 743,
+          "finish_reason": "stop",
+          "reasoning_tokens": null,
+          "prompt": "You are given observations of a 3D structure made of unit blocks on a 3x3 grid.\n        Each observation shows a view of the structure from a specific angle.\n        The maximum height of the structure is 3 layers.\n\n        Observations (Top View - shows 1 if ANY layer has a block at that position):\n        \nTop view:\n1 1 0\n0 0 0\n0 0 0\n\n        \n        Task: Infer the complete 3D structure that could produce these observations.\n\n        Structure specifications:\n        - Grid size: 3x3\n        - Maximum height: 3 layers\n        - The structure consists of layers stacked from bottom to top, where each layer is a 3x3 grid with 0 (empty) or 1 (block).\n        \n        Important constraints:\n        1. Layer 1 is the BOTTOM layer (ground level) - it should contain blocks, not be all zeros\n        2. Blocks must be supported from below (a block at height h requires a block at height h-1 in the same position)\n        3. Do not add unnecessary empty layers at the bottom or top\n        4. Layers are numbered from bottom (Layer 1) to top (Layer N)\n        5. Do not exceed the maximum height of 3 layers\n        \n\n        Provide your answer as a 3D structure with each layer specified.\n\n        Output format:\n        Structure:\n        Layer 1:  (bottom layer - should contain at least one block)\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        Layer 2:\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        (continue for all layers needed, up to maximum 3 layers)\n        \n        Example of CORRECT output format for a 3x3 grid:\n        Structure:\n        Layer 1:\n        1 0 1\n        0 0 0\n        1 0 1\n        Layer 2:\n        1 0 0\n        0 0 0\n        0 0 1\n        \n        Note: This represents a 3x3x2 structure where:\n        - Layer 1 (bottom) has blocks at corners: (0,0), (0,2), (2,0), (2,2)\n        - Layer 2 (top) has blocks at (0,0) and (2,2), both supported by blocks in Layer 1 below\n        - Every '1' in Layer 2 has a '1' directly below it in Layer 1 (physical support requirement)\n        - Uses spaces between digits (not commas or other separators)\n        \n        INCORRECT formats to avoid:\n        1. Don't start with empty bottom layer: Layer 1 should contain blocks\n        2. Don't use commas: \"1,0,1\" - use spaces instead: \"1 0 1\"\n        3. Don't add blocks without support below them (physics violation)\n        4. Don't exceed 3 layers in height\n        ",
+          "answer": "Structure:\nLayer 1:\n1 1 0\n0 0 0\n0 0 0\nLayer 2:\n1 1 0\n0 0 0\n0 0 0\nLayer 3:\n1 1 0\n0 0 0\n0 0 0",
+          "valid": true,
+          "submitted": true,
+          "hypothesis_key": "08507eeb",
+          "reference_hit": true
+        },
+        {
+          "text": "Structure:\nLayer 1:\n1 1 0\n0 0 0\n0 0 0\nLayer 2:\n0 0 0\n0 0 0\n0 0 0\nLayer 3:\n0 0 0\n0 0 0\n0 0 0",
+          "model": "qwen3-8b-plain",
+          "prompt_tokens": 776,
+          "completion_tokens": 68,
+          "total_tokens": 844,
+          "finish_reason": "stop",
+          "reasoning_tokens": null,
+          "prompt": "You are given observations of a 3D structure made of unit blocks on a 3x3 grid.\n        Each observation shows a view of the structure from a specific angle.\n        The maximum height of the structure is 3 layers.\n\n        Observations (Top View - shows 1 if ANY layer has a block at that position):\n        \nTop view:\n1 1 0\n0 0 0\n0 0 0\n\n        \n        Task: Infer the complete 3D structure that could produce these observations.\n\n        Structure specifications:\n        - Grid size: 3x3\n        - Maximum height: 3 layers\n        - The structure consists of layers stacked from bottom to top, where each layer is a 3x3 grid with 0 (empty) or 1 (block).\n        \n        Important constraints:\n        1. Layer 1 is the BOTTOM layer (ground level) - it should contain blocks, not be all zeros\n        2. Blocks must be supported from below (a block at height h requires a block at height h-1 in the same position)\n        3. Do not add unnecessary empty layers at the bottom or top\n        4. Layers are numbered from bottom (Layer 1) to top (Layer N)\n        5. Do not exceed the maximum height of 3 layers\n        \n\n        Provide your answer as a 3D structure with each layer specified.\n\n        Output format:\n        Structure:\n        Layer 1:  (bottom layer - should contain at least one block)\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        Layer 2:\n        [row 1 values separated by spaces]\n        [row 2 values separated by spaces]\n        ...\n        (continue for all layers needed, up to maximum 3 layers)\n        \n        Example of CORRECT output format for a 3x3 grid:\n        Structure:\n        Layer 1:\n        1 0 1\n        0 0 0\n        1 0 1\n        Layer 2:\n        1 0 0\n        0 0 0\n        0 0 1\n        \n        Note: This represents a 3x3x2 structure where:\n        - Layer 1 (bottom) has blocks at corners: (0,0), (0,2), (2,0), (2,2)\n        - Layer 2 (top) has blocks at (0,0) and (2,2), both supported by blocks in Layer 1 below\n        - Every '1' in Layer 2 has a '1' directly below it in Layer 1 (physical support requirement)\n        - Uses spaces between digits (not commas or other separators)\n        \n        INCORRECT formats to avoid:\n        1. Don't start with empty bottom layer: Layer 1 should contain blocks\n        2. Don't use commas: \"1,0,1\" - use spaces instead: \"1 0 1\"\n        3. Don't add blocks without support below them (physics violation)\n        4. Don't exceed 3 layers in height\n        \n\nPreviously proposed hypotheses for this question:\nStructure:\nLayer 1:\n1 1 0\n0 0 0\n0 0 0\nLayer 2:\n1 1 0\n0 0 0\n0 0 0\nLayer 3:\n1 1 0\n0 0 0\n0 0 0\n\nReturn a structurally different hypothesis that still satisfies every observation. Changing formatting or reordering parts of an equivalent answer does not count.",
+          "answer": "Structure:\nLayer 1:\n1 1 0\n0 0 0\n0 0 0\nLayer 2:\n0 0 0\n0 0 0\n0 0 0\nLayer 3:\n0 0 0\n0 0 0\n0 0 0",
+          "valid": true,
+          "submitted": true,
+          "hypothesis_key": "3c4e692d",
+          "reference_hit": true
+        }
+      ],
+      "metrics": {
+        "validity": 1.0,
+        "uniqueness": 1.0,
+        "recovery": 0.2222222222222222
+      }
+    }
+  ],
+  "summary": {
+    "all": {
+      "cases": 1,
+      "normal_cases": 1,
+      "requests": 2,
+      "submissions": 2,
+      "total_tokens": 1587,
+      "request_errors": 0,
+      "validity": 1.0,
+      "uniqueness": 1.0,
+      "recovery": 0.2222222222222222
+    },
+    "3d": {
+      "cases": 1,
+      "normal_cases": 1,
+      "requests": 2,
+      "submissions": 2,
+      "total_tokens": 1587,
+      "request_errors": 0,
+      "validity": 1.0,
+      "uniqueness": 1.0,
+      "recovery": 0.2222222222222222
+    }
+  }
+}
