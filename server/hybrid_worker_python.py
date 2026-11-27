@@ -16,7 +16,8 @@ def prepare(args, cfg):
         if '--reflection-model' in args:
             raise ValueError('Do not override a frozen stage routing')
         args[args.index('--model')+1] = route['search_model']
-        args.extend(['--reflection-model', route['reflection_model']])
+        if route.get('reflection_model'):
+            args.extend(['--reflection-model', route['reflection_model']])
         return args, route['code']
     return args, None
 

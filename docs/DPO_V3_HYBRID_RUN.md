@@ -1,6 +1,18 @@
 # DPO v3：只做反思，SFT ep1 完成搜索
 
-用户 2026-11-27 明确指定 V3 负责反思，其他步骤使用 SFT。本轮不新增 DPO v2 混合实验，也不把 V3 用于全部搜索阶段。
+## 新增：全流程 V3 对照（2026-11-27）
+
+用户随后授权将全流程 DPO v3 也加入推理队列，对照原有混合实验。只新增同样 quick3 三题、45 个参考解，不重新训练，不修改或覆盖正在跑的混合结果。
+
+- 混合组队列名：`dpo-reflection-v3-ep1`，仅反思用 V3，其余步骤 SFT ep1。
+- 全流程组队列名：`dpo-v3-full-ep1`，反思、读树、选择、拓展、候选生成均使用实际 API 模型 `dpo-reflection-v3-ep1`；这是队列别名，不是另一份模型权重。
+- 全流程组清单：`/opt/data/private/ECE4300-controller-20261127/quick3/full-v3-manifest.json`，与原 quick3 题目和参考解数量一致。
+- 全流程组原始结果和日志：`/opt/data/private/ECE4300-controller-20261127/quick3/results/dpo-v3-full-ep1/quick3-v3-full/medium/`。
+- CC 查统一 quick3 的 `tasks.json`、`summary.json` 时，用 `model=dpo-v3-full-ep1` 筛选全流程组。结果里的 `requested_model`、反思与搜索响应 model 都应为 `dpo-reflection-v3-ep1`，不能出现混合组的 `stage_models`。
+
+通过现有 additional_suites 动态入队，控制器和在途任务未重启。数据生成继续服从现有训练/推理优先规则，在当前请求结束后让卡。部署前 9 项路由/协议测试通过，服务器 CLI 计划检查通过；这不代表三题已完成。
+
+最初的混合组按用户要求指定 V3 负责反思、其他步骤使用 SFT；随后新增的全流程 V3 对照见上方。DPO v2 未新增混合实验。
 
 ## 冻结配置
 

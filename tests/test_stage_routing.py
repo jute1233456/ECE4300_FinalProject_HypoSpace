@@ -34,5 +34,13 @@ class RoutingTests(unittest.TestCase):
         other=args[:-1]+['old']
         self.assertEqual(prepare(other,cfg),(other,None))
 
+    def test_full_v3_uses_real_v3_for_all_stages(self):
+        cfg={'routes':{'dpo-v3-full-ep1':dict(search_model='dpo-reflection-v3-ep1',code='/frozen')}}
+        args=['-u','-m','experiments.test_hard_balanced','--model','dpo-v3-full-ep1']
+        actual,cwd=prepare(args,cfg)
+        self.assertEqual(actual[actual.index('--model')+1],'dpo-reflection-v3-ep1')
+        self.assertNotIn('--reflection-model',actual)
+        self.assertEqual(cwd,'/frozen')
+
 
 if __name__ == '__main__':unittest.main()
