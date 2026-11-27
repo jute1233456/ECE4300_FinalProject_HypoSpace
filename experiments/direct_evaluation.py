@@ -190,6 +190,7 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
                             help="Allow reasoning paths and sibling counts to grow within the search budget")
     parser.add_argument("--duplicate-reward", type=int, choices=(0, -1), default=0)
     parser.add_argument("--model", default=ANSWER_MODEL)
+    parser.add_argument('--reflection-model', help='Separate local model for reflection only; search keeps --model')
     parser.add_argument("--base-url", help="Optional local OpenAI-compatible API; HTTP restricted to loopback")
     parser.add_argument("--enable-thinking", action="store_true", help="Local Qwen thinking mode; score final answer only")
     parser.add_argument("--temperature", type=float, default=0.7)
@@ -335,6 +336,11 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
         client = (OpenAICompatibleClient(api_key="local", model=args.model, base_url=args.base_url,
                                         timeout=3600, generation_options=local_options)
                   if args.base_url else ArkCodingPlanClient(model=args.model))
+    if args.reflection_model:
+        if not (args.enable_thinking and args.tree_tools and args.two_step_reflection):
+            parser.error('--reflection-model requires local thinking tree search with reflection')
+        from llm.stage_routing import route_reflection
+        route_reflection(client, args.reflection_model)
     now = datetime.now(timezone.utc)
     mode = "easy" if easy else "medium" if medium else "quick" if quick else "baseline"
     if hard:
@@ -412,6 +418,9 @@ def main(*, quick_cases=None, medium=False, hard=False, branch_examples=False, b
 
     if args.two_step_reflection:
         result["tree_config"]["two_step_reflection"] = True
+        if args.reflection_model:
+            result['tree_config']['stage_models'] = client.stage_models
+            result['tree_config']['model_strategy'] = 'hybrid-reflection-v3'
         result["api_call_cap"] = 2 * call_cap
 
     if import_progress:
