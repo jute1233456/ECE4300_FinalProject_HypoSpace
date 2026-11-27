@@ -25,7 +25,32 @@ def ordered_waiting(tasks, cfg):
     order=cfg.get('model_order',cfg['models'])
     rank={name:index for index,name in enumerate(order)}
     return sorted((t for t in tasks if t['model'] in enabled and t['status'] in ('pending','parked')),
-                  key=lambda t:(rank.get(t['model'],len(rank)),t['model'],t['references'],t['dataset'],t['case_id']))
+                  key=lambda t:(t.get('queue_priority',0),rank.get(t['model'],len(rank)),t['model'],t['references'],t['dataset'],t['case_id']))
+
+
+def append_extra_suites(tasks, cfg):
+    """Admit immutable manifests; reuse existing per-model question families."""
+    identities={t['id'] for t in tasks}
+    families={(t['model'],t['family_sha256']) for t in tasks if t.get('family_sha256')}
+    added=0
+    for suite in cfg.get('additional_suites',[]):
+        path=Path(suite['manifest']);raw=path.read_bytes()
+        assert hashlib.sha256(raw).hexdigest()==suite['sha256'], 'Additional manifest changed'
+        manifest=json.loads(raw)
+        for model in suite['models']:
+            assert model in cfg['models']
+            for job in manifest['jobs']:
+                identity=model+'/'+suite['name']+'/'+job['id']
+                family=(model,job['family_sha256'])
+                if identity in identities or family in families:continue
+                tasks.append(dict(id=identity,model=model,dataset=job['dataset'],case_id=job['case_id'],
+                    references=job['references'],family_sha256=job['family_sha256'],
+                    suite=suite['name'],difficulty=job['difficulty'],
+                    dataset_root=str(path.parent/job['dataset_root']),
+                    result_key=suite['name']+'/'+job['difficulty']+'/'+job['dataset']+'-'+job['case_id'],
+                    queue_priority=1,status='pending',attempts=0))
+                identities.add(identity);families.add(family);added+=1
+    return added
 
 
 def main():
@@ -44,7 +69,7 @@ def main():
         atomic(tasks_path,tasks)
     n_cases=len(quick['jobs'])
     handles={};token=Path(cfg['token_file']).read_text().strip()
-    def target(task):return root/'results'/task['model']/(task['dataset']+'-'+task['case_id']+'.json')
+    def target(task):return root/'results'/task['model']/(task.get('result_key',task['dataset']+'-'+task['case_id'])+'.json')
     def inspect(task):
         p=target(task)
         if not p.exists():return None
@@ -55,9 +80,10 @@ def main():
         for name in cfg['models']:
             selected=[t for t in tasks if t['model']==name]
             done=[t for t in selected if t['status']=='completed']
-            groups[name]=dict(completed=len(done),total=n_cases,final=len(done)==n_cases,
+            expected=len(selected)
+            groups[name]=dict(completed=len(done),total=expected,final=len(done)==expected,
                 found=sum(t['result']['recovered'] for t in done),references_completed=sum(t['references'] for t in done),
-                macro_coverage=sum(t['result']['coverage'] for t in done)/n_cases if len(done)==n_cases else None,
+                macro_coverage=sum(t['result']['coverage'] for t in done)/expected if len(done)==expected and expected else None,
                 macro_coverage_completed=sum(t['result']['coverage'] for t in done)/len(done) if done else None,
                 protocol_errors=sum(t.get('result',{}).get('protocol_errors',0) for t in selected))
         atomic(root/'summary.json',groups)
@@ -76,6 +102,7 @@ def main():
     while True:
         # Policy is hot-reloaded; disabled models keep both files and parked workers.
         cfg=json.loads(args.config.read_text())
+        append_extra_suites(tasks,cfg)
         pending_models=[]
         future_status={}
         for entry in cfg.get('future_models',[]):
@@ -157,7 +184,7 @@ def main():
             model='Qwen3-8B' if task['model']=='base' else task['model']
             command=[cfg['python'],'-u','-m','experiments.test_hard_balanced','--model',model,'--enable-thinking',
                 '--base-url',cfg['gateway']+'/validation/v1','--max-tokens','32768',
-                '--dataset-root',str(code/'datasets/medium_sampled'),'--dataset',task['dataset'],'--case-id',task['case_id'],
+                '--dataset-root',task.get('dataset_root',str(code/'datasets/medium_sampled')),'--dataset',task['dataset'],'--case-id',task['case_id'],
                 '--method','mcts-tree','--tree-policy','llm','--duplicate-reward','-1','--exploration-list','off',
                 '--two-step-reflection','--unbounded-tree','--tree-tools','--mcts-version','2.2','--stage22-revision',
                 '--pause-file',str(root/'PAUSE'),'--resume' if p.exists() else '--output',str(p)]
