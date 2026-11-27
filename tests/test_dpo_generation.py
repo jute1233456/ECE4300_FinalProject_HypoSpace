@@ -9,11 +9,29 @@ from urllib.error import HTTPError
 
 from dpo.common import atomic,parse_response,read_jsonl,write_jsonl
 from dpo.prepare import REFLECTION_INSTRUCTION
-from dpo.generate import spare_cards,sample_once,priority_load,collect_state,task_status
+from dpo.generate import spare_cards,sample_once,priority_load,collect_state,task_status,should_yield
 from dpo.export import export_records
 
 
 class DPOGenerationTests(unittest.TestCase):
+    def test_training_request_yields_only_requested_cards(self):
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/'training.json';atomic(path,dict(active=True,gpus=['a']))
+            cfg=dict(training_requests=[str(path)])
+            self.assertTrue(should_yield(cfg,dict(id='a')))
+            self.assertFalse(should_yield(cfg,dict(id='b')))
+            atomic(path,dict(active=False,gpus=['a']))
+            self.assertFalse(should_yield(cfg,dict(id='a')))
+
+    def test_higher_priority_work_yields_between_candidates(self):
+        with tempfile.TemporaryDirectory() as d:
+            task=dict(samples=[dict(status='pending',sample_index=i,attempts=0) for i in range(4)])
+            with patch('dpo.generate.should_yield',side_effect=[False,True]),patch('dpo.generate.sample_once',return_value=('saved',dict(response_status='received'))) as sample,patch('dpo.generate.release_when_idle') as release:
+                collect_state(dict(output=d),{},task,{},'test',100,10,threading.Event())
+            self.assertEqual(sample.call_count,1)
+            self.assertEqual(task['samples'][0]['status'],'received')
+            self.assertEqual(task['samples'][1]['status'],'pending')
+            release.assert_called_once()
     def test_state_task_collects_missing_candidates_without_repeating_saved_ones(self):
         with tempfile.TemporaryDirectory() as d:
             task=dict(samples=[dict(status='received',sample_index=0,attempts=1),dict(status='pending',sample_index=1,attempts=0),dict(status='pending',sample_index=2,attempts=0)])

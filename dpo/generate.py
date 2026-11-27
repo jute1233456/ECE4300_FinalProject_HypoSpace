@@ -26,8 +26,26 @@ def priority_load(entries):
         tasks=json.loads(Path(entry['tasks']).read_text());enabled=None
         if entry.get('config'):enabled=json.loads(Path(entry['config']).read_text()).get('enabled_models')
         waiting+=sum(t['status']=='pending' and (enabled is None or t.get('model') in enabled) for t in tasks)
-        waiting+=sum(v not in ('failed','ready') for v in state.get('future_models',{}).values())
+        # A future model still training cannot use inference GPUs yet. Its
+        # training request reserves specific cards; runnable pending tasks win.
     return running,waiting
+
+
+def should_yield(cfg, entry=None):
+    """Yield between API calls; never interrupt or discard an in-flight response."""
+    for filename in cfg.get('training_requests', []):
+        path = Path(filename)
+        if path.exists():
+            request = json.loads(path.read_text())
+            if request.get('active') and (entry is None or entry['id'] in request.get('gpus', [])):
+                return True
+    if cfg.get('priority_queues'):
+        try:
+            _, waiting = priority_load(cfg['priority_queues'])
+            return waiting > 0
+        except Exception:
+            return True  # fail closed if the higher-priority queue cannot be inspected
+    return False
 
 
 def spare_cards(health,model,owner,running,active,max_workers):
@@ -104,6 +122,7 @@ def collect_state(cfg,state,task,entry,token,limit,input_tokens,stopped):
         for sample in task['samples']:
             if sample['status']!='pending':continue
             if stopped.is_set() or (Path(cfg['output'])/'PAUSE').exists():break
+            if should_yield(cfg, entry):break
             sample['attempts']+=1;sample['status']='running'
             path,row=sample_once(cfg,state,sample,entry,token,limit,input_tokens,sample['attempts'],release_card=False)
             sample.update(status='received' if row['response_status']=='received' else ('pending' if sample['attempts']<2 else 'error'),response_file=path)
@@ -173,6 +192,7 @@ def main():
                     running,waiting=priority_load(cfg['priority_queues'])
                     health=call(cfg['gateway']+'/health');cards=[] if waiting else spare_cards(health,cfg['model'],cfg['owner'],running,len(active),cfg.get('max_workers',9))
                     reason='earlier_jobs_pending' if waiting else ('generating' if cards or active else 'waiting_for_idle_model_gpu')
+                    cards=[e for e in cards if not should_yield(cfg,e)]
                     for entry,task in zip(cards,pending):
                         state=byid[task['state_id']]
                         if task['state_id'] not in counts:counts[task['state_id']]=len(tokenizer.apply_chat_template(state['messages'],tokenize=True,add_generation_prompt=True,enable_thinking=True))
