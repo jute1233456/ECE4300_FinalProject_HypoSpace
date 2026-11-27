@@ -97,7 +97,8 @@ def main():
     epochs = 1 if args.smoke else cfg['epochs']
     accum = cfg['grad_accum']
     total = epochs*math.ceil(len(samples)/accum)
-    warmup = min(total-1,max(1,math.ceil(total*cfg['warmup_ratio']))) if total>1 else 0
+    requested_warmup = cfg.get('warmup_steps', max(1,math.ceil(total*cfg['warmup_ratio'])))
+    warmup = min(total-1,requested_warmup) if total>1 else 0
     step = 0; started = time.time();history=[]
     for epoch in range(epochs):
         order = list(range(len(samples)));random.shuffle(order)

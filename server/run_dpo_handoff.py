@@ -71,7 +71,7 @@ def main():
                 if attempt==12:raise
                 status('publication_retry',attempt=attempt,error=str(error));time.sleep(15)
         # Ready is consumed by the existing queue's future_models admission.
-        status('ready',sha256=digest,epochs=cfg['epochs'],pairs=58,
+        status('ready',sha256=digest,epochs=cfg['epochs'],pairs=cfg.get('pairs',58),
                global_step=trained['global_step'],gpus=cfg['publish_gpus'])
         # Keep collection off the newly published cards until the live queue
         # has durably admitted all three tests; avoid a ready/admission race.
