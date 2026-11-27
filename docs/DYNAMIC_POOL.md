@@ -82,3 +82,7 @@ job文件包含`cwd`和`command`参数数组，shell=False。训练卡须属于�
 - 19项离线测试通过；六台节点代理、九卡服务、真实基础/适配器请求、排空训练归还和旧断点续跑均完成实机验证。
 - 权重仅在服务器间通过SSH同步，不保存在本地。轻量配置的脱敏副本、测试记录、代码与日志保存在 `local-backups/dynamic-pool/`，不提交令牌、权重、虚拟环境和原始运行输出。
 - 不再使用旧静态池激活脚本或旧quick6控制器重启这些卡；后续通过动态网关和节点代理管理。
+
+## lab4090 GPU0 identity repair (2026-11-27)
+
+Runtime LoRA load returned HTTP 409: No running managed service. The stored cmd_hash was SHA256(empty bytes), while PID 64199 correctly served port28000. Verified model path, port, CUDA_VISIBLE_DEVICES=0, parent agent, process group and listening socket before atomically repairing only the fingerprint. Original private record is backed up on that node. Loaded sft-pruned-v1-ep1, verified actual generation, updated gateway capability and observed one real inference request on the card. Deployed started_command_hash wait-for-exact-argv implementation and restarted only the management agent; both model processes and in-flight inference survived. Regression tests cover empty-argv startup and an exited child. No model weights or tokens were copied locally.
